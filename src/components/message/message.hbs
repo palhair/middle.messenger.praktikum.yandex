@@ -1,0 +1,11 @@
+<div class="message message_{{kind}} message_content-{{type}}">
+    {{#if image}}
+        <img src={{image}} class="message_image" alt="Изображение" />
+    {{/if}}
+
+    {{#if text}}
+        <div class="message__text">{{text}}</div>
+    {{/if}}
+
+    <div class="message__date">{{date}}</div>
+</div>
