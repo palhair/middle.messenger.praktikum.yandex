@@ -1,9 +1,9 @@
-import larger from "../../assets/larger.svg";
-import Handlebars from "handlebars";
+import larger from '../../assets/larger.svg';
+import Handlebars from 'handlebars';
 
-export { default as Button } from "./button.hbs?raw";
+export { default as Button } from './button.hbs?raw';
 
-Handlebars.registerHelper("svg", () => {
+Handlebars.registerHelper('svg', () => {
     return {
         larger,
     };

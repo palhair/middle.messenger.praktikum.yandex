@@ -1,1 +1,1 @@
-export { default as Heading } from "./heading.hbs?raw";
+export { default as Heading } from './heading.hbs?raw';

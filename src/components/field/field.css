@@ -27,7 +27,7 @@
     padding: 7px 0;
     padding-left: 80px;
     width: 180px;
-    background: svg-load("../../assets/search.svg");
+    background: svg-load('../../assets/search.svg');
     background-repeat: no-repeat;
     background-position: 58px 50%;
     background-color: var(--modal-bg-color);

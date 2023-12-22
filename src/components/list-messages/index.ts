@@ -1,12 +1,12 @@
-import Handlebars from "handlebars";
-import image from "../../assets/4.png";
-export { default as ListMessages } from "./list-messages.hbs?raw";
+import Handlebars from 'handlebars';
+import image from '../../assets/4.png';
+export { default as ListMessages } from './list-messages.hbs?raw';
 
-Handlebars.registerHelper("messages", () => {
+Handlebars.registerHelper('messages', () => {
     return [
         {
-            kind: "incoming",
-            type: "text",
+            kind: 'incoming',
+            type: 'text',
             text: `Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила 
             Хассельблад адаптировать модель SWC для полетов на Луну. 
             Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, 
@@ -14,15 +14,20 @@ Handlebars.registerHelper("messages", () => {
 
             Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. 
             Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.`,
-            date: "11:25",
+            date: '11:25',
         },
-        { kind: "incoming", type: "image", image, date: "18:11" },
-        { kind: "incoming", type: "text", text: "Привет. Как дела?", date: "18:11" },
+        { kind: 'incoming', type: 'image', image, date: '18:11' },
         {
-            kind: "outgoing",
-            type: "text",
-            text: "Привет. Хассельблад в итоге адаптировал SWC для космоса?",
-            date: "18:11",
+            kind: 'incoming',
+            type: 'text',
+            text: 'Привет. Как дела?',
+            date: '18:11',
+        },
+        {
+            kind: 'outgoing',
+            type: 'text',
+            text: 'Привет. Хассельблад в итоге адаптировал SWC для космоса?',
+            date: '18:11',
         },
     ];
 });

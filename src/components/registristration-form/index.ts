@@ -1,1 +1,1 @@
-export { default as RegistrationForm } from "./registration-form.hbs?raw";
+export { default as RegistrationForm } from './registration-form.hbs?raw';

@@ -1,1 +1,1 @@
-export { default as signinPage } from "./signin.hbs?raw";
+export { default as signinPage } from './signin.hbs?raw';
