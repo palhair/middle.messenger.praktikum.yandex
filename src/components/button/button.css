@@ -1,0 +1,28 @@
+.button {
+    background-color: initial;
+    border: none;
+    cursor: pointer;
+
+    padding: 12px 0;
+}
+
+.button_primary {
+    color: var(--primary-text-color);
+    background-color: var(--akcent-color);
+    width: 280px;
+}
+
+.button_secondary {
+    color: var(--akcent-color);
+    font-size: 11px;
+}
+.button_error {
+    color: var(--error-color);
+}
+
+.button__with-icon {
+    color: var(--secondary-text-color);
+}
+.button__icon {
+    padding: 0;
+}
