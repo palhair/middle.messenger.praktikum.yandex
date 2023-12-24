@@ -1,35 +1,38 @@
 <div class="container">
    
     
-    <aside class="chat-page__contacts-block">
+    <div class="chat-page__contacts-block">
             
         <div class="chat-page__contacts-block-header">
-            {{> Field name="search" type='text' placeholder="Поиск" isSearch=true}}
+            <form class="chat-page__search-form">
+                {{> Field name="search" type='text' placeholder="Поиск" isSearch=true}}
+            </form>
+
             {{> Button type="with-icon" label="Профиль" src=larger withIcon=true}}
         </div>
 
         {{> ListContacts}}
         
-    </aside>
+    </div>
     <div class="chat-page__chat-block">
         
-        <header class="chat-page__header-container">
+        <div class="chat-page__header-container">
             <div class="chat-page__info">
                 
-                <img class='chat-page__avatar' src={{avatar}} />
+                <img class='chat-page__avatar' src={{avatar}} alt="аватар Kris"/>
                 {{> Heading label="Kris" type="h1"}}
             </div>
 
-            {{> Button type="icon" src=dots withIcon=true }}
+            {{> Button type="icon" src=dots withIcon=true alt='Настройки'}}
             
-        </header>
+        </div >
 
-        <article class="chat-page__messages-block">
+        <div class="chat-page__messages-block">
             {{> ListMessages}}
-        </article>
+        </div >
 
-        <footer class="chat-page__footer">
+        <div  class="chat-page__footer">
             {{> MessageBar}}
-        </footer>
+        </div >
     </div>
 </div>

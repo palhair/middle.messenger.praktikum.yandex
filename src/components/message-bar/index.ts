@@ -9,6 +9,7 @@ Handlebars.registerHelper('clip', () => {
         src: clip,
         withIcon: true,
         type: 'icon',
+        alt: 'Прикрепить файл',
     };
 });
 Handlebars.registerHelper('arrow', () => {
@@ -16,5 +17,6 @@ Handlebars.registerHelper('arrow', () => {
         src: arrow,
         withIcon: true,
         type: 'icon',
+        alt: 'Отправить',
     };
 });

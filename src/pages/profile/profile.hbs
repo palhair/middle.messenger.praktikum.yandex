@@ -1,19 +1,19 @@
 <div class="container">
     <div class="profile__back">
-        {{> Button src=arrow withIcon=true type="icon"}}
+        {{> Button src=arrow withIcon=true type="icon" alt="Назад"}}
     </div>
     <div class="profile__container">
-        <header class="profile__header">
-            {{> Avatar src=defaultAvatar alt="нет аватарки" size="big"}}
+        <div class="profile__header">
+            {{> Avatar src=defaultAvatar alt="Поменять аватар" size="big"}}
             {{> Heading label="Иван" type="h1"}}
-        </header>
-        <main class="profile__info-block">
+        </div>
+        <div class="profile__info-block">
             {{> InfoItems readonly=false}}
-        </main>
-        <footer class="profile__footer-block">
+        </div>
+        <div class="profile__footer-block">
             {{> Button type="secondary" label='Изменить данные'}}
             {{> Button type="secondary" label='Изменить пароль'}}
             {{> Button type="error" label='выйти'}}
-        </footer>
+        </div>
     </div>
 </div>

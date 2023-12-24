@@ -23,6 +23,6 @@
 .button__with-icon {
     color: var(--secondary-text-color);
 }
-.button__icon {
+.button_icon {
     padding: 0;
 }
