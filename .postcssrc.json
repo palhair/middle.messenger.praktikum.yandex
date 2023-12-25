@@ -1,0 +1,9 @@
+{
+    "map": "inline",
+    "plugins": {
+        "autoprefixer": {},
+        "postcss-initial": {},
+        "postcss-inline-svg": {},
+        "postcss-extend": {}
+    }
+}

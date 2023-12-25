@@ -1,0 +1,13 @@
+<div class="auth-form">
+    <div class="auth-form__heading">
+        {{> Heading label="Вход" type="h1"}}
+    </div>
+
+    <form class="auth-form__container">
+        {{> @partial-block}}
+        <div class="auth-form__buttons-container">
+            {{> Button label="Авторизоваться" type="primary"}}
+            {{> Button label="Нет аккаунта?" type="secondary"}}
+        </div>
+    </form>
+</div>

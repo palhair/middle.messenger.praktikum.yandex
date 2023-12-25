@@ -1,0 +1,45 @@
+.field {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.field__block {
+    display: block;
+    border-radius: 2px;
+    border: none;
+    background-color: var(--input-bg-color);
+}
+
+.field__message {
+    @extend .field__block;
+    width: 100%;
+    border-radius: 20px;
+    padding-left: 10px;
+    &:focus {
+        outline: none;
+    }
+}
+.field__search {
+    @extend .field__block;
+    color: var(--secondary-text-color);
+
+    padding: 7px 0;
+    padding-left: 80px;
+    width: 180px;
+    background: svg-load('../../assets/search.svg');
+    background-repeat: no-repeat;
+    background-position: 58px 50%;
+    background-color: var(--modal-bg-color);
+    &:focus {
+        outline: 1px solid var(--secondary-text-color);
+        color: var(--primary-text-color);
+        padding-left: 32px;
+        background-position: 10px 50%;
+    }
+
+    &:not(:placeholder-shown) {
+        padding-left: 32px;
+        background-position: 10px 50%;
+    }
+}

@@ -1,0 +1,7 @@
+.message-bar {
+    display: flex;
+    gap: 10px;
+    .field {
+        flex-grow: 1;
+    }
+}

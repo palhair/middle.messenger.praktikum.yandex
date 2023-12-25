@@ -1,0 +1,28 @@
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 405px;
+    padding: 20px;
+    background-color: var(--input-bg-color);
+
+    border-radius: 12px;
+}
+
+.message_incoming {
+    border-top-left-radius: 0;
+}
+
+.message_outgoing {
+    border-bottom-right-radius: 0;
+}
+
+.message__date {
+    align-self: flex-end;
+    color: var(--secondary-text-color);
+}
+
+.message_image {
+    width: 100%;
+    border-radius: 12px;
+}

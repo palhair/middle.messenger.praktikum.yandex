@@ -1,0 +1,47 @@
+.contact-card {
+    display: flex;
+    justify-content: space-between;
+    height: 52px;
+    padding: 11px 14px;
+    color: var(--secondary-text-color);
+}
+.contact-card__contact-info {
+    display: flex;
+    align-items: center;
+}
+
+.contact-card__container {
+    @extend .contact-card__contact-info;
+    flex-direction: column;
+    align-items: start;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.contact-card__message-info {
+    @extend .contact-card__contact-info;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.contact-card__avatar {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    margin-right: 13px;
+    object-fit: cover;
+}
+
+.contact-card__last-message {
+    font-size: 11px;
+    line-height: 15px;
+}
+
+.contact-card__unread-message {
+    background-color: var(--akcent-color);
+    padding: 2px 4px;
+    border-radius: 10px;
+}
