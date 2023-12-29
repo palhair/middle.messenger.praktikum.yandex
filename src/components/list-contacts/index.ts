@@ -14,74 +14,74 @@ import avatar11 from '../../assets/11.png';
 export { default as ListContacts } from './list-contacts.hbs?raw';
 
 Handlebars.registerHelper('contacts', () => {
-    return [
-        {
-            avatar: avatar1,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar2,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar3,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-            unreadMessage: 12,
-        },
-        {
-            avatar: avatar4,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar5,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-            unreadMessage: 122,
-        },
-        {
-            avatar: avatar6,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar7,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar8,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar9,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar10,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-        {
-            avatar: avatar11,
-            name: 'Sasha Grey',
-            lastMessage: 'Привет',
-            lastMessageDate: '11:20',
-        },
-    ];
+	return [
+		{
+			avatar: avatar1,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar2,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar3,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+			unreadMessage: 12,
+		},
+		{
+			avatar: avatar4,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar5,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+			unreadMessage: 122,
+		},
+		{
+			avatar: avatar6,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar7,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar8,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar9,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar10,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+		{
+			avatar: avatar11,
+			name: 'Sasha Grey',
+			lastMessage: 'Привет',
+			lastMessageDate: '11:20',
+		},
+	];
 });

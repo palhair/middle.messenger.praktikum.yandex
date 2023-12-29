@@ -5,13 +5,24 @@
     "type": "module",
     "scripts": {
         "dev": "vite --port 3000",
-        "start": "tsc && vite build",
+        "prebuild": "tsc --noEmit",
+        "start": "npm run prebuild && vite build",
         "preview": "vite preview",
         "static": "node ./server.js"
     },
     "devDependencies": {
         "@types/node": "^20.10.5",
+        "@typescript-eslint/eslint-plugin": "^6.16.0",
+        "@typescript-eslint/parser": "^6.16.0",
         "autoprefixer": "^10.4.16",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-config-standard-with-typescript": "^43.0.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-n": "^16.5.0",
+        "eslint-plugin-prettier": "^5.1.2",
+        "eslint-plugin-promise": "^6.1.1",
         "express": "^4.18.2",
         "handlebars": "^4.7.8",
         "postcss-extend": "^1.0.5",
@@ -19,8 +30,11 @@
         "postcss-initial": "^3.0.4",
         "postcss-inline-svg": "^6.0.0",
         "postcss-simple-vars": "^7.0.1",
+        "prettier": "3.1.1",
+        "stylelint": "^16.1.0",
+        "stylelint-config-standard": "^36.0.0",
         "ts-node": "^10.9.2",
-        "typescript": "^5.2.2",
+        "typescript": "^5.3.3",
         "vite": "^5.0.8"
     },
     "engine": "^20.10.0"

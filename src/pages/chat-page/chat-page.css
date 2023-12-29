@@ -14,16 +14,17 @@
 
 .chat-page__chat-block {
     background-color: var(--chat-bg-color);
-
     width: 980px;
     height: 100%;
 }
+
 .chat-page__header-container {
     display: flex;
     justify-content: space-between;
     margin: 0 20px;
     padding: 10px 0;
     border-bottom: 1px solid var(--secondary-text-color);
+
     .button {
         padding: 0;
     }

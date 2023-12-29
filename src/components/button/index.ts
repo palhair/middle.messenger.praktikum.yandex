@@ -4,7 +4,7 @@ import Handlebars from 'handlebars';
 export { default as Button } from './button.hbs?raw';
 
 Handlebars.registerHelper('svg', () => {
-    return {
-        larger,
-    };
+	return {
+		larger,
+	};
 });

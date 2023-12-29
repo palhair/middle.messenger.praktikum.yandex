@@ -8,35 +8,37 @@ import larger from './assets/larger.svg';
 import arrow from './assets/arrow.svg';
 import defaultAvatar from './assets/avatar.png';
 
-const pages = {
-    login: [Pages.loginPage],
-    signin: [Pages.signinPage],
-    chatPage: [Pages.chatPage, { avatar, dots, larger }],
-    profile: [Pages.profile, { arrow, defaultAvatar }],
-    errorPage: [Pages.errorPage],
-    notFoundPage: [Pages.notFoundPage],
+type pageParams = [string, Record<string, string>] | [string];
+
+const pages: Record<string, pageParams> = {
+	login: [Pages.loginPage],
+	signin: [Pages.signinPage],
+	chatPage: [Pages.chatPage, { avatar, dots, larger }],
+	profile: [Pages.profile, { arrow, defaultAvatar }],
+	errorPage: [Pages.errorPage],
+	notFoundPage: [Pages.notFoundPage],
 };
 
 Object.entries(Components).forEach(([name, component]) => {
-    Handlebars.registerPartial(name, component);
+	Handlebars.registerPartial(name, component);
 });
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
 
 function navigate(page: string) {
-    //@ts-ignore
-    const [source, context] = pages[page];
-    const container = document.getElementById('app')!;
-    container.innerHTML = Handlebars.compile(source)(context);
+	const [source, context] = pages[page];
+	const container = document.getElementById('app')!;
+	container.innerHTML = Handlebars.compile(source)(context);
 }
 
-document.addEventListener('click', (e) => {
-    //@ts-ignore
-    const page = e.target.getAttribute('page');
-    if (page) {
-        navigate(page);
+document.addEventListener('click', (e: MouseEvent) => {
+	const target: HTMLElement = e.target as HTMLElement;
 
-        e.preventDefault();
-        e.stopImmediatePropagation();
-    }
+	const page = target.getAttribute('page');
+	if (page) {
+		navigate(page);
+
+		e.preventDefault();
+		e.stopImmediatePropagation();
+	}
 });

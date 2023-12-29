@@ -2,10 +2,12 @@
     position: fixed;
     top: 0;
     right: 0;
+
     a {
         color: var(--primary-text-color);
         text-decoration: none;
     }
+
     li {
         padding: 5px;
         list-style-type: none;

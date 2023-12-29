@@ -6,6 +6,7 @@
     padding: 20px;
     justify-content: flex-end;
     overflow: hidden;
+
     .message__outgoing {
         align-self: flex-end;
     }

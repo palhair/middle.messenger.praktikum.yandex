@@ -2,7 +2,6 @@
     background-color: initial;
     border: none;
     cursor: pointer;
-
     padding: 12px 0;
 }
 
@@ -16,6 +15,7 @@
     color: var(--akcent-color);
     font-size: 11px;
 }
+
 .button_error {
     color: var(--error-color);
 }
@@ -23,6 +23,7 @@
 .button__with-icon {
     color: var(--secondary-text-color);
 }
+
 .button_icon {
     padding: 0;
 }
