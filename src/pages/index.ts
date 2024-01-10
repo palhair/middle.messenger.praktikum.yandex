@@ -1,4 +1,4 @@
-export { loginPage } from './login';
+export { default as LoginPage } from './login';
 export { signinPage } from './signin';
 export { chatPage } from './chat-page';
 export { profile } from './profile';
