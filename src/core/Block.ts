@@ -1,19 +1,22 @@
 import { nanoid } from 'nanoid';
+import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
-import { EventsNames, Children } from './core-env.d';
+import { EventsNames, Child } from './core-env.d';
 
 type Props = Record<string, unknown>;
 type Refs = Record<string, Element | Block>;
+type Events = { [key: string]: (event: unknown) => void };
 
 export default class Block {
 	public id = nanoid(6);
 	protected props: Props;
+	protected children: Child[] = [];
 	protected refs: Refs = {};
 	private eventBus: EventBus;
 	#element: HTMLElement | null = null;
 
 	constructor(props: Props = {}) {
-		this.props = this._makeProxyProps(props);
+		this.props = this.#makeProxyProps(props);
 		this.eventBus = new EventBus();
 		this._registerEvents(this.eventBus);
 		this.eventBus.emit(EventsNames.INIT);
@@ -21,6 +24,9 @@ export default class Block {
 
 	_registerEvents(eventBus: EventBus) {
 		eventBus.on(EventsNames.INIT, this.#init.bind(this));
+		eventBus.on(EventsNames.FLOW_CDM, this.#componentDidMount.bind(this));
+		eventBus.on(EventsNames.FLOW_CDU, this.#componentDidUpdate.bind(this));
+		eventBus.on(EventsNames.FLOW_CWU, this.#componentWillUnmount.bind(this));
 		eventBus.on(EventsNames.FLOW_RENDER, this.#render.bind(this));
 	}
 
@@ -31,6 +37,16 @@ export default class Block {
 
 	protected init() {}
 
+	#componentDidUpdate(oldProps: unknown, newProps: unknown) {
+		if (this.componentDidUpdate(oldProps, newProps)) {
+			this.eventBus.emit(EventsNames.FLOW_RENDER);
+		}
+	}
+
+	protected componentDidUpdate(oldProps: unknown, newProps: unknown) {
+		return oldProps != newProps;
+	}
+
 	#render() {
 		const fragment = this.compile(this.render(), this.props);
 		const newElement = fragment.firstElementChild as HTMLElement;
@@ -40,15 +56,29 @@ export default class Block {
 		this.#element = newElement;
 	}
 
+	_addEvents() {
+		if (this.props.events) {
+			const events: Events = this.props.events as Events;
+
+			Object.keys(events).forEach((eventName) => {
+				this.#element!.addEventListener(eventName, events[eventName]);
+			});
+		}
+	}
+
 	private compile(template: string, context: Props) {
-		const contextAndStubs: Record<string, unknown> = { ...context, __refs: this.refs };
+		const contextAndStubs: Record<string, unknown> = {
+			...context,
+			__refs: this.refs,
+			__children: this.children,
+		};
 
 		const html = Handlebars.compile(template)(contextAndStubs);
 		const temp = document.createElement('template');
 		temp.innerHTML = html;
 
 		if (Array.isArray(contextAndStubs.__children)) {
-			contextAndStubs.__children?.forEach(({ embed }: Children) => {
+			contextAndStubs.__children?.forEach(({ embed }: Child) => {
 				embed(temp.content);
 			});
 		}
@@ -59,7 +89,7 @@ export default class Block {
 		return '';
 	}
 
-	_makeProxyProps(props: Props) {
+	#makeProxyProps(props: Props) {
 		return new Proxy(props, {
 			get(target, prop: string) {
 				const value = target[prop];
@@ -82,10 +112,51 @@ export default class Block {
 		if (this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
 			setTimeout(() => {
 				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
-					// this.dispatchComponentDidMount();
+					this.dispatchComponentDidMount();
 				}
 			}, 100);
 		}
 		return this.#element;
 	}
+
+	#componentDidMount() {
+		this.#checkInDom();
+		this.componentDidMount();
+	}
+
+	componentDidMount() {}
+
+	setProps = (nextProps: Props) => {
+		if (!nextProps) {
+			return;
+		}
+
+		Object.assign(this.props, nextProps);
+	};
+
+	get element() {
+		return this.#element;
+	}
+
+	dispatchComponentDidMount() {
+		this.eventBus.emit(EventsNames.FLOW_CDM);
+		Object.values(this.children).forEach((child) =>
+			child.component.dispatchComponentDidMount()
+		);
+	}
+
+	#checkInDom() {
+		const elementInDom = document.body.contains(this.#element);
+		if (elementInDom) {
+			setTimeout(() => this.#checkInDom(), 1000);
+			return;
+		}
+		this.eventBus.emit(EventsNames.FLOW_CWU);
+	}
+
+	#componentWillUnmount() {
+		this.componentWillUnmount();
+	}
+
+	componentWillUnmount() {}
 }

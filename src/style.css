@@ -1,5 +1,4 @@
 @import './components/input/input.css';
-@import './components/auth-form/authForm.css';
 @import './pages/login/login.css';
 @import './pages/chat-page/chat-page.css';
 @import './components/button/button.css';
@@ -17,40 +16,40 @@
 @import './components/tempMenu/temp-menu.css';
 
 :root {
-    --primary-color: #181818;
-    --modal-bg-color: #202020;
-    --chat-bg-color: #222;
-    --input-bg-color: #313131;
-    --primary-text-color: #f0f0f0;
-    --secondary-text-color: #999;
-    --akcent-color: #026ec1;
-    --error-color: #ff2f2f;
+	--primary-color: #181818;
+	--modal-bg-color: #202020;
+	--chat-bg-color: #222;
+	--input-bg-color: #313131;
+	--primary-text-color: #f0f0f0;
+	--secondary-text-color: #999;
+	--akcent-color: #026ec1;
+	--error-color: #ff2f2f;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    color: var(--primary-text-color);
-    font-family: sans-serif;
+	color: var(--primary-text-color);
+	font-family: sans-serif;
 }
 
 #app {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: #000;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: #000;
 }
 
 .container {
-    display: flex;
-    height: 100%;
-    width: 1280px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary-color);
+	display: flex;
+	height: 100%;
+	width: 1280px;
+	margin: 0 auto;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--primary-color);
 }

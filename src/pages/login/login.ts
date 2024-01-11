@@ -7,6 +7,6 @@ export class LoginPage extends Block {
 	}
 
 	protected render(): string {
-		return '<div class="d"></div>';
+		return loginPage;
 	}
 }

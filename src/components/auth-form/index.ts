@@ -1,1 +1,1 @@
-export { default as AuthForm } from './authForm.hbs?raw';
+export { AuthForm as default } from './authForm';

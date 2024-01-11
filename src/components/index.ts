@@ -1,7 +1,6 @@
-export { Input } from './input';
-export { AuthForm } from './auth-form';
+export { default as Input } from './input';
 export { Button } from './button';
-export { Heading } from './heading';
+export { default as Heading } from './heading';
 export { RegistrationForm } from './registristration-form';
 export { Field } from './field';
 export { ListContacts } from './list-contacts';

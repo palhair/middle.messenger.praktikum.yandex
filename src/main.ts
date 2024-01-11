@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
 import './style.css';
 import * as Components from './components';
+import * as handlebarsHelpers from './handlebarsHelpers';
 // import * as Pages from './pages';
 // import avatar from './assets/5.png';
 // import dots from './assets/dots.svg';
@@ -8,6 +9,7 @@ import * as Components from './components';
 // import arrow from './assets/arrow.svg';
 // import defaultAvatar from './assets/avatar.png';
 import { navigate } from './core/navigate';
+import { registerComponent } from './core/registerComponent';
 
 // type pageParams = [string, Record<string, string>] | [string];
 
@@ -19,13 +21,14 @@ import { navigate } from './core/navigate';
 // 	notFoundPage: [Pages.notFoundPage],
 // };
 
-Object.entries(Components).forEach(([name, component]) => {
+registerComponent('Heading', Components.Heading);
+registerComponent('Input', Components.Input);
+
+Object.entries(handlebarsHelpers).forEach(([name, component]) => {
 	Handlebars.registerPartial(name, component);
 });
 
 document.addEventListener('DOMContentLoaded', () => navigate('login'));
-
-navigate('login');
 
 document.addEventListener('click', (e: MouseEvent) => {
 	const target: HTMLElement = e.target as HTMLElement;

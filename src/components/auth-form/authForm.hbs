@@ -1,13 +1,16 @@
-<div class="auth-form">
-    <div class="auth-form__heading">
-        {{> Heading label="Вход" type="h1"}}
-    </div>
+{{!-- <div class='auth-form'>
+	<div class='auth-form__heading'>
+		{{{Heading label='Вход' type='h1'}}}
+	</div>
 
-    <form class="auth-form__container">
-        {{> @partial-block}}
+	<form class="auth-form__container">
+        {{> PartialBlock}}
         <div class="auth-form__buttons-container">
             {{> Button label="Авторизоваться" type="primary"}}
             {{> Button label="Нет аккаунта?" type="secondary"}}
         </div>
     </form>
-</div>
+</div> --}}
+{{#> PartialBlock class='auth-form'}}
+	{{{Heading label='Вход' type='h1'}}}
+{{/PartialBlock}}

@@ -8,7 +8,7 @@ export enum EventsNames {
 	FLOW_RENDER = 'flow:render',
 }
 
-export type Children = {
+export type Child = {
 	embed: (fragment: DocumentFragment) => void;
 	[key: string]: Block;
 };

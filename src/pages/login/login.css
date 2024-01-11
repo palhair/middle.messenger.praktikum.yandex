@@ -1,9 +1,30 @@
 .container {
-    display: flex;
-    height: 100%;
-    width: 1280px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary-color);
+	display: flex;
+	height: 100%;
+	width: 1280px;
+	margin: 0 auto;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--primary-color);
+}
+
+.auth-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--modal-bg-color);
+	width: 340px;
+	height: 450px;
+	padding: 50px 30px 30px;
+}
+
+.auth-form__buttons-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 132px;
+}
+
+.auth-form__heading {
+	margin-bottom: 40px;
+	text-align: center;
 }

@@ -1,4 +1,5 @@
 import { HelperOptions } from 'handlebars';
+import Handlebars from 'handlebars';
 import Block from './Block';
 
 export function registerComponent(name: string, Component: typeof Block): void {
@@ -8,13 +9,13 @@ export function registerComponent(name: string, Component: typeof Block): void {
 
 	Handlebars.registerHelper(name, function (this: unknown, { hash, data, fn }: HelperOptions) {
 		const component = new Component(hash);
-		const dataAtribute = `data-id=${component.id}`;
+		const dataAtribute = `data-id="${component.id}"`;
 
 		if ('ref' in hash) {
-			(data.root.__refs = data.root.__refs || {})[hash.ref] = component;
+			data.root.__refs[hash.ref] = component;
 		}
 
-		(data.root.__children = data.root.__children || []).push({
+		data.root.__children.push({
 			component,
 			embed(fragment: DocumentFragment) {
 				const stub = fragment.querySelector(`[${dataAtribute}]`);
