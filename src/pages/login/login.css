@@ -8,23 +8,20 @@
 	background-color: var(--primary-color);
 }
 
-.auth-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.login {
 	background-color: var(--modal-bg-color);
 	width: 340px;
 	height: 450px;
 	padding: 50px 30px 30px;
 }
 
-.auth-form__buttons-container {
+.login__buttons-container {
 	display: flex;
 	flex-direction: column;
 	margin-top: 132px;
 }
 
-.auth-form__heading {
+.login__heading {
 	margin-bottom: 40px;
 	text-align: center;
 }

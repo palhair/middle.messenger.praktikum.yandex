@@ -12,3 +12,5 @@ export type Child = {
 	embed: (fragment: DocumentFragment) => void;
 	[key: string]: Block;
 };
+
+export type Props = Record<string, unknown>;

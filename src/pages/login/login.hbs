@@ -1,9 +1,14 @@
 <div class="container"> 
-	
-	{{#> PartialBlock class='auth-form' tag='form'}}
-		{{{Heading label='Вход' type='h1'}}}
-		{{{Input label="Логин" name="login" type="text" ref="login"}}}
-		{{{Input label="Пароль" name="password" type="password" error="Неверный пароль" isError=true}}}
+    <div class="login">
+        <div class="login__heading">
+            {{{Heading label='Вход' type='h1'}}}
+        </div>
+	{{#> PartialBlock class='login__form' tag='form'}}
+		
+		{{{InputField label="Логин" name="login" type="text" ref="login" validate=validate.login}}}
+		{{{InputField label="Пароль" name="password" type="password" error="Неверный пароль" isError=true}}}
+        <div class="login__buttons-container ">
+        <div>
 	{{/PartialBlock}}	
     {{!-- <div class="login">
     {{#> AuthForm}}
@@ -12,7 +17,8 @@
         
     {{/ AuthForm}}
     </div> --}}
+    </div>
 </div>
 
-{{!-- {{> TempMenu}} --}}
+
 

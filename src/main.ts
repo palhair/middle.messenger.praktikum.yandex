@@ -22,6 +22,7 @@ import { registerComponent } from './core/registerComponent';
 // };
 
 registerComponent('Heading', Components.Heading);
+registerComponent('InputField', Components.InputField);
 registerComponent('Input', Components.Input);
 
 Object.entries(handlebarsHelpers).forEach(([name, component]) => {

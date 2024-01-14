@@ -1,3 +1,4 @@
+export { default as InputField } from './input-field';
 export { default as Input } from './input';
 export { Button } from './button';
 export { default as Heading } from './heading';

@@ -1,22 +1,24 @@
 import Block from '../../core/Block';
-import input from './input.hbs?raw';
+import { Props } from '../../core/core-env';
 
-type Props = Record<string, unknown>;
 export class Input extends Block {
 	constructor(props: Props) {
 		super({
 			...props,
 			events: {
-				onBlur: () => this.validate(),
+				blur: props.onBlur,
 			},
 		});
 	}
-
-	validate() {
-		console.log('df');
-		console.log(this.refs.input);
-	}
 	protected render(): string {
-		return input;
+		return `<input
+					class='input__element input__element{{modificator}} {{#if isError}}input__error{{/if}}'
+					type={{type}}
+					name={{name}}
+					
+					placeholder=""
+					{{#if value}} value={{value}} {{/if}}
+					{{#if readonly}} readonly {{/if}}
+				/>`;
 	}
 }

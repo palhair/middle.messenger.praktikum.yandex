@@ -9,6 +9,7 @@ type Events = { [key: string]: (event: unknown) => void };
 
 export default class Block {
 	public id = nanoid(6);
+	params: string = '';
 	protected props: Props;
 	protected children: Child[] = [];
 	protected refs: Refs = {};
@@ -26,12 +27,16 @@ export default class Block {
 		eventBus.on(EventsNames.INIT, this.#init.bind(this));
 		eventBus.on(EventsNames.FLOW_CDM, this.#componentDidMount.bind(this));
 		eventBus.on(EventsNames.FLOW_CDU, this.#componentDidUpdate.bind(this));
-		eventBus.on(EventsNames.FLOW_CWU, this.#componentWillUnmount.bind(this));
+		eventBus.on(
+			EventsNames.FLOW_CWU,
+			this.#componentWillUnmount.bind(this)
+		);
 		eventBus.on(EventsNames.FLOW_RENDER, this.#render.bind(this));
 	}
 
 	#init() {
 		this.init();
+		this.getParams();
 		this.eventBus.emit(EventsNames.FLOW_RENDER);
 	}
 
@@ -54,6 +59,9 @@ export default class Block {
 			this.#element.replaceWith(newElement);
 		}
 		this.#element = newElement;
+		this._addEvents();
+
+		// console.log(this.params);
 	}
 
 	_addEvents() {
@@ -90,16 +98,16 @@ export default class Block {
 	}
 
 	#makeProxyProps(props: Props) {
+		const self = this as Block;
 		return new Proxy(props, {
 			get(target, prop: string) {
 				const value = target[prop];
 				return typeof value === 'function' ? value.bind(target) : value;
 			},
-			set(target, prop: string, value, reciver): boolean {
+			set(target, prop: string, value): boolean {
 				const oldTarget = { ...target };
 				target[prop] = value;
-
-				reciver.eventBus.emit(EventsNames.FLOW_CDU, oldTarget, target);
+				self.eventBus.emit(EventsNames.FLOW_CDU, oldTarget, target);
 				return true;
 			},
 			deleteProperty() {
@@ -109,9 +117,14 @@ export default class Block {
 	}
 
 	getContent() {
-		if (this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+		if (
+			this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+		) {
 			setTimeout(() => {
-				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
+				if (
+					this.#element?.parentNode?.nodeType !==
+					Node.DOCUMENT_FRAGMENT_NODE
+				) {
 					this.dispatchComponentDidMount();
 				}
 			}, 100);
@@ -159,4 +172,16 @@ export default class Block {
 	}
 
 	componentWillUnmount() {}
+
+	getParams() {
+		this.params = '';
+		const props = Object.entries(this.props).filter(([key, value]) => {
+			return key != 'events' && key != 'ref' && typeof value == 'string';
+		});
+
+		props.forEach(([key, value]) => {
+			this.params += ` ${key} = '${value}'`;
+		});
+		return this.params;
+	}
 }
