@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-export { default as InfoItems } from './info-items.hbs?raw';
+export { PersonalData as default } from './personal-data';
 
 Handlebars.registerHelper('items', () => {
 	return [

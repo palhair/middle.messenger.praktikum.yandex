@@ -2,6 +2,7 @@ import loginPage from './login.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
 import { InputField } from '../../components';
+import { navigate } from '../../core/navigate';
 
 type Props = Record<string, unknown>;
 export class LoginPage extends Block<Props> {
@@ -27,6 +28,8 @@ export class LoginPage extends Block<Props> {
 					}
 
 					console.log({ login, password });
+					this.hide();
+					navigate('chatPage');
 				}
 			},
 		});

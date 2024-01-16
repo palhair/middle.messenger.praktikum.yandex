@@ -1,5 +1,13 @@
 .avatar_big {
-    width: 130px;
-    height: 130px;
-    border-radius: 75px;
+	width: 130px;
+	height: 130px;
+	border-radius: 75px;
+}
+
+.avatar_middle {
+	width: 34px;
+	height: 34px;
+	border-radius: 34px;
+	display: block;
+	object-fit: cover;
 }

@@ -7,9 +7,16 @@ export interface ListContactsProps extends Props {
 
 export class ListContacts extends Block<ListContactsProps> {
 	protected render(): string {
-		return `<ul class="list-contacts">
+		return `<ul class='list-contacts'>
 					{{#each contacts}}
-						{{{ ContactCard lastMessageDate=this.lastMessageDate unreadMessage=this.unreadMessage name=this.name lastMessage=this.lastMessage avatar=this.avatar }}}
+						{{{ContactCard
+							lastMessageDate=this.lastMessageDate
+							unreadMessage=this.unreadMessage
+							name=this.name
+							lastMessage=this.lastMessage
+							avatar=this.avatar
+							active=this.active
+						}}}
 					{{/each}}
 				</ul>`;
 	}

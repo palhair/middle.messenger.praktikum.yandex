@@ -1,19 +1,26 @@
-<div class="container">
-    <div class="profile__back">
-        {{> Button src=arrow withIcon=true type="icon" alt="Назад"}}
-    </div>
-    <div class="profile__container">
-        <div class="profile__header">
-            {{> Avatar src=defaultAvatar alt="Поменять аватар" size="big"}}
-            {{> Heading label="Иван" type="h1"}}
-        </div>
-        <div class="profile__info-block">
-            {{> InfoItems readonly=false}}
-        </div>
-        <div class="profile__footer-block">
-            {{> Button type="secondary" label='Изменить данные'}}
-            {{> Button type="secondary" label='Изменить пароль'}}
-            {{> Button type="error" label='выйти'}}
-        </div>
-    </div>
+<div class='container'>
+	<div class='profile__back'>
+		{{{Button src=arrow withIcon=true type='icon' alt='Назад'}}}
+	</div>
+	<div class='profile__container'>
+		<div class='profile__header'>
+			{{{Avatar src=defaultAvatar alt='Поменять аватар' size='big'}}}
+			{{{Heading label='Иван' type='h1'}}}
+		</div>
+		<div class='profile__info-block'>
+			{{#PersonalData
+				personalData=personalData ref='data'
+			}}{{/PersonalData}}
+		</div>
+
+		<div class='profile__footer-block'>
+			{{{Button
+				type='secondary'
+				label='Изменить данные'
+				onClick=onLogin
+			}}}
+			{{{Button type='secondary' label='Изменить пароль'}}}
+			{{{Button type='error' label='выйти'}}}
+		</div>
+	</div>
 </div>

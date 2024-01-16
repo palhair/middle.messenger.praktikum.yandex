@@ -5,7 +5,7 @@ interface ContactCardProps extends Props {}
 
 export class ContactCard extends Block<ContactCardProps> {
 	protected render(): string {
-		return `<li class='contact-card'>
+		return `<li class='contact-card {{#if active}}contact-card_active{{/if}}'>
 					<div class='contact-card__contact-info'>
 						<img class='contact-card__avatar' src="{{avatar}}" alt='ава {{name}}' />
 						<div class='contact-card__container'>

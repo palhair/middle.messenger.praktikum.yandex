@@ -7,18 +7,24 @@
 				{{{Field name='search' placeholder='Поиск'}}}
 			</form>
 
-			{{{Button type='with-icon' label='Профиль' withIcon='true' src=larger alt='>'}}}
+			{{{Button
+				type='with-icon'
+				label='Профиль'
+				withIcon='true'
+				src=larger
+				alt='>'
+			}}}
 		</div>
 
 		{{#ListContacts contacts=contacts}}{{/ListContacts}}
 
 	</div>
-	{{!-- <div class='chat-page__chat-block'>
+	<div class='chat-page__chat-block'>
 
 		<div class='chat-page__header-container'>
 			<div class='chat-page__info'>
 
-				<img class='chat-page__avatar' src={{avatar}} alt='аватар Kris' />
+				{{{Avatar size='middle' src=avatar alt='аватар Kris'}}}
 				{{{Heading label='Kris' type='h1'}}}
 			</div>
 
@@ -26,12 +32,12 @@
 
 		</div>
 
-		{{!-- <div class="chat-page__messages-block">
-            {{> ListMessages}}
-        </div >
+		<div class='chat-page__messages-block'>
+			{{#ListMessages messages=messages}}{{/ListMessages}}
+		</div>
 
-        <div  class="chat-page__footer">
-            {{> MessageBar}}
-        </div > --}}
+		<div class='chat-page__footer'>
+			{{{MessageBar}}}
+		</div>
 	</div>
-</div> --}}
+</div>
