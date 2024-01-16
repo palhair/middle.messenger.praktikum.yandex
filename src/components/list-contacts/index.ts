@@ -11,7 +11,7 @@ import avatar9 from '../../assets/9.png';
 import avatar10 from '../../assets/10.png';
 import avatar11 from '../../assets/11.png';
 
-export { default as ListContacts } from './list-contacts.hbs?raw';
+export { ListContacts as default } from './list-contacts';
 
 Handlebars.registerHelper('contacts', () => {
 	return [

@@ -2,7 +2,6 @@ import Handlebars from 'handlebars';
 import './style.css';
 import * as Components from './components';
 import * as handlebarsHelpers from './handlebarsHelpers';
-// import * as Pages from './pages';
 // import avatar from './assets/5.png';
 // import dots from './assets/dots.svg';
 // import larger from './assets/larger.svg';
@@ -20,16 +19,19 @@ import { registerComponent } from './core/registerComponent';
 // 	errorPage: [Pages.errorPage],
 // 	notFoundPage: [Pages.notFoundPage],
 // };
-
-registerComponent('Heading', Components.Heading);
-registerComponent('InputField', Components.InputField);
-registerComponent('Input', Components.Input);
+// registerComponent('InputField', Components.InputField);
+// registerComponent('Input', Components.Input);
+// registerComponent('ErrorBlock', Components.ErrorBlock);
+// registerComponent('Heading', Components.Heading);
+Object.entries(Components).forEach(([name, component]) => {
+	registerComponent(name, component);
+});
 
 Object.entries(handlebarsHelpers).forEach(([name, component]) => {
 	Handlebars.registerPartial(name, component);
 });
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('chatPage'));
 
 document.addEventListener('click', (e: MouseEvent) => {
 	const target: HTMLElement = e.target as HTMLElement;

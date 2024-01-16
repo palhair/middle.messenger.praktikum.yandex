@@ -1,7 +1,7 @@
 import Block from '../../core/Block';
 import { Props } from '../../core/core-env';
 
-export class Input extends Block {
+export class Input extends Block<Props> {
 	constructor(props: Props) {
 		super({
 			...props,
@@ -17,7 +17,7 @@ export class Input extends Block {
 					name={{name}}
 					
 					placeholder=""
-					{{#if value}} value={{value}} {{/if}}
+					{{#if value}} value="{{value}}" {{/if}}
 					{{#if readonly}} readonly {{/if}}
 				/>`;
 	}

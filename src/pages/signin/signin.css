@@ -1,0 +1,16 @@
+.registration-form {
+	background-color: var(--modal-bg-color);
+	width: 340px;
+	padding: 50px 30px 30px;
+}
+
+.registration-form__buttons-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 60px;
+}
+
+.registration-form__heading {
+	margin-bottom: 40px;
+	text-align: center;
+}

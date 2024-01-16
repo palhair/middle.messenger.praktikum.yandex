@@ -1,38 +1,37 @@
-<div class="container">
-   
-    
-    <div class="chat-page__contacts-block">
-            
-        <div class="chat-page__contacts-block-header">
-            <form class="chat-page__search-form">
-                {{> Field name="search" type='text' placeholder="Поиск" isSearch=true}}
-            </form>
+<div class='container'>
 
-            {{> Button type="with-icon" label="Профиль" src=larger withIcon=true}}
-        </div>
+	<div class='chat-page__contacts-block'>
 
-        {{> ListContacts}}
-        
-    </div>
-    <div class="chat-page__chat-block">
-        
-        <div class="chat-page__header-container">
-            <div class="chat-page__info">
-                
-                <img class='chat-page__avatar' src={{avatar}} alt="аватар Kris"/>
-                {{> Heading label="Kris" type="h1"}}
-            </div>
+		<div class='chat-page__contacts-block-header'>
+			<form class='chat-page__search-form'>
+				{{{Field name='search' placeholder='Поиск'}}}
+			</form>
 
-            {{> Button type="icon" src=dots withIcon=true alt='Настройки'}}
-            
-        </div >
+			{{{Button type='with-icon' label='Профиль' withIcon='true' src=larger alt='>'}}}
+		</div>
 
-        <div class="chat-page__messages-block">
+		{{#ListContacts contacts=contacts}}{{/ListContacts}}
+
+	</div>
+	{{!-- <div class='chat-page__chat-block'>
+
+		<div class='chat-page__header-container'>
+			<div class='chat-page__info'>
+
+				<img class='chat-page__avatar' src={{avatar}} alt='аватар Kris' />
+				{{{Heading label='Kris' type='h1'}}}
+			</div>
+
+			{{{Button type='icon' src=dots withIcon=true alt='Настройки'}}}
+
+		</div>
+
+		{{!-- <div class="chat-page__messages-block">
             {{> ListMessages}}
         </div >
 
         <div  class="chat-page__footer">
             {{> MessageBar}}
-        </div >
-    </div>
-</div>
+        </div > --}}
+	</div>
+</div> --}}

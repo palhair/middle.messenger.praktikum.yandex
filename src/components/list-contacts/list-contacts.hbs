@@ -1,5 +1,11 @@
-<ul class="list-contacts">
-    {{#each (contacts)}}
-        {{> ContactCard}}
-    {{/each}}
+<ul class='list-contacts'>
+	{{#each contacts}}
+		{{{ContactCard
+			lastMessageDate=this.lastMessageDate
+			unreadMessage=this.unreadMessage
+			name=this.name
+			lastMessage=this.lastMessage
+			avatar=this.avatar
+		}}}
+	{{/each}}
 </ul>

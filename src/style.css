@@ -1,9 +1,6 @@
-@import './components/input-field/input-field.css';
 @import './pages/login/login.css';
 @import './pages/chat-page/chat-page.css';
-@import './components/button/button.css';
 @import './components/heading/heading.css';
-@import './components/registristration-form/registration-form.css';
 @import './components/field/field.css';
 @import './components/list-contacts/list-contacts.css';
 @import './components/contact-card/contact-card.css';

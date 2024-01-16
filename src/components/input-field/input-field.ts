@@ -1,34 +1,61 @@
 import Block from '../../core/Block';
+import { Props } from '../../core/core-env';
 
-type Props = Record<string, unknown>;
-export class InputField extends Block {
-	constructor(props: Props) {
+export interface InputFieldProps extends Props {
+	validate?: (value: string) => false | string;
+}
+
+export class InputField extends Block<InputFieldProps> {
+	constructor(props: InputFieldProps) {
 		super({
 			...props,
-			onBlur: (event: Event) => this.test(event),
+			onBlur: () => this.validate(),
 		});
 	}
-	test(event: Event) {
-		const value = this.refs.input.element.value;
-		console.log(value);
-		const isError = this.props.validate?.(value);
-		if (isError) {
-			this.setProps({ isError, value: value, error: isError });
-			return false;
+
+	public value() {
+		if (!this.validate()) {
+			return undefined;
 		}
-		this.setProps({ isError: undefined, value });
-		return true;
+		if (
+			this.refs.input instanceof Block &&
+			this.refs.input.element instanceof HTMLInputElement
+		) {
+			return this.refs.input.element.value;
+		}
 	}
+
+	validate() {
+		if (
+			this.refs.input instanceof Block &&
+			this.refs.input.element instanceof HTMLInputElement
+		) {
+			const value = this.refs.input.element.value;
+			let error;
+
+			if (this.props.validate) {
+				error = this.props.validate?.(value);
+			}
+
+			if (error) {
+				this.setProps({ value: value, error });
+				return false;
+			}
+
+			this.setProps({ error: undefined, value });
+			return true;
+		}
+	}
+
 	render(): string {
 		this.getParams();
-		console.log(this.params);
 		return `<div class='input'>
 					<label class='input__container input__container{{modificator}} '>
 						{{{Input ${this.params} onBlur=onBlur ref='input'}}}
 						
 						<div class='input__label{{modificator}}'>{{label}}</div>
 					</label>
-					{{#if isError}}<div class='input__error-text'>{{error}}</div>{{/if}}
+					{{{ErrorBlock ${this.params}}}}
 				</div>`;
 	}
 }

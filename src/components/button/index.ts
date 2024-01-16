@@ -1,7 +1,8 @@
+import './button.css';
 import larger from '../../assets/larger.svg';
 import Handlebars from 'handlebars';
 
-export { default as Button } from './button.hbs?raw';
+export { Button as default } from './button';
 
 Handlebars.registerHelper('svg', () => {
 	return {

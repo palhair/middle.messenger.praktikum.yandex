@@ -1,24 +1,20 @@
 <div class="container"> 
     <div class="login">
         <div class="login__heading">
-            {{{Heading label='Вход' type='h1'}}}
+            {{{Heading label='Вход' type='h1' ref="dsfd"}}}
         </div>
-	{{#> PartialBlock class='login__form' tag='form'}}
+
+	    {{#> PartialBlock class='login__form' tag='form'}}
 		
-		{{{InputField label="Логин" name="login" type="text" ref="login" validate=validate.login}}}
-		{{{InputField label="Пароль" name="password" type="password" error="Неверный пароль" isError=true}}}
-        <div class="login__buttons-container ">
-        <div>
-	{{/PartialBlock}}	
-    {{!-- <div class="login">
-    {{#> AuthForm}}
-        {{> Input label="Логин" name="login" type="text"}}
-        {{> Input label="Пароль" name="password" type="password" error="Неверный пароль" isError=true}}
-        
-    {{/ AuthForm}}
-    </div> --}}
+            {{{InputField label="Логин" name="login" type="text" ref="login" validate=validate.login}}}
+            {{{InputField label="Пароль" name="password" type="password" ref="password" validate=validate.password}}}
+
+            <div class="login__buttons-container ">
+                {{{Button label="Авторизоваться" type="primary" onClick=onLogin}}}
+                {{{Button label="Нет аккаунта?" type="secondary"}}}
+            <div>
+	    {{/PartialBlock}}	
+    
     </div>
 </div>
-
-
 

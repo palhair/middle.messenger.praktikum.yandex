@@ -1,1 +1,1 @@
-export { default as ContactCard } from './contact-card.hbs?raw';
+export { ContactCard as default } from './contact-card';

@@ -1,0 +1,7 @@
+.input__error-text {
+	position: absolute;
+	transform: translateY(-18px);
+	font-size: 8px;
+	line-height: 8px;
+	color: var(--error-color);
+}

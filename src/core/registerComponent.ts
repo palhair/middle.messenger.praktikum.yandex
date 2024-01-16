@@ -2,7 +2,14 @@ import { HelperOptions } from 'handlebars';
 import Handlebars from 'handlebars';
 import Block from './Block';
 
-export function registerComponent(name: string, Component: typeof Block): void {
+interface BlockConstructable<Props extends object, R extends {}> {
+	new (props: Props): Block<Props, R>;
+}
+
+export function registerComponent<Props extends object, R extends {}>(
+	name: string,
+	Component: BlockConstructable<Props, R>
+): void {
 	if (name in Handlebars.helpers) {
 		throw new Error(`${name} уже зарегистрирован`);
 	}

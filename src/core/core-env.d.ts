@@ -8,9 +8,15 @@ export enum EventsNames {
 	FLOW_RENDER = 'flow:render',
 }
 
+type Events = { [key: string]: (event: unknown) => void };
+
 export type Child = {
 	embed: (fragment: DocumentFragment) => void;
 	[key: string]: Block;
 };
 
 export type Props = Record<string, unknown>;
+
+export interface InputFieldProps extends Props {
+	validate?: (value: string) => false | string;
+}
