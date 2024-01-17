@@ -22,7 +22,6 @@ export class MessageBar extends Block<Props> {
 		});
 	}
 	protected render(): string {
-		const { onSend } = this.props;
 		return `<form class="message-bar">
                     {{{ Button src=clip withIcon=true type="icon" alt="Прикрепить файл" onclick=addFile}}}
                     {{{ Field name="_message" type="text" placeholder="" ref="message" validate=validate.message}}}

@@ -79,7 +79,7 @@
 }
 
 .input__element_search {
-	@extend .input__elements_block;
+	@extend .input__element_block;
 
 	color: var(--secondary-text-color);
 	padding: 7px 0;
