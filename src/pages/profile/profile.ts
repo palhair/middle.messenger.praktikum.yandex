@@ -1,7 +1,5 @@
 import profile from './profile.hbs?raw';
 import Block from '../../core/Block';
-import * as validators from '../../utils/validators';
-import { InputField } from '../../components';
 import arrow from '../../assets/arrow.svg';
 import defaultAvatar from '../../assets/avatar.png';
 import { personalData } from '.';
@@ -15,7 +13,6 @@ export class ProfilePage extends Block<Props> {
 
 			onLogin: (event: Event) => {
 				event.preventDefault();
-				console.log(this.refs.data.refs.phone.value());
 			},
 
 			arrow,

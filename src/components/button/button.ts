@@ -6,6 +6,8 @@ export interface ButtonProps {
 	label: string;
 	src: string;
 	alt: string;
+	events: { [key: string]: Event };
+	onClick: Event;
 }
 
 export class Button extends Block<Props> {

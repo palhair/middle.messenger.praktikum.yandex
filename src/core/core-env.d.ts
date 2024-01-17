@@ -15,7 +15,7 @@ export type Child = {
 	[key: string]: Block;
 };
 
-export type Props = Record<string, unknown>;
+export type Props = Record<string, any>;
 
 export interface InputFieldProps extends Props {
 	validate?: (value: string) => false | string;

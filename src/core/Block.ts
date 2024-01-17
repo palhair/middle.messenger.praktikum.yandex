@@ -1,17 +1,11 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
-import { EventsNames, Child } from './core-env.d';
+import { EventsNames, Child, Events, Props as Prop } from './core-env.d';
 
-// type BlockProps = Record<string, unknown>;
-export type RefType = Record<string, Element | Block<object>>;
+export type RefType = Record<string, Element | Block<Prop>>;
 
-// export interface BlockClass<P extends object, R extends RefType> extends Function{
-// 	new (props: P): Block<P, R>;
-// 	componentName?: string;
-// }
-
-export default class Block<Props extends object, Refs extends RefType = RefType> {
+export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 	public id = nanoid(6);
 	params: string = '';
 	protected props: Props;
@@ -65,8 +59,6 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 
 		this.#element = newElement;
 		this._addEvents();
-
-		// console.log(this.params);
 	}
 
 	private compile(template: string, context: Props) {
@@ -89,18 +81,13 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 	}
 
 	_addEvents() {
-		const { events = {} } = this.props;
+		if (this.props.events) {
+			const events: Events = this.props.events as Events;
 
-		Object.keys(events).forEach((eventName) => {
-			this.#element!.addEventListener(eventName, events[eventName]);
-		});
-		// if (this.props.events) {
-		// 	const events: Events = this.props.events as Events;
-
-		// 	Object.keys(events).forEach((eventName) => {
-		// 		this.#element!.addEventListener(eventName, events[eventName]);
-		// 	});
-		// }
+			Object.keys(events).forEach((eventName) => {
+				this.#element!.addEventListener(eventName, events[eventName]);
+			});
+		}
 	}
 
 	protected render(): string {
@@ -161,9 +148,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 	dispatchComponentDidMount() {
 		this.eventBus().emit(EventsNames.FLOW_CDM);
 
-		Object.values(this.children).forEach((child) =>
-			child.component.dispatchComponentDidMount()
-		);
+		Object.values(this.children).forEach((child) => child.component.dispatchComponentDidMount());
 	}
 
 	#checkInDom() {

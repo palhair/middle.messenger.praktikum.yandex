@@ -3,7 +3,6 @@ export { default as InputField } from './input-field';
 export { default as Input } from './input';
 export { default as Heading } from './heading';
 export { default as Button } from './button';
-// export { RegistrationForm } from './registristration-form';
 export { default as Field } from './field';
 export { default as ListContacts } from './list-contacts';
 export { default as ContactCard } from './contact-card';
