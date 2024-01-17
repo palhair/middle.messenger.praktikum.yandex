@@ -1,4 +1,4 @@
-export { ChatPage as default } from './chat-page';
+import './chat-page.css';
 
 import image from '../../assets/4.png';
 import avatar1 from '../../assets/1.png';
@@ -12,6 +12,8 @@ import avatar8 from '../../assets/8.png';
 import avatar9 from '../../assets/9.png';
 import avatar10 from '../../assets/10.png';
 import avatar11 from '../../assets/11.png';
+
+export { ChatPage as default } from './chat-page';
 
 export const contacts = [
 	{

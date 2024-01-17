@@ -2,9 +2,9 @@ import loginPage from './login.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
 import { InputField } from '../../components';
-import { navigate } from '../../core/navigate';
+import { navigate, navigateEvent } from '../../core/navigate';
+import { Props } from '../../core/core-env';
 
-type Props = Record<string, unknown>;
 export class LoginPage extends Block<Props> {
 	constructor(props: Props) {
 		super({
@@ -14,25 +14,38 @@ export class LoginPage extends Block<Props> {
 				password: validators.password,
 			},
 
+			navigate: navigateEvent,
 			onLogin: (event: Event) => {
 				event.preventDefault();
+
+				const fieldsValue: Record<string, undefined | string> = {};
+				const signinFields = ['login', 'password'];
+
+				signinFields.map((field) => {
+					fieldsValue[field] = this.getRefsValue(field);
+				});
+
 				if (
-					this.refs.login instanceof InputField &&
-					this.refs.password instanceof InputField
+					Object.values(fieldsValue).filter((field) => {
+						if (field) {
+							return true;
+						}
+					}).length !== signinFields.length
 				) {
-					const login = this.refs.login.value();
-					const password = this.refs.password.value();
-
-					if (!login && !password) {
-						return;
-					}
-
-					console.log({ login, password });
-					this.hide();
-					navigate('chatPage');
+					return;
 				}
+
+				console.log(fieldsValue);
+				navigate('chatPage');
 			},
 		});
+	}
+
+	getRefsValue(name: string) {
+		const element = this.refs[name];
+		if (element instanceof InputField) {
+			return element.value();
+		}
 	}
 
 	protected render(): string {

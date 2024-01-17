@@ -21,7 +21,6 @@ export class ChatPage extends Block<ChatPageProps> {
 		});
 	}
 	protected render(): string {
-		console.log(this.props);
 		return chatPage;
 	}
 }

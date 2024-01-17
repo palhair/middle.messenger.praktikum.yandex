@@ -56,33 +56,22 @@
 				}}}
 
 				<div class='registration-form__buttons-container'>
-					{{{Button label='Зарегистрироваться' type='primary' onClick=onLogin}}}
-					{{{Button label='Войти' type='secondary'}}}
+					{{{Button
+						label='Зарегистрироваться'
+						type='primary'
+						onClick=onLogin
+					}}}
+					{{{Button
+						label='Войти'
+						type='secondary'
+						onClick=navigate
+						page='login'
+					}}}
 
 				</div>
 			</form>
 
 		</div>
 
-		{{!-- 			
-			{{#> RegistrationForm}}
-				
-			{{/ RegistrationForm}}
-	 --}}
 	</div>
 </div>
-
-{{!-- <div class="container">
-    <div class="signin">
-        {{#> RegistrationForm}}
-            {{> Input label="Почта" name="email" type="text"}}
-            {{> Input label="Логин" name="login" type="text"}}
-            {{> Input label="Имя" name="first_name" type="text"}}
-            {{> Input label="Фамилия" name="second_name" type="text"}}
-            {{> Input label="Телефон" name="phone" type="tel"}}
-            {{> Input label="Пароль" name="password" type="password" isError=true}}
-            {{> Input label="Пароль (еще раз)" name="password_again" type="password" error="парли не совпадают" isError=true}}
-        {{/ RegistrationForm}}
-
-    </div>
-</div> --}}

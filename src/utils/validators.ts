@@ -68,6 +68,14 @@ export const phone = (value: string) => {
 	return false;
 };
 
+export const message = (value: string) => {
+	if (value.length === 0) {
+		return 'Нельзя отправить пустое сообщение!';
+	}
+
+	return false;
+};
+
 const checkLength = (min: number, max: number, value: string) => {
 	if (value.length === 0) {
 		return 'Поле не может быть пустым';

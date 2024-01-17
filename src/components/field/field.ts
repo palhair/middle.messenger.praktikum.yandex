@@ -11,8 +11,12 @@ export class Field extends Block<FieldProps> {
 		super({ ...props });
 	}
 	protected render(): string {
+		const { name, placeholder } = this.props;
 		return `<div class="field">
-					<input class="field__{{name}}" type="text" name={{name}} {{#if placeholder}} placeholder={{placeholder}}{{/if}} />
+					{{{Input modificator="${name}" type="text" name="${name}" ${
+						placeholder ? `placeholder="${placeholder}"` : ''
+					}
+					}}}
 				</div>`;
 	}
 }

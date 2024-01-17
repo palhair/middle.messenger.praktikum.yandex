@@ -1,7 +1,7 @@
 <div class="container"> 
     <div class="login">
         <div class="login__heading">
-            {{{Heading label='Вход' type='h1' ref="dsfd"}}}
+            {{{Heading label='Вход' type='h1'}}}
         </div>
 
 	    {{#> PartialBlock class='login__form' tag='form'}}
@@ -11,10 +11,11 @@
 
             <div class="login__buttons-container ">
                 {{{Button label="Авторизоваться" type="primary" onClick=onLogin}}}
-                {{{Button label="Нет аккаунта?" type="secondary"}}}
+                {{{Button label="Нет аккаунта?" type="secondary" onClick=navigate page="signin" }}}
             <div>
-	    {{/PartialBlock}}	
+	    {{/PartialBlock }}
     
     </div>
+    {{{TempMenu onClick=navigate}}}
 </div>
 

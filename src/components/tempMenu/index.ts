@@ -1,1 +1,2 @@
-export { default as TempMenu } from './temp-menu.hbs?raw';
+import './temp-menu.css';
+export { TempMenu as default } from './temp-menu';

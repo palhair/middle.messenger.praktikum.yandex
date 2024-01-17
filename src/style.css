@@ -1,11 +1,3 @@
-@import './pages/login/login.css';
-@import './pages/chat-page/chat-page.css';
-@import './components/heading/heading.css';
-@import './components/field/field.css';
-@import './components/contact-card/contact-card.css';
-@import './components/message-bar/message-bar.css';
-@import './pages/profile/profile.css';
-@import './components/status-message/status-message.css';
 @import './components/tempMenu/temp-menu.css';
 
 :root {

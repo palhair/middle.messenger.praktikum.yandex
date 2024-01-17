@@ -1,1 +1,2 @@
-export { default as StatusMessage } from './status-message.hbs?raw';
+import './status-message.css';
+export { StatusMessage as default } from './status-message';

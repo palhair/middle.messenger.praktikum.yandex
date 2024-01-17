@@ -16,7 +16,7 @@ export class Input extends Block<Props> {
 					type={{type}}
 					name={{name}}
 					
-					placeholder=""
+					placeholder="{{placeholder}}"
 					{{#if value}} value="{{value}}" {{/if}}
 					{{#if readonly}} readonly {{/if}}
 				/>`;

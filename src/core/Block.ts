@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
 import { EventsNames, Child, Events, Props as Prop } from './core-env.d';
+import { InputField } from '../components';
 
 export type RefType = Record<string, Element | Block<Prop>>;
 
@@ -27,7 +28,10 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 		eventBus.on(EventsNames.INIT, this.#init.bind(this));
 		eventBus.on(EventsNames.FLOW_CDM, this.#componentDidMount.bind(this));
 		eventBus.on(EventsNames.FLOW_CDU, this.#componentDidUpdate.bind(this));
-		eventBus.on(EventsNames.FLOW_CWU, this.#componentWillUnmount.bind(this));
+		eventBus.on(
+			EventsNames.FLOW_CWU,
+			this.#componentWillUnmount.bind(this)
+		);
 		eventBus.on(EventsNames.FLOW_RENDER, this.#render.bind(this));
 	}
 
@@ -45,7 +49,7 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 		}
 	}
 
-	protected componentDidUpdate(_oldProps: unknown, _newProps: unknown) {
+	protected componentDidUpdate(_oldProps: unknown, _newprop: unknown) {
 		return true;
 	}
 
@@ -116,9 +120,14 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 	}
 
 	getContent() {
-		if (this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+		if (
+			this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+		) {
 			setTimeout(() => {
-				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
+				if (
+					this.#element?.parentNode?.nodeType !==
+					Node.DOCUMENT_FRAGMENT_NODE
+				) {
 					this.dispatchComponentDidMount();
 				}
 			}, 100);
@@ -148,7 +157,9 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 	dispatchComponentDidMount() {
 		this.eventBus().emit(EventsNames.FLOW_CDM);
 
-		Object.values(this.children).forEach((child) => child.component.dispatchComponentDidMount());
+		Object.values(this.children).forEach((child) =>
+			child.component.dispatchComponentDidMount()
+		);
 	}
 
 	#checkInDom() {
@@ -184,5 +195,20 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 
 	hide() {
 		this.getContent()!.style.display = 'none';
+	}
+
+	passAgainCheck(pass: string) {
+		if (this.getRefsValue('password') !== pass) {
+			return 'Пароли не совпадают';
+		}
+
+		return false;
+	}
+
+	getRefsValue(name: string) {
+		const element = this.refs[name];
+		if (element instanceof InputField) {
+			return element.value();
+		}
 	}
 }

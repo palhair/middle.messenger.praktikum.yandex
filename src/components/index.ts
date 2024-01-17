@@ -11,5 +11,5 @@ export { default as ListMessages } from './list-messages';
 export { default as MessageBar } from './message-bar';
 export { default as Avatar } from './avatar';
 export { default as PersonalData } from './personal-data';
-// export { StatusMessage } from './status-message';
-// export { TempMenu } from './tempMenu';
+export { default as StatusMessage } from './status-message';
+export { default as TempMenu } from './tempMenu';

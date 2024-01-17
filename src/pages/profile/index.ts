@@ -1,3 +1,4 @@
+import './profile.css';
 export { ProfilePage as default } from './profile';
 
 export const personalData = [

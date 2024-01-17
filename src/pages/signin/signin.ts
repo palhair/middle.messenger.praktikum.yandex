@@ -1,8 +1,8 @@
 import signinPage from './signin.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
-import { InputField } from '../../components';
 import { Props } from '../../core/core-env';
+import { navigate } from '../../core/navigate';
 
 export class SigninPage extends Block<Props> {
 	constructor(props: Props) {
@@ -14,7 +14,7 @@ export class SigninPage extends Block<Props> {
 				email: validators.email,
 				name: validators.name,
 				phone: validators.phone,
-				password_again: (pass: string) => this.#passAgainCheck(pass),
+				password_again: (pass: string) => this.passAgainCheck(pass),
 			},
 
 			onLogin: (event: Event) => {
@@ -46,23 +46,9 @@ export class SigninPage extends Block<Props> {
 				}
 
 				console.log(fieldsValue);
+				navigate('profile');
 			},
 		});
-	}
-
-	#passAgainCheck(pass: string) {
-		if (this.getRefsValue('password') !== pass) {
-			return 'Пароли не совпадают';
-		}
-
-		return false;
-	}
-
-	getRefsValue(name: string) {
-		const element = this.refs[name];
-		if (element instanceof InputField) {
-			return element.value();
-		}
 	}
 
 	protected render(): string {
