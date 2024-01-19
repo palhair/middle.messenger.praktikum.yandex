@@ -1,11 +1,6 @@
-import { EventsNames } from './core-env';
-
 export type Listener<T extends unknown[] = unknown[]> = (...args: T) => void;
 
-export default class EventBus<
-	E extends string = EventsNames,
-	M extends { [K in E]: unknown[] } = Record<E, unknown[]>,
-> {
+export default class EventBus<E extends string = string, M extends { [K in E]: unknown[] } = Record<E, any[]>> {
 	private listeners: { [key in E]?: Listener<M[E]>[] } = {};
 
 	on(event: E, callback: Listener<M[E]>) {

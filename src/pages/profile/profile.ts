@@ -22,7 +22,6 @@ export class ProfilePage extends Block<Props> {
 	}
 
 	protected render(): string {
-		console.log(this.props.reds);
 		return profile;
 	}
 }

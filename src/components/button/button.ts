@@ -18,12 +18,15 @@ export class Button extends Block<Props> {
 		this.props.events = {
 			click: this.props.onClick,
 		};
+
+		this.events = {
+			click: this.props.events.click,
+		};
 	}
+
 	protected render(): string {
 		const { page } = this.props;
-		return `<button class='button button_{{type}}'  ${
-			page ? `page="${page}"` : ''
-		}>{{label}}
+		return `<button class='button button_{{type}}'  ${page ? `page="${page}"` : ''}>{{label}}
 					{{#if withIcon}}
 						<img src="{{src}}" class="button__images" alt="{{alt}}" />
 					{{/if}}

@@ -1,7 +1,11 @@
 .input__error-text {
-	position: absolute;
+	position: relative;
 	transform: translateY(-18px);
 	font-size: 8px;
 	line-height: 8px;
 	color: var(--error-color);
+}
+
+.input__error-text_inline {
+	transform: translateY(4px);
 }

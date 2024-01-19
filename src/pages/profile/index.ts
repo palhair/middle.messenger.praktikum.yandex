@@ -1,14 +1,16 @@
 import './profile.css';
 export { ProfilePage as default } from './profile';
+import * as validators from '../../utils/validators';
 
 export const personalData = [
 	{
 		name: 'mail',
 		type: 'text',
 		value: 'pochta@yandex.ru',
-		readonly: true,
+		readonly: false,
 		label: 'Почта',
 		modificator: '_inline',
+		validate: validators.email,
 	},
 	{
 		name: 'login',
@@ -17,6 +19,7 @@ export const personalData = [
 		readonly: true,
 		label: 'Логин',
 		modificator: '_inline',
+		validate: validators.login,
 	},
 	{
 		name: 'first_name',
@@ -25,6 +28,7 @@ export const personalData = [
 		readonly: true,
 		label: 'Имя',
 		modificator: '_inline',
+		validate: validators.name,
 	},
 	{
 		name: 'second_name',
@@ -33,6 +37,7 @@ export const personalData = [
 		readonly: true,
 		label: 'Фамилия',
 		modificator: '_inline',
+		validate: validators.name,
 	},
 	{
 		name: 'display_name',
@@ -41,6 +46,7 @@ export const personalData = [
 		readonly: true,
 		label: 'Имя в чате',
 		modificator: '_inline',
+		validate: validators.name,
 	},
 	{
 		name: 'phone',
@@ -49,5 +55,6 @@ export const personalData = [
 		readonly: true,
 		label: 'Телефон',
 		modificator: '_inline',
+		validate: validators.phone,
 	},
 ];

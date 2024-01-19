@@ -69,6 +69,7 @@ export const phone = (value: string) => {
 };
 
 export const message = (value: string) => {
+	console.log('message');
 	if (value.length === 0) {
 		return 'Нельзя отправить пустое сообщение!';
 	}

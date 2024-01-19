@@ -1,12 +1,16 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
-import { EventsNames, Child, Events, Props as Prop } from './core-env.d';
+import { EventsNames, Child, Props as Prop } from './core-env.d';
 import { InputField } from '../components';
 
 export type RefType = Record<string, Element | Block<Prop>>;
 
-export default class Block<Props extends Prop, Refs extends RefType = RefType> {
+type Object = {};
+
+export type EventsListType = { [key in keyof HTMLElementEventMap]: (e: Event) => void };
+
+export default class Block<Props extends Object, Refs extends RefType = RefType> {
 	public id = nanoid(6);
 	params: string = '';
 	protected props: Props;
@@ -14,6 +18,7 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 	protected refs: Refs = {} as Refs;
 	private eventBus: () => EventBus;
 	#element: HTMLElement | null = null;
+	protected events: Partial<EventsListType> = {};
 
 	constructor(props: Props = {} as Props) {
 		const eventBus = new EventBus();
@@ -22,16 +27,14 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 		this.eventBus = () => eventBus;
 		this._registerEvents(eventBus);
 		this.eventBus().emit(EventsNames.INIT);
+		// this.events = {};
 	}
 
 	_registerEvents(eventBus: EventBus) {
 		eventBus.on(EventsNames.INIT, this.#init.bind(this));
 		eventBus.on(EventsNames.FLOW_CDM, this.#componentDidMount.bind(this));
 		eventBus.on(EventsNames.FLOW_CDU, this.#componentDidUpdate.bind(this));
-		eventBus.on(
-			EventsNames.FLOW_CWU,
-			this.#componentWillUnmount.bind(this)
-		);
+		eventBus.on(EventsNames.FLOW_CWU, this.#componentWillUnmount.bind(this));
 		eventBus.on(EventsNames.FLOW_RENDER, this.#render.bind(this));
 	}
 
@@ -43,13 +46,16 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 
 	protected init() {}
 
-	#componentDidUpdate(oldProps: unknown, newProps: unknown) {
+	#componentDidUpdate(oldProps: Props, newProps: Props) {
 		if (this.componentDidUpdate(oldProps, newProps)) {
+			if (this.#element) {
+				this._removeEvents();
+			}
 			this.eventBus().emit(EventsNames.FLOW_RENDER);
 		}
 	}
 
-	protected componentDidUpdate(_oldProps: unknown, _newprop: unknown) {
+	protected componentDidUpdate(_oldProps: Props, _newProp: Props) {
 		return true;
 	}
 
@@ -85,31 +91,42 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 	}
 
 	_addEvents() {
-		if (this.props.events) {
-			const events: Events = this.props.events as Events;
+		Object.entries(this.events).forEach(([eventName, callback]) => {
+			this.#element?.addEventListener(eventName, callback);
+		});
+	}
 
-			Object.keys(events).forEach((eventName) => {
-				this.#element!.addEventListener(eventName, events[eventName]);
-			});
-		}
+	_removeEvents() {
+		// if (this.props.events) {
+		// 	const events: Events = this.props.events;
+		// 	Object.keys(events).forEach((eventName) => {
+		// 		this.#element!.removeEventListener(eventName, events[eventName]);
+		// 	});
+		// }
+		Object.entries(this.events).forEach(([eventName, callback]) => {
+			this.#element?.removeEventListener(eventName, callback);
+		});
 	}
 
 	protected render(): string {
 		return '';
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	#makeProxyProps(props: any) {
+	#makeProxyProps(props: Props) {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const self = this;
 		return new Proxy(props, {
 			get(target, prop) {
-				const value = target[prop];
-				return typeof value === 'function' ? value.bind(target) : value;
+				if (typeof prop == 'string') {
+					const value = target[prop as keyof Props];
+					return typeof value === 'function' ? value.bind(target) : value;
+				}
 			},
 			set(target, prop: string, value): boolean {
 				const oldTarget = { ...target };
-				target[prop] = value;
+
+				target[prop as keyof Props] = value;
+
 				self.eventBus().emit(EventsNames.FLOW_CDU, oldTarget, target);
 				return true;
 			},
@@ -120,14 +137,9 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 	}
 
 	getContent() {
-		if (
-			this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE
-		) {
+		if (this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
 			setTimeout(() => {
-				if (
-					this.#element?.parentNode?.nodeType !==
-					Node.DOCUMENT_FRAGMENT_NODE
-				) {
+				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
 					this.dispatchComponentDidMount();
 				}
 			}, 100);
@@ -142,7 +154,7 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 
 	componentDidMount() {}
 
-	setProps = (nextProps: Props) => {
+	setProps = (nextProps: Partial<Props>) => {
 		if (!nextProps) {
 			return;
 		}
@@ -157,9 +169,7 @@ export default class Block<Props extends Prop, Refs extends RefType = RefType> {
 	dispatchComponentDidMount() {
 		this.eventBus().emit(EventsNames.FLOW_CDM);
 
-		Object.values(this.children).forEach((child) =>
-			child.component.dispatchComponentDidMount()
-		);
+		Object.values(this.children).forEach((child) => child.component.dispatchComponentDidMount());
 	}
 
 	#checkInDom() {

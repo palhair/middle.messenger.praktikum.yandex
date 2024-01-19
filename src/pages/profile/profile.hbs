@@ -8,17 +8,11 @@
 			{{{Heading label='Иван' type='h1'}}}
 		</div>
 		<div class='profile__info-block'>
-			{{#PersonalData
-				personalData=personalData ref='data'
-			}}{{/PersonalData}}
+			{{{PersonalData personalData=personalData ref='data'}}}
 		</div>
 
 		<div class='profile__footer-block'>
-			{{{Button
-				type='secondary'
-				label='Изменить данные'
-				onClick=onLogin
-			}}}
+			{{{Button type='secondary' label='Изменить данные' onClick=onLogin}}}
 			{{{Button type='secondary' label='Изменить пароль'}}}
 			{{{Button type='error' label='выйти'}}}
 		</div>

@@ -1,4 +1,4 @@
-import Block from '../../core/Block';
+import Block, { EventsListType } from '../../core/Block';
 import { Props } from '../../core/core-env';
 
 export class Input extends Block<Props> {
@@ -10,6 +10,15 @@ export class Input extends Block<Props> {
 			},
 		});
 	}
+
+	protected init(): void {
+		this.events = {
+			blur: this.props.events.blur,
+		};
+	}
+	protected events: Partial<EventsListType> = {
+		blur: this.props.events.blur,
+	};
 	protected render(): string {
 		return `<input
 					class='input__element input__element{{modificator}} {{#if isError}}input__error{{/if}}'

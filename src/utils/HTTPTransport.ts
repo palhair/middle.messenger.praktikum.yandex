@@ -23,23 +23,25 @@ function queryStringify(data: queryData) {
 	}, '?');
 }
 
+type request = (url: string, options: OptionsWithoutMethod) => Promise<XMLHttpRequest>;
+
 class HTTPTransport {
-	get = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => {
+	get: request = (url, options = {}) => {
 		if (options.data) {
 			url = queryStringify(options.data);
 		}
 		return this.request(url, { ...options, method: METHOD.GET });
 	};
 
-	post = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => {
+	post: request = (url, options = {}) => {
 		return this.request(url, { ...options, method: METHOD.POST }, options.timeout);
 	};
 
-	put = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => {
+	put: request = (url, options = {}) => {
 		return this.request(url, { ...options, method: METHOD.PUT }, options.timeout);
 	};
 
-	delete = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => {
+	delete: request = (url, options = {}) => {
 		return this.request(url, { ...options, method: METHOD.DELETE }, options.timeout);
 	};
 

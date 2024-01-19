@@ -3,7 +3,7 @@ import { Props } from '../../core/core-env';
 
 export class TempMenu extends Block<Props> {
 	protected init(): void {
-		this.props.events = {
+		this.events = {
 			click: this.props.onClick,
 		};
 	}

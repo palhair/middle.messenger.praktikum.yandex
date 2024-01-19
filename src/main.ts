@@ -13,16 +13,4 @@ Object.entries(handlebarsHelpers).forEach(([name, component]) => {
 	Handlebars.registerPartial(name, component);
 });
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
-
-// document.addEventListener('click', (e: MouseEvent) => {
-// 	const target: HTMLElement = e.target as HTMLElement;
-
-// 	const page = target.getAttribute('page');
-// 	if (page) {
-// 		navigate(page);
-
-// 		e.preventDefault();
-// 		e.stopImmediatePropagation();
-// 	}
-// });
+document.addEventListener('DOMContentLoaded', () => navigate('chatPage'));
