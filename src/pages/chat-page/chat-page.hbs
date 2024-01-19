@@ -37,7 +37,23 @@
 		</div>
 
 		<div class='chat-page__footer'>
-			{{{MessageBar}}}
+			<div class='message-bar'>
+				{{{Button
+					src=clip
+					withIcon=true
+					type='icon'
+					alt='Прикрепить файл'
+					onclick=addFile
+				}}}
+				{{{MessageBar ref='message' onSend=onSend}}}
+				{{{Button
+					src=arrow
+					withIcon=true
+					type='icon'
+					alt='Отправить'
+					onClick=onSend
+				}}}
+			</div>
 		</div>
 	</div>
 </div>

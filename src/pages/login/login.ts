@@ -1,7 +1,6 @@
 import loginPage from './login.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
-import { InputField } from '../../components';
 import { navigate, navigateEvent } from '../../core/navigate';
 import { Props } from '../../core/core-env';
 
@@ -39,13 +38,6 @@ export class LoginPage extends Block<Props> {
 				navigate('chatPage');
 			},
 		});
-	}
-
-	getRefsValue(name: string) {
-		const element = this.refs[name];
-		if (element instanceof InputField) {
-			return element.value();
-		}
 	}
 
 	protected render(): string {

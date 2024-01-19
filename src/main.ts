@@ -13,4 +13,4 @@ Object.entries(handlebarsHelpers).forEach(([name, component]) => {
 	Handlebars.registerPartial(name, component);
 });
 
-document.addEventListener('DOMContentLoaded', () => navigate('chatPage'));
+document.addEventListener('DOMContentLoaded', () => navigate('profile'));

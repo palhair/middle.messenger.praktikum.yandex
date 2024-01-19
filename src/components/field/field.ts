@@ -11,7 +11,6 @@ export class Field extends Block<FieldProps> {
 		super({ ...props });
 	}
 	protected render(): string {
-		console.log(this.props);
 		const { name, placeholder, validate } = this.props;
 		return `<div class="field">
 					{{{Input modificator="${name}" validate="${validate}" type="text" name="${name}" ${

@@ -2,15 +2,20 @@ import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
 import { EventsNames, Child, Props as Prop } from './core-env.d';
-import { InputField } from '../components';
+import { InputField, MessageBar } from '../components';
 
 export type RefType = Record<string, Element | Block<Prop>>;
 
 type Object = {};
 
-export type EventsListType = { [key in keyof HTMLElementEventMap]: (e: Event) => void };
+export type EventsListType = {
+	[key in keyof HTMLElementEventMap]: (e: Event) => void;
+};
 
-export default class Block<Props extends Object, Refs extends RefType = RefType> {
+export default class Block<
+	Props extends Object,
+	Refs extends RefType = RefType,
+> {
 	public id = nanoid(6);
 	params: string = '';
 	protected props: Props;
@@ -34,7 +39,10 @@ export default class Block<Props extends Object, Refs extends RefType = RefType>
 		eventBus.on(EventsNames.INIT, this.#init.bind(this));
 		eventBus.on(EventsNames.FLOW_CDM, this.#componentDidMount.bind(this));
 		eventBus.on(EventsNames.FLOW_CDU, this.#componentDidUpdate.bind(this));
-		eventBus.on(EventsNames.FLOW_CWU, this.#componentWillUnmount.bind(this));
+		eventBus.on(
+			EventsNames.FLOW_CWU,
+			this.#componentWillUnmount.bind(this)
+		);
 		eventBus.on(EventsNames.FLOW_RENDER, this.#render.bind(this));
 	}
 
@@ -119,7 +127,9 @@ export default class Block<Props extends Object, Refs extends RefType = RefType>
 			get(target, prop) {
 				if (typeof prop == 'string') {
 					const value = target[prop as keyof Props];
-					return typeof value === 'function' ? value.bind(target) : value;
+					return typeof value === 'function'
+						? value.bind(target)
+						: value;
 				}
 			},
 			set(target, prop: string, value): boolean {
@@ -137,9 +147,14 @@ export default class Block<Props extends Object, Refs extends RefType = RefType>
 	}
 
 	getContent() {
-		if (this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+		if (
+			this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+		) {
 			setTimeout(() => {
-				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
+				if (
+					this.#element?.parentNode?.nodeType !==
+					Node.DOCUMENT_FRAGMENT_NODE
+				) {
 					this.dispatchComponentDidMount();
 				}
 			}, 100);
@@ -169,7 +184,9 @@ export default class Block<Props extends Object, Refs extends RefType = RefType>
 	dispatchComponentDidMount() {
 		this.eventBus().emit(EventsNames.FLOW_CDM);
 
-		Object.values(this.children).forEach((child) => child.component.dispatchComponentDidMount());
+		Object.values(this.children).forEach((child) =>
+			child.component.dispatchComponentDidMount()
+		);
 	}
 
 	#checkInDom() {
@@ -217,7 +234,7 @@ export default class Block<Props extends Object, Refs extends RefType = RefType>
 
 	getRefsValue(name: string) {
 		const element = this.refs[name];
-		if (element instanceof InputField) {
+		if (element instanceof InputField || element instanceof MessageBar) {
 			return element.value();
 		}
 	}
