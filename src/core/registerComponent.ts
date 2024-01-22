@@ -1,10 +1,7 @@
 import { HelperOptions } from 'handlebars';
 import Handlebars from 'handlebars';
 import Block from './Block';
-
-interface BlockConstructable<Props extends object, R extends {}> {
-	new (props: Props): Block<Props, R>;
-}
+import { BlockConstructable } from './core-env';
 
 export function registerComponent<Props extends object, R extends {}>(
 	name: string,

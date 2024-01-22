@@ -20,3 +20,7 @@ export type Props = Record<string, any>;
 export interface InputFieldProps extends Props {
 	validate?: (value: string) => false | string;
 }
+
+export interface BlockConstructable<Props extends object, R extends {}> {
+	new (props: Props): Block<Props, R>;
+}
