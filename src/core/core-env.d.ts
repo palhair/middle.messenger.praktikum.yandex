@@ -15,9 +15,12 @@ export type Child = {
 	[key: string]: Block;
 };
 
+export type TProps = {};
 export type Props = Record<string, any>;
 
-export interface InputFieldProps extends Props {
+export type RefType = Record<string, Element | Block<TProps>>;
+
+export interface InputFieldProps extends TProps {
 	validate?: (value: string) => false | string;
 }
 

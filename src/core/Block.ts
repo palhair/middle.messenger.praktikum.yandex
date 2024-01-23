@@ -1,18 +1,14 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
-import { EventsNames, Child } from './core-env.d';
+import { EventsNames, Child, TProps, RefType } from './core-env.d';
 import { InputField, MessageBar } from '../components';
-
-export type RefType = Record<string, Element | Block<Object>>;
-
-export type Object = {};
 
 export type EventsListType = {
 	[key in keyof HTMLElementEventMap]: (e: Event) => void;
 };
 
-export default class Block<Props extends Object, Refs extends RefType = RefType> {
+export default class Block<Props extends TProps, Refs extends RefType = RefType> {
 	public id = nanoid(6);
 	params: string = '';
 	protected props: Props;
@@ -202,7 +198,7 @@ export default class Block<Props extends Object, Refs extends RefType = RefType>
 	}
 
 	show() {
-		this.getContent()!.style.display = 'block';
+		this.getContent()!.style.display = '';
 	}
 
 	hide() {

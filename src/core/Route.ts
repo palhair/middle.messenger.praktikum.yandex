@@ -1,7 +1,11 @@
-import Block, { Object } from './Block';
-import { BlockConstructable } from './core-env';
+import Block from './Block';
+import { BlockConstructable, TProps, RefType } from './core-env';
 
-export class Route<Props extends object, R extends {}> {
+interface RouteProps extends TProps {
+	rootQuyery: string;
+}
+
+export class Route<Props extends RouteProps = RouteProps, R extends RefType = {}> {
 	#pathname;
 	#blockClass;
 	#block: Block<Props> | null = null;
@@ -32,7 +36,7 @@ export class Route<Props extends object, R extends {}> {
 	render() {
 		if (!this.#block) {
 			this.#block = new this.#blockClass(this.#props);
-			render(this.#pathname, this.#block);
+			render(this.#props.rootQuyery, this.#block);
 		}
 		this.#block.show();
 	}
@@ -42,7 +46,7 @@ function isEqual(lhs: string, rhs: string) {
 	return lhs === rhs;
 }
 
-function render(query: string, block: Block<Object>) {
+function render(query: string, block: Block<TProps>) {
 	// Перенести в Роут
 	const root = document.querySelector(query);
 	root?.append(block.getContent() as HTMLElement);

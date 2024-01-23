@@ -2,7 +2,7 @@ import signinPage from './signin.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
 import { Props } from '../../core/core-env';
-import { navigate } from '../../core/navigate';
+// import { navigate } from '../../core/navigate';
 
 export class SigninPage extends Block<Props> {
 	constructor(props: Props) {
@@ -20,15 +20,7 @@ export class SigninPage extends Block<Props> {
 			onLogin: (event: Event) => {
 				event.preventDefault();
 				const fieldsValue: Record<string, undefined | string> = {};
-				const signinFields = [
-					'login',
-					'password',
-					'password_again',
-					'email',
-					'first_name',
-					'second_name',
-					'phone',
-				];
+				const signinFields = ['login', 'password', 'password_again', 'email', 'first_name', 'second_name', 'phone'];
 
 				// можно сделать через Object.key(this.refs), но надо будет фильтровать принадлежность к InputField
 				signinFields.map((field) => {
@@ -46,7 +38,7 @@ export class SigninPage extends Block<Props> {
 				}
 
 				console.log(fieldsValue);
-				navigate('profile');
+				// navigate('profile');
 			},
 		});
 	}

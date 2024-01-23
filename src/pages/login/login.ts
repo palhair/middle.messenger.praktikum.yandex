@@ -1,8 +1,9 @@
 import loginPage from './login.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
-import { navigate, navigateEvent } from '../../core/navigate';
+import { navigateEvent } from '../../core/navigate';
 import { Props } from '../../core/core-env';
+import { Router } from '../../core/Router';
 
 export class LoginPage extends Block<Props> {
 	constructor(props: Props) {
@@ -35,7 +36,8 @@ export class LoginPage extends Block<Props> {
 				}
 
 				console.log(fieldsValue);
-				navigate('chatPage');
+				const router = new Router('#app');
+				router.go('/messenger');
 			},
 		});
 	}
