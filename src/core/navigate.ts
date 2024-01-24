@@ -1,5 +1,4 @@
 import { router } from '../main';
-import Block from './Block';
 
 // const pages: Record<string, BlockConstructable<TProps, RefType>> = {
 // 	login: Pages.LoginPage,

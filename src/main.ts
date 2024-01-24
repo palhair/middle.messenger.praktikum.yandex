@@ -1,7 +1,5 @@
-import Handlebars from 'handlebars';
 import './style.css';
 import * as Components from './components';
-import * as handlebarsHelpers from './handlebarsHelpers';
 // import { navigate } from './core/navigate';
 import { registerComponent } from './core/registerComponent';
 import { Router } from './core/Router';

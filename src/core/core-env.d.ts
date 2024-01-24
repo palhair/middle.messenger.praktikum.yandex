@@ -8,6 +8,8 @@ export enum EventsNames {
 	FLOW_RENDER = 'flow:render',
 }
 
+export enum PagesName {}
+
 type Events = { [key: string]: (event: unknown) => void };
 
 export type Child = {
@@ -15,7 +17,7 @@ export type Child = {
 	[key: string]: Block;
 };
 
-export type TProps = {};
+export type TProps = Record<string, unknown>;
 export type Props = Record<string, any>;
 
 export type RefType = Record<string, Element | Block<TProps>>;

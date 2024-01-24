@@ -1,5 +1,5 @@
 import { Route } from './Route';
-import { BlockConstructable, RefType, TProps } from './core-env';
+import { BlockConstructable, TProps } from './core-env';
 
 export class Router {
 	routes: Route[] = [];

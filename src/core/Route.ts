@@ -2,10 +2,10 @@ import Block from './Block';
 import { BlockConstructable, TProps, RefType } from './core-env';
 
 interface RouteProps extends TProps {
-	rootQuyery: string;
+	rootQuyery?: string;
 }
 
-export class Route<Props extends RouteProps = RouteProps, R extends RefType = {}> {
+export class Route<Props extends TProps = TProps, R extends RefType = {}> {
 	#pathname;
 	#blockClass;
 	#block: Block<Props> | null = null;
@@ -36,8 +36,10 @@ export class Route<Props extends RouteProps = RouteProps, R extends RefType = {}
 	render() {
 		if (!this.#block) {
 			this.#block = new this.#blockClass(this.#props);
-			render(this.#props.rootQuyery, this.#block);
+
+			render(this.#props.rootQuyery as string, this.#block);
 		}
+
 		this.#block.show();
 	}
 }
@@ -46,7 +48,7 @@ function isEqual(lhs: string, rhs: string) {
 	return lhs === rhs;
 }
 
-function render(query: string, block: Block<TProps>) {
+function render(query: string, block: Block<{}>) {
 	// Перенести в Роут
 	const root = document.querySelector(query);
 	root?.append(block.getContent() as HTMLElement);
