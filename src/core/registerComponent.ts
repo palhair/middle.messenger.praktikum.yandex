@@ -1,7 +1,10 @@
 import { HelperOptions } from 'handlebars';
 import Handlebars from 'handlebars';
-import Block from './Block';
 import { BlockConstructable } from './core-env';
+
+interface BlockComponentClass<T> {
+	new (props: unknown): T;
+}
 
 export function registerComponent<Props extends object, R extends {}>(
 	name: string,

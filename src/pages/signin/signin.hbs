@@ -19,8 +19,10 @@
 					validate=validate.password_again
 				}}}
 
+				{{{ErrorBlock ref='error'}}}
+
 				<div class='registration-form__buttons-container'>
-					{{{Button label='Зарегистрироваться' type='primary' onClick=onLogin}}}
+					{{{Button label='Зарегистрироваться' type='primary' onClick=onRegistration}}}
 					{{{Button label='Войти' type='secondary' onClick=navigate page='login'}}}
 
 				</div>

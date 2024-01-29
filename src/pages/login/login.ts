@@ -2,11 +2,38 @@ import loginPage from './login.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
 import { navigateEvent } from '../../core/navigate';
-import { Props } from '../../core/core-env';
+// import { Props } from '../../core/core-env';
 import { Router } from '../../core/Router';
+import { getUser, signin } from '../../services/auth';
+import { LoginReqData } from '../../api/type';
+import { ErrorBlock, InputField } from '../../components';
+import { TProps } from '../../core/core-env';
 
-export class LoginPage extends Block<Props> {
-	constructor(props: Props) {
+type LoginRequestData = {
+	login?: string;
+	password?: string;
+};
+
+export interface IProps extends TProps {
+	validate: {
+		login: (value: string) => boolean | string;
+		password: (value: string) => boolean | string;
+	};
+	onLogin: (e: Event) => void;
+	onRegistration: (e: Event) => void;
+	events?: {};
+	error: string | null;
+	navigate: (e: Event) => void;
+}
+
+type Refs = {
+	login: InputField;
+	password: InputField;
+	error: ErrorBlock;
+};
+
+export class LoginPage extends Block<IProps, Refs> {
+	constructor(props: IProps) {
 		super({
 			...props,
 			validate: {
@@ -14,15 +41,14 @@ export class LoginPage extends Block<Props> {
 				password: validators.password,
 			},
 
-			navigate: navigateEvent,
 			onLogin: (event: Event) => {
 				event.preventDefault();
 
-				const fieldsValue: Record<string, undefined | string> = {};
-				const signinFields = ['login', 'password'];
+				const fieldsValue: LoginRequestData = {};
+				const signinFields: ['login', 'password'] = ['login', 'password'];
 
 				signinFields.map((field) => {
-					fieldsValue[field] = this.getRefsValue(field);
+					fieldsValue[field] = this.getRefsValue(field) as string;
 				});
 
 				if (
@@ -34,10 +60,14 @@ export class LoginPage extends Block<Props> {
 				) {
 					return;
 				}
+				console.log(fieldsValue.login, fieldsValue.password);
 
-				console.log(fieldsValue);
-				const router = new Router('#app');
-				router.go('/messenger');
+				signin(fieldsValue as LoginReqData).catch((error) => this.refs.error.setProps({ error }));
+			},
+
+			navigate(event) {
+				event?.preventDefault();
+				Router.go('/sign-up');
 			},
 		});
 	}

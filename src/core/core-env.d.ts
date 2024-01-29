@@ -17,7 +17,7 @@ export type Child = {
 	[key: string]: Block;
 };
 
-export type TProps = Record<string, unknown>;
+export type TProps = object;
 export type Props = Record<string, any>;
 
 export type RefType = Record<string, Element | Block<TProps>>;
@@ -26,6 +26,6 @@ export interface InputFieldProps extends TProps {
 	validate?: (value: string) => false | string;
 }
 
-export interface BlockConstructable<Props extends object, R extends {}> {
+export interface BlockConstructable<Props extends TProps, R extends {}> {
 	new (props: Props): Block<Props, R>;
 }

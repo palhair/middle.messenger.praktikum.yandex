@@ -1,20 +1,20 @@
 import { Route } from './Route';
 import { BlockConstructable, TProps } from './core-env';
 
-export class Router {
+class RouterClass {
 	routes: Route[] = [];
 	history = window.history;
 	#currentRoute: Route | null = null;
 	#rootQuyery?: string;
-	static __instance: Router;
+	static __instance: RouterClass;
 
 	constructor(rootQuyery: string) {
-		if (Router.__instance) {
-			return Router.__instance;
+		if (RouterClass.__instance) {
+			return RouterClass.__instance;
 		}
 
 		this.#rootQuyery = rootQuyery;
-		Router.__instance = this;
+		RouterClass.__instance = this;
 	}
 
 	use(pathname: string, block: BlockConstructable<TProps, {}>): this {
@@ -68,3 +68,5 @@ export class Router {
 		return this.routes.find((route) => route.match(pathname));
 	}
 }
+
+export const Router = new RouterClass('#app');

@@ -8,7 +8,7 @@ export type EventsListType = {
 	[key in keyof HTMLElementEventMap]: (e: Event) => void;
 };
 
-export default class Block<Props extends TProps, Refs extends RefType = RefType> {
+export default class Block<Props extends object, Refs extends RefType = RefType> {
 	public id = nanoid(6);
 	params: string = '';
 	protected props: Props;
@@ -95,12 +95,6 @@ export default class Block<Props extends TProps, Refs extends RefType = RefType>
 	}
 
 	_removeEvents() {
-		// if (this.props.events) {
-		// 	const events: Events = this.props.events;
-		// 	Object.keys(events).forEach((eventName) => {
-		// 		this.#element!.removeEventListener(eventName, events[eventName]);
-		// 	});
-		// }
 		Object.entries(this.events).forEach(([eventName, callback]) => {
 			this.#element?.removeEventListener(eventName, callback);
 		});

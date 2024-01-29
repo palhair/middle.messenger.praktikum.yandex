@@ -1,10 +1,6 @@
 import Block from './Block';
 import { BlockConstructable, TProps, RefType } from './core-env';
 
-interface RouteProps extends TProps {
-	rootQuyery?: string;
-}
-
 export class Route<Props extends TProps = TProps, R extends RefType = {}> {
 	#pathname;
 	#blockClass;

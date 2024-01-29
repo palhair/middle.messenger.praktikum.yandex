@@ -1,4 +1,4 @@
-import { router } from '../main';
+import { Router } from './Router';
 
 // const pages: Record<string, BlockConstructable<TProps, RefType>> = {
 // 	login: Pages.LoginPage,
@@ -25,7 +25,7 @@ export function navigateEvent(event: Event) {
 	if (target) {
 		const page = target.getAttribute('page');
 		if (page) {
-			router.go(`/${page}`);
+			Router.go(`/${page}`);
 		}
 	}
 }

@@ -8,6 +8,7 @@ import { contacts } from '.';
 import { messages } from '.';
 import clip from '../../assets/clip.svg';
 import arrow from '../../assets/arrow.svg';
+import { connect } from '../../utils/connect';
 
 interface ChatPageProps extends Props {}
 
@@ -32,8 +33,10 @@ export class ChatPage extends Block<ChatPageProps> {
 				console.log(message);
 			},
 		});
+		console.log('init chatPage');
 	}
 	protected render(): string {
 		return chatPage;
 	}
 }
+export default connect(({ chats, user }) => ({ chats, user }))(ChatPage);

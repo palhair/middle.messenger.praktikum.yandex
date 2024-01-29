@@ -1,5 +1,6 @@
 import Block from '../../core/Block';
 import { Props } from '../../core/core-env';
+import { connect } from '../../utils/connect';
 
 export class ListMessages extends Block<Props> {
 	protected render(): string {
@@ -17,3 +18,5 @@ export class ListMessages extends Block<Props> {
                 </div>`;
 	}
 }
+
+export default connect(({ chats, user }) => ({ chats, user }))(ListMessages);

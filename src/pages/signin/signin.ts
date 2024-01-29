@@ -2,6 +2,8 @@ import signinPage from './signin.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
 import { Props } from '../../core/core-env';
+import { signup } from '../../services/auth';
+import { CreateUser } from '../../api/type';
 // import { navigate } from '../../core/navigate';
 
 export class SigninPage extends Block<Props> {
@@ -17,7 +19,7 @@ export class SigninPage extends Block<Props> {
 				password_again: (pass: string) => this.passAgainCheck(pass),
 			},
 
-			onLogin: (event: Event) => {
+			onRegistration: (event: Event) => {
 				event.preventDefault();
 				const fieldsValue: Record<string, undefined | string> = {};
 				const signinFields = ['login', 'password', 'password_again', 'email', 'first_name', 'second_name', 'phone'];
@@ -37,8 +39,7 @@ export class SigninPage extends Block<Props> {
 					return;
 				}
 
-				console.log(fieldsValue);
-				// navigate('profile');
+				signup(fieldsValue as CreateUser).catch((error) => this.refs.error.setProps({ error }));
 			},
 		});
 	}

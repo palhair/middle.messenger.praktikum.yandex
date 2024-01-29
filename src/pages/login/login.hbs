@@ -8,12 +8,14 @@
 		
             {{{InputField label="Логин" name="login" type="text" ref="login" validate=validate.login}}}
             {{{InputField label="Пароль" name="password" type="password" ref="password" validate=validate.password}}}
-
+			{{{ErrorBlock ref="error" }}}
+			
             <div class="login__buttons-container ">
                 {{{Button label="Авторизоваться" type="primary" onClick=onLogin}}}
                 {{{Button label="Нет аккаунта?" type="secondary" onClick=navigate page="sign-up" }}}
             <div>
 	    {{/PartialBlock }}
+		
     
     </div>
     {{{TempMenu onClick=navigate}}}

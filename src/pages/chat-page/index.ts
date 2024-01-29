@@ -13,7 +13,8 @@ import avatar9 from '../../assets/9.png';
 import avatar10 from '../../assets/10.png';
 import avatar11 from '../../assets/11.png';
 
-export { ChatPage as default } from './chat-page';
+import ChatPage from './chat-page';
+export default ChatPage;
 
 export const contacts = [
 	{
