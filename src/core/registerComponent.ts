@@ -4,12 +4,15 @@ import { BlockConstructable } from './core-env';
 
 interface BlockComponentClass<T> {
 	new (props: unknown): T;
+	getContent(): Element;
+	id: number;
 }
 
-export function registerComponent<Props extends object, R extends {}>(
-	name: string,
-	Component: BlockConstructable<Props, R>
-): void {
+type ComponentType<T extends BlockComponentClass<T>> = {
+	new (props: ConstructorParameters<InstanceType<T>>[0]): InstanceType<T>;
+};
+
+export function registerComponent<T extends BlockComponentClass<T>>(name: string, Component: ComponentType<T>): void {
 	if (name in Handlebars.helpers) {
 		throw new Error(`${name} уже зарегистрирован`);
 	}

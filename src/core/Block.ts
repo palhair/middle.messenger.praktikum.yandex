@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
-import { EventsNames, Child, TProps, RefType } from './core-env.d';
+import { EventsNames, Child, RefType } from './core-env.d';
 import { InputField, MessageBar } from '../components';
 
 export type EventsListType = {
@@ -70,6 +70,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 	}
 
 	private compile(template: string, context: Props) {
+		this.children = [];
 		const contextAndStubs: Record<string, unknown> = {
 			...context,
 			__refs: this.refs,

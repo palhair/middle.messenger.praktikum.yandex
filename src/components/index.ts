@@ -1,7 +1,7 @@
 export { default as ErrorBlock } from './error-block';
 export { default as InputField } from './input-field';
 export { default as Input } from './input';
-export { default as Heading } from './heading';
+export { default as Title } from './title';
 export { default as Button } from './button';
 export { default as Field } from './field';
 export { default as ListContacts } from './list-contacts';
@@ -12,4 +12,9 @@ export { default as MessageBar } from './message-bar';
 export { default as Avatar } from './avatar';
 export { default as PersonalData } from './personal-data';
 export { default as StatusMessage } from './status-message';
-export { default as TempMenu } from './tempMenu';
+export { default as TempMenu } from './tempMenu'; //удалить
+export { default as ChatDropdown } from './chat-dropdown';
+export { default as MenuItem } from './menu-item';
+export { default as Dialog } from './dialog';
+export { default as AddChatButton } from './add-chat-button';
+export { default as CreateDialog } from './create-dialog';

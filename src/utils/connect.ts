@@ -5,7 +5,6 @@ import { AppState } from '../type';
 import isEqual from './isEqual';
 
 export function connect(makeStateProps: (state: AppState) => Partial<AppState>) {
-	console.log('connect');
 	return function <P extends TProps, R extends RefType>(Component: typeof Block<P, R>) {
 		return class extends Component {
 			private onChangeStoreCallback: () => void;

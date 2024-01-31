@@ -1,10 +1,8 @@
 import loginPage from './login.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
-import { navigateEvent } from '../../core/navigate';
-// import { Props } from '../../core/core-env';
 import { Router } from '../../core/Router';
-import { getUser, signin } from '../../services/auth';
+import { signin } from '../../services/auth';
 import { LoginReqData } from '../../api/type';
 import { ErrorBlock, InputField } from '../../components';
 import { TProps } from '../../core/core-env';

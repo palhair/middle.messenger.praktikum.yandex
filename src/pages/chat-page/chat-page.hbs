@@ -1,4 +1,5 @@
 <div class='container'>
+	{{{CreateDialog ref='currentDialog'}}}
 
 	<div class='chat-page__contacts-block'>
 
@@ -7,17 +8,11 @@
 				{{{Field name='_search' placeholder='Поиск'}}}
 			</form>
 
-			{{{Button
-				type='with-icon'
-				label='Профиль'
-				withIcon='true'
-				src=larger
-				alt='>'
-			}}}
+			{{{Button type='with-icon' label='Профиль' withIcon='true' src=larger alt='>'}}}
 		</div>
 
-		{{#ListContacts contacts=contacts}}{{/ListContacts}}
-
+		{{#ListContacts contacts=chats}}{{/ListContacts}}
+		{{{AddChatButton dialog=dialog}}}
 	</div>
 	<div class='chat-page__chat-block'>
 
@@ -25,12 +20,14 @@
 			<div class='chat-page__info'>
 
 				{{{Avatar size='middle' src=avatar alt='аватар Kris'}}}
-				{{{Heading label='Kris' type='h1'}}}
+				{{{Title label='Kris' type='h1'}}}
 			</div>
 
 			{{{Button type='icon' src=dots withIcon=true alt='Настройки'}}}
 
 		</div>
+
+		{{{ChatDropdown ref='userControl' dialog=dialog}}}
 
 		<div class='chat-page__messages-block'>
 			{{#ListMessages messages=messages}}{{/ListMessages}}
@@ -38,21 +35,9 @@
 
 		<div class='chat-page__footer'>
 			<div class='message-bar'>
-				{{{Button
-					src=clip
-					withIcon=true
-					type='icon'
-					alt='Прикрепить файл'
-					onclick=addFile
-				}}}
+				{{{Button src=clip withIcon=true type='icon' alt='Прикрепить файл' onclick=addFile}}}
 				{{{MessageBar ref='message' onSend=onSend}}}
-				{{{Button
-					src=arrow
-					withIcon=true
-					type='icon'
-					alt='Отправить'
-					onClick=onSend
-				}}}
+				{{{Button src=arrow withIcon=true type='icon' alt='Отправить' onClick=onSend}}}
 			</div>
 		</div>
 	</div>

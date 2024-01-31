@@ -5,7 +5,6 @@ import { getChats } from './chats';
 const initApp = async () => {
 	let user = null;
 
-	console.log('initApp');
 	try {
 		user = await getUser();
 	} catch (error) {
@@ -14,7 +13,6 @@ const initApp = async () => {
 	}
 
 	const chats = await getChats();
-	console.log(window.store);
 	window.store.set({ user, chats });
 	Router.go('/messenger');
 };
