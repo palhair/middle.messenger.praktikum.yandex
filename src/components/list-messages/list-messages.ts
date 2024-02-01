@@ -4,6 +4,7 @@ import { connect } from '../../utils/connect';
 
 export class ListMessages extends Block<Props> {
 	protected render(): string {
+		console.log(this.props);
 		return `<div class="list-messages">
                     {{#each messages}}
                         {{{Message
@@ -19,4 +20,4 @@ export class ListMessages extends Block<Props> {
 	}
 }
 
-export default connect(({ chats, user }) => ({ chats, user }))(ListMessages);
+export default connect(({ messages }) => ({ messages }))(ListMessages);

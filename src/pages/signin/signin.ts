@@ -4,9 +4,12 @@ import * as validators from '../../utils/validators';
 import { Props } from '../../core/core-env';
 import { signup } from '../../services/auth';
 import { CreateUser } from '../../api/type';
-// import { navigate } from '../../core/navigate';
+import { ErrorBlock } from '../../components';
 
-export class SigninPage extends Block<Props> {
+type Refs = {
+	error: ErrorBlock;
+};
+export class SigninPage extends Block<Props, Refs> {
 	constructor(props: Props) {
 		super({
 			...props,

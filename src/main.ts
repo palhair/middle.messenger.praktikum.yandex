@@ -22,6 +22,7 @@ const initState: AppState = {
 	isOpenDialog: false,
 	chats: [],
 	dialogOptions: {},
+	messages: [],
 };
 window.store = new Store<AppState>(initState);
 

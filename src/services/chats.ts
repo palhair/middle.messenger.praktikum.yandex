@@ -1,4 +1,5 @@
 import { ChatAPI } from '../api/chatsAPI';
+import { addUserToChatData } from '../api/type';
 import { apiHasError } from '../utils/apiHasError';
 
 const chatsApi = new ChatAPI();
@@ -22,4 +23,21 @@ const createChat = async (title: string) => {
 	window.store.set({ chats });
 };
 
-export { createChat, getChats };
+const addUsertoChat = async (data: addUserToChatData) => {
+	const response = await chatsApi.addUserToChat(data);
+	if (apiHasError(response)) {
+		console.log(response.reason);
+		throw Error(response.reason);
+	}
+};
+
+const getToken = async (id: number) => {
+	const response = await chatsApi.getToken(id);
+	if (apiHasError(response)) {
+		throw Error(response.reason);
+	}
+
+	return response.token;
+};
+
+export { createChat, getChats, getToken, addUsertoChat };

@@ -49,3 +49,12 @@ export type ChatDeleted = {
 	userId: string;
 	result: Omit<Chat, 'last_message' | 'unread_coun'>;
 };
+
+export type token = {
+	token: string;
+};
+
+export type addUserToChatData = {
+	users: number[];
+	chatId: number;
+};

@@ -7,4 +7,5 @@ export type AppState = {
 	isOpenDialog: boolean;
 	chats: Chat[];
 	dialogOptions: dialogOptions;
+	messages: any[];
 };

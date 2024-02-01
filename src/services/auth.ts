@@ -33,8 +33,8 @@ const signup = async (data: CreateUser) => {
 	}
 
 	const me = await getUser();
-	// window.store.set({ user: me });
-	// Router.go('/messenger');
+	window.store.set({ user: me });
+	Router.go('/messenger');
 };
 
 const logout = async () => {

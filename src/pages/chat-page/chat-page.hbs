@@ -14,6 +14,7 @@
 		{{#ListContacts contacts=chats}}{{/ListContacts}}
 		{{{AddChatButton dialog=dialog}}}
 	</div>
+
 	<div class='chat-page__chat-block'>
 
 		<div class='chat-page__header-container'>
@@ -30,7 +31,7 @@
 		{{{ChatDropdown ref='userControl' dialog=dialog}}}
 
 		<div class='chat-page__messages-block'>
-			{{#ListMessages messages=messages}}{{/ListMessages}}
+			{{#ListMessages}}{{/ListMessages}}
 		</div>
 
 		<div class='chat-page__footer'>

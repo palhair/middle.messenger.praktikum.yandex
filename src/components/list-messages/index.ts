@@ -1,2 +1,3 @@
 import './list-messages.css';
-export { ListMessages as default } from './list-messages';
+import Messages from './list-messages';
+export default Messages;

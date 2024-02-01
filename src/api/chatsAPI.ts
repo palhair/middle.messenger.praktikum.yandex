@@ -1,5 +1,5 @@
 import { HTTPTransport } from '../core/HTTPTransport';
-import { APIError, ChatDeleted, Chat, CreateChat, deleteChat } from './type';
+import { APIError, ChatDeleted, Chat, CreateChat, deleteChat, token, addUserToChatData } from './type';
 
 const chatsApi = new HTTPTransport('/chats');
 
@@ -21,6 +21,20 @@ export class ChatAPI {
 	async deleteChat(data: deleteChat): Promise<ChatDeleted | APIError> {
 		return chatsApi
 			.post('', { data })
+			.then((res) => res.response)
+			.catch((err) => err);
+	}
+
+	async getToken(id: number): Promise<token> {
+		return chatsApi
+			.post(`/token/${id}`)
+			.then((res) => res.response)
+			.catch((err) => err);
+	}
+
+	async addUserToChat(data: addUserToChatData): Promise<token> {
+		return chatsApi
+			.put(`/users`, { data })
 			.then((res) => res.response)
 			.catch((err) => err);
 	}

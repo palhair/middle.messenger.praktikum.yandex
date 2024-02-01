@@ -15,7 +15,8 @@ export class ListContacts extends Block<ListContactsProps> {
 							name=this.title
 							lastMessage=this.last_message
 							avatar=this.avatar
-							active=this.active
+							active=false
+							id=this.id
 						}}}
 					{{/each}}
 				</ul>`;

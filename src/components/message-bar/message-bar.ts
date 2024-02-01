@@ -16,19 +16,13 @@ export class MessageBar extends Block<Props> {
 		if (!this.validate()) {
 			return undefined;
 		}
-		if (
-			this.refs.input instanceof Block &&
-			this.refs.input.element instanceof HTMLInputElement
-		) {
+		if (this.refs.input instanceof Block && this.refs.input.element instanceof HTMLInputElement) {
 			return this.refs.input.element.value;
 		}
 	}
 
 	validate() {
-		if (
-			this.refs.input instanceof Block &&
-			this.refs.input.element instanceof HTMLInputElement
-		) {
+		if (this.refs.input instanceof Block && this.refs.input.element instanceof HTMLInputElement) {
 			const value = this.refs.input.element.value;
 			let error;
 
@@ -51,7 +45,7 @@ export class MessageBar extends Block<Props> {
 		this.getParams();
 
 		return `<div class="field">
-					{{{Input ${this.params}  modificator="_message"  type="text" name="message" onBlur=onBlur ref="input" }}}
+					{{{Input ${this.params}  modificator="_message"  type="textarea" name="message" onBlur=onBlur ref="input" }}}
 				</div>`;
 	}
 }

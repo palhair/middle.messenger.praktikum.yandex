@@ -4,8 +4,9 @@ import addUser from '../../assets/addUser.svg';
 import delUser from '../../assets/delUser.svg';
 import delChat from '../../assets/delChat.svg';
 import { addUserDialog, delChatDialog, delUserDialog } from '.';
-import { createChat, getChats } from '../../services/chats';
 import { CreateDialog } from '../create-dialog/create-dialog';
+import { getUser } from '../../services/auth';
+import { addUsertoChat } from '../../services/chats';
 
 export type dialogOptions = {
 	dialogTitle?: string;
@@ -52,8 +53,16 @@ export class ChatDropdown extends Block<ChatDropdownProps, ChatDropdownRefs> {
 		});
 	}
 
-	addUser(e: Event) {
+	async addUser(e: Event) {
 		e.preventDefault();
+		const id = 1350075;
+		const chatId = 48850;
+		const addUserData = {
+			users: [id],
+			chatId,
+		};
+		addUsertoChat(addUserData);
+
 		// const user = this.props.dialog().getDialogValue();
 
 		// if (!user) {
@@ -70,6 +79,11 @@ export class ChatDropdown extends Block<ChatDropdownProps, ChatDropdownRefs> {
 		e.preventDefault();
 		console.log('2');
 	}
+
+	delChat() {
+		//Удаление текущего чата
+	}
+
 	createNewDialog(dialogOptions: dialogOptions) {
 		window.store.set({ dialogOptions, isOpenDialog: true });
 	}
