@@ -1,5 +1,5 @@
 import { HTTPTransport } from '../core/HTTPTransport';
-import { APIError, ChatDeleted, Chat, CreateChat, deleteChat, token, addUserToChatData } from './type';
+import { APIError, ChatDeleted, Chat, CreateChat, chatId, token, chatUsersData, newMessgeCount, User } from './type';
 
 const chatsApi = new HTTPTransport('/chats');
 
@@ -18,9 +18,9 @@ export class ChatAPI {
 			.catch((err) => err);
 	}
 
-	async deleteChat(data: deleteChat): Promise<ChatDeleted | APIError> {
+	async deleteChat(data: chatId): Promise<ChatDeleted | APIError> {
 		return chatsApi
-			.post('', { data })
+			.delete('', { data })
 			.then((res) => res.response)
 			.catch((err) => err);
 	}
@@ -32,13 +32,33 @@ export class ChatAPI {
 			.catch((err) => err);
 	}
 
-	async addUserToChat(data: addUserToChatData): Promise<token> {
+	async addUserToChat(data: chatUsersData): Promise<void | APIError> {
 		return chatsApi
 			.put(`/users`, { data })
 			.then((res) => res.response)
 			.catch((err) => err);
 	}
 
+	async getNewMessage(id: number): Promise<newMessgeCount> {
+		return chatsApi
+			.get(`/new/${id}`)
+			.then((res) => res.response)
+			.catch((err) => err);
+	}
+
+	async getChatUsers(id: number): Promise<User[]> {
+		return chatsApi
+			.get(`/${id}/users`)
+			.then((res) => res.response)
+			.catch((err) => err);
+	}
+
+	async geleteUsersfromChat(data: chatUsersData): Promise<void | APIError> {
+		return chatsApi
+			.delete(`/users`, { data })
+			.then((res) => res.response)
+			.catch((err) => err);
+	}
 	// async logout(): Promise<void> {
 	// 	return chatsApi
 	// 		.get('/logout')

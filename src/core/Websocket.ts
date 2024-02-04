@@ -1,6 +1,6 @@
 import EventBus from './EventsBus';
 
-enum WsEvents {
+export enum WsEvents {
 	CONNECTED = 'open',
 	CLOSE = 'close',
 	ERROR = 'error',
@@ -10,7 +10,8 @@ enum WsEvents {
 export class CreateWS extends EventBus {
 	#socket?: WebSocket;
 	#url: string;
-	// #pingInterval?: ReturnType<typeof setInterval>;
+	id: number | null = null;
+	#pingInterval?: ReturnType<typeof setInterval>;
 	readonly pingIntervalTime = 30000;
 
 	constructor(url: string) {
@@ -31,6 +32,7 @@ export class CreateWS extends EventBus {
 
 		this.#socket = new WebSocket(this.#url);
 		this.#subscribe(this.#socket);
+		this.#setupPing();
 
 		return new Promise((resolve, reject) => {
 			this.on(WsEvents.ERROR, reject);
@@ -41,11 +43,24 @@ export class CreateWS extends EventBus {
 		});
 	}
 
+	#setupPing() {
+		this.#pingInterval = setInterval(() => {
+			this.send({ type: 'ping' });
+		}, this.pingIntervalTime);
+
+		this.on(WsEvents.CLOSE, () => {
+			clearInterval(this.#pingInterval);
+			this.#pingInterval = undefined;
+		});
+	}
+
 	#subscribe(socket: WebSocket) {
 		socket.addEventListener('open', () => {
+			console.log(`Соединение установлено! ${new Date().toLocaleTimeString()}`);
 			this.emit(WsEvents.CONNECTED);
 		});
 		socket.addEventListener('close', () => {
+			console.log(`Соединение закрыто! ${new Date().toLocaleTimeString()}`);
 			this.emit(WsEvents.CLOSE);
 		});
 		socket.addEventListener('error', () => {
@@ -58,7 +73,7 @@ export class CreateWS extends EventBus {
 					return;
 				}
 
-				this.emit(WsEvents.MESSAGE);
+				this.emit(WsEvents.MESSAGE, data);
 			} catch (e) {}
 		});
 	}

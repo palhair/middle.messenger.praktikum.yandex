@@ -47,6 +47,13 @@
 	text-align: right;
 }
 
+.input__element_inline[readonly] {
+	color: var(--secondary-text-color);
+	padding: 0;
+	border: none;
+	text-align: right;
+}
+
 .input__container_inline {
 	flex-direction: row-reverse;
 	justify-content: space-between;

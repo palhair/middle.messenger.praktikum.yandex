@@ -15,10 +15,7 @@ export class InputField extends Block<InputFieldProps> {
 		if (!this.validate()) {
 			return undefined;
 		}
-		if (
-			this.refs.input instanceof Block &&
-			this.refs.input.element instanceof HTMLInputElement
-		) {
+		if (this.refs.input instanceof Block && this.refs.input.element instanceof HTMLInputElement) {
 			return this.refs.input.element.value;
 		}
 	}
@@ -42,10 +39,7 @@ export class InputField extends Block<InputFieldProps> {
 	// 	}
 	// }
 	validate() {
-		if (
-			this.refs.input instanceof Block &&
-			this.refs.input.element instanceof HTMLInputElement
-		) {
+		if (this.refs.input instanceof Block && this.refs.input.element instanceof HTMLInputElement) {
 			const value = this.refs.input.element.value;
 			let error;
 
@@ -67,7 +61,7 @@ export class InputField extends Block<InputFieldProps> {
 		this.getParams();
 		return `<div class='input'>
 					<label class='input__container input__container{{modificator}} '>
-						{{{Input ${this.params} onBlur=onBlur ref='input'}}}
+						{{{Input ${this.params} readonly=readonly onBlur=onBlur ref='input'}}}
 						
 						<div class='input__label{{modificator}}'>{{label}}</div>
 					</label>

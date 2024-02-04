@@ -22,6 +22,8 @@ export type LoginReqData = Pick<UserDTO, 'login' | 'password'>;
 
 export type User = Omit<UserDTO, 'password'>;
 
+export type changeUser = Omit<User, 'id' | 'avatar'>;
+
 export type Chat = {
 	id: number;
 	title: string;
@@ -41,7 +43,7 @@ export type CreateChat = {
 	title: string;
 };
 
-export type deleteChat = {
+export type chatId = {
 	chatId: number;
 };
 
@@ -54,7 +56,14 @@ export type token = {
 	token: string;
 };
 
-export type addUserToChatData = {
+export type chatUsersData = {
 	users: number[];
 	chatId: number;
+};
+
+export type newMessgeCount = Pick<Chat, 'unread_count'>;
+
+export type ChangePass = {
+	oldPassword: string;
+	newPassword: string;
 };

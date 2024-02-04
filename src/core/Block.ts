@@ -25,7 +25,6 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 		this.eventBus = () => eventBus;
 		this._registerEvents(eventBus);
 		this.eventBus().emit(EventsNames.INIT);
-		// this.events = {};
 	}
 
 	_registerEvents(eventBus: EventBus) {

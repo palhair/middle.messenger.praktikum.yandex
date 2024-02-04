@@ -2,6 +2,7 @@ import { AuthAPI } from '../api/authAPI';
 import { CreateUser, LoginReqData } from '../api/type';
 import { Router } from '../core/Router';
 import { apiHasError } from '../utils/apiHasError';
+import { getChats } from './chats';
 
 const authApi = new AuthAPI();
 
@@ -21,9 +22,10 @@ const signin = async (data: LoginReqData) => {
 	}
 
 	const me = await getUser();
+	const chats = await getChats();
 
-	window.store.set({ user: me });
 	Router.go('/messenger');
+	window.store.set({ user: me, chats });
 };
 
 const signup = async (data: CreateUser) => {

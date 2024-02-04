@@ -7,5 +7,30 @@ export type AppState = {
 	isOpenDialog: boolean;
 	chats: Chat[];
 	dialogOptions: dialogOptions;
-	messages: any[];
+	personalData: personalDataType[];
+};
+
+export type MessageType = {
+	content: string;
+	id: number;
+	time: string;
+	type: string;
+	user_id: number;
+};
+
+export type DisplayMessage = {
+	kind: string;
+	type: string;
+	date: string;
+	text: string;
+};
+
+export type personalDataType = {
+	name: string;
+	type: string;
+	value?: string | number;
+	readonly: boolean;
+	label: string;
+	modificator: string;
+	validate: (value: string) => string | false;
 };

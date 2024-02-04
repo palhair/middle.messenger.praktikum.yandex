@@ -1,12 +1,19 @@
 import Block from '../../core/Block';
-import { MenuItemProps } from '../menu-item/menu-item';
+import { MenuItem, MenuItemProps } from '../menu-item/menu-item';
 import addUser from '../../assets/addUser.svg';
 import delUser from '../../assets/delUser.svg';
 import delChat from '../../assets/delChat.svg';
 import { addUserDialog, delChatDialog, delUserDialog } from '.';
 import { CreateDialog } from '../create-dialog/create-dialog';
-import { getUser } from '../../services/auth';
-import { addUsertoChat } from '../../services/chats';
+import {
+	addUsertoChat,
+	deleteChatById,
+	deleteUsersfromChat,
+	getChatUserByName,
+	getChatUsers,
+} from '../../services/chats';
+import { searchUserByLogin } from '../../services/users';
+import { Chat } from '../../api/type';
 
 export type dialogOptions = {
 	dialogTitle?: string;
@@ -24,10 +31,13 @@ interface ChatDropdownProps {
 	showAddUser: (event: Event) => void;
 	showDelUser: (event: Event) => void;
 	showDelChat: (event: Event) => void;
+	dialog: () => CreateDialog;
+	currentChat: () => Chat;
 }
 
 type ChatDropdownRefs = {
 	currentChat: CreateDialog;
+	addUser: MenuItem;
 };
 
 export class ChatDropdown extends Block<ChatDropdownProps, ChatDropdownRefs> {
@@ -55,33 +65,60 @@ export class ChatDropdown extends Block<ChatDropdownProps, ChatDropdownRefs> {
 
 	async addUser(e: Event) {
 		e.preventDefault();
-		const id = 1350075;
-		const chatId = 48850;
-		const addUserData = {
-			users: [id],
-			chatId,
-		};
-		addUsertoChat(addUserData);
+		const dialog = this.props.dialog();
+		const login = dialog.getDialogValue();
 
-		// const user = this.props.dialog().getDialogValue();
+		if (!login) {
+			dialog.setError('Введите имя пользователя!');
+			return;
+		}
+		const chatId = this.props.currentChat().id;
 
-		// if (!user) {
-		// 	this.refs.currentChat.setError('Это поле не может быть пустым');
-		// 	return;
-		// }
-		// createChat(user)
-		// 	.then(() => window.store.set({ isOpenDialog: false }))
-		// 	.catch((error) => {
-		// 		this.refs.currentChat.setError(error);
-		// 	});
+		const user = await searchUserByLogin({ login }).catch((error) => dialog.setError(error));
+
+		if (user) {
+			const addUserData = {
+				users: [user.id],
+				chatId,
+			};
+			addUsertoChat(addUserData) // TODO: добваить окно "пользователь добавлен"
+				.then(() => window.store.set({ isOpenDialog: false }))
+				.catch((error) => {
+					this.refs.currentChat.setError(error);
+				});
+		}
 	}
-	delUser(e: Event) {
+
+	async delUser(e: Event) {
 		e.preventDefault();
-		console.log('2');
+		const dialog = this.props.dialog();
+		const login = dialog.getDialogValue();
+
+		if (!login) {
+			dialog.setError('Введите имя пользователя!');
+			return;
+		}
+
+		const chatId = this.props.currentChat().id;
+
+		const userToDeleted = await getChatUserByName(chatId, login).catch((error) => dialog.setError(error));
+
+		if (userToDeleted) {
+			deleteUsersfromChat({
+				users: [userToDeleted.id],
+				chatId,
+			})
+				.then(() => window.store.set({ isOpenDialog: false }))
+				.catch((error) => {
+					this.refs.currentChat.setError(error);
+				});
+		}
 	}
 
-	delChat() {
-		//Удаление текущего чата
+	async delChat() {
+		const chatId = this.props.currentChat().id;
+
+		const delChat = await deleteChatById(chatId);
 	}
 
 	createNewDialog(dialogOptions: dialogOptions) {

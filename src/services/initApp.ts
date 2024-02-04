@@ -13,8 +13,8 @@ const initApp = async () => {
 	}
 
 	const chats = await getChats();
+	Router.go('/change-pass');
 	window.store.set({ user, chats });
-	Router.go('/messenger');
 };
 
 const initChatPage = async () => {

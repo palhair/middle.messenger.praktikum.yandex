@@ -20,18 +20,18 @@
 		<div class='chat-page__header-container'>
 			<div class='chat-page__info'>
 
-				{{{Avatar size='middle' src=avatar alt='аватар Kris'}}}
-				{{{Title label='Kris' type='h1'}}}
+				{{{Avatar size='middle' ref='currentChatAvatar' alt='аватар'}}}
+				{{{Title type='h1' ref='chatTitle'}}}
 			</div>
 
 			{{{Button type='icon' src=dots withIcon=true alt='Настройки'}}}
 
 		</div>
 
-		{{{ChatDropdown ref='userControl' dialog=dialog}}}
+		{{{ChatDropdown ref='userControl' dialog=dialog currentChat=currentChat}}}
 
 		<div class='chat-page__messages-block'>
-			{{#ListMessages}}{{/ListMessages}}
+			{{{ListMessages ref='listMessages'}}}
 		</div>
 
 		<div class='chat-page__footer'>

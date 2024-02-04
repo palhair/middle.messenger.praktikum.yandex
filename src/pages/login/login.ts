@@ -58,7 +58,6 @@ export class LoginPage extends Block<IProps, Refs> {
 				) {
 					return;
 				}
-				console.log(fieldsValue.login, fieldsValue.password);
 
 				signin(fieldsValue as LoginReqData).catch((error) => this.refs.error.setProps({ error }));
 			},

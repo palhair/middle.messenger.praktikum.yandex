@@ -1,3 +1,5 @@
+import { AppState } from '../type';
+
 export function cloneDeep<T extends object = object>(obj: T): T {
 	if (isArray(obj)) {
 		const clone: unknown[] = [];
@@ -43,4 +45,13 @@ function isArray(value: unknown): value is [] {
 }
 function isPlainObjectOrArray(value: unknown) {
 	return isArray(value) || isPlainObject(value);
+}
+
+export function getCloneStorePropery<T extends keyof AppState>(property: T): AppState[T] {
+	const oldProperty = window.store.getState()[property];
+	if (typeof oldProperty == 'object' && oldProperty != null) {
+		const newProperty: AppState[T] = cloneDeep(oldProperty);
+		return newProperty;
+	}
+	return oldProperty;
 }

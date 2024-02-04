@@ -1,11 +1,32 @@
+import { InputField } from '..';
+import { User } from '../../api/type';
 import Block from '../../core/Block';
-import { Props } from '../../core/core-env';
+import { personalDataType } from '../../type';
+import { connect } from '../../utils/connect';
 
-export class PersonalData extends Block<Props> {
-	constructor(props: Props) {
+interface PersonalDataProps {
+	personalData: personalDataType[];
+	user: User;
+}
+
+type PersonalDataRefs = {
+	first_name: InputField;
+	second_name: InputField;
+	display_name: InputField;
+	phone: InputField;
+	login: InputField;
+	email: InputField;
+};
+
+export class PersonalData extends Block<PersonalDataProps, PersonalDataRefs> {
+	constructor(props: PersonalDataProps) {
 		super({
 			...props,
 		});
+	}
+
+	getRefs() {
+		return this.refs;
 	}
 	protected render(): string {
 		return `<form class="personal-data">
@@ -14,8 +35,8 @@ export class PersonalData extends Block<Props> {
                         {{{ InputField 
                             name=this.name
                             ref=this.name
-                            type=this.type
                             value=this.value
+                            type=this.type
                             readonly=this.readonly
                             label=this.label
                             modificator=this.modificator
@@ -26,3 +47,5 @@ export class PersonalData extends Block<Props> {
     `;
 	}
 }
+
+export default connect(({ user }) => ({ user }))(PersonalData);

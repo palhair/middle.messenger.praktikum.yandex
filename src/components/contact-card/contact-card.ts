@@ -7,9 +7,17 @@ interface ContactCardProps {
 	lastMessage: string | null;
 	unreadMessage: number;
 	id: number;
+	lastMessageDate: string;
 }
 
 export class ContactCard extends Block<ContactCardProps> {
+	init() {
+		if (this.props.lastMessageDate) {
+			const time = this.props.lastMessageDate;
+			const lastMessageDate = new Date(time).toLocaleTimeString();
+			this.setProps({ lastMessageDate });
+		}
+	}
 	protected render(): string {
 		return `<li class='contact-card  {{#if active}}contact-card_active{{/if}}' data-id={{id}}>
 						<div class='contact-card__contact-info'>
