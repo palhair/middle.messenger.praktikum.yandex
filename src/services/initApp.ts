@@ -1,4 +1,5 @@
 import { Router } from '../core/Router';
+import { setAbsoluteUrl } from '../utils/setAbsoluteURL';
 import { getUser } from './auth';
 import { getChats } from './chats';
 
@@ -26,6 +27,13 @@ const initChatPage = async () => {
 		return;
 	}
 	const chats = await getChats();
+
+	chats.forEach((chat) => {
+		if (chat.avatar) {
+			chat.avatar = setAbsoluteUrl(chat.avatar);
+		}
+	});
+
 	window.store.set({ chats });
 	return user;
 };
@@ -39,7 +47,11 @@ const initProfilePage = async () => {
 		Router.go('/');
 		return;
 	}
-	window.store.set({ user });
+	let avatar;
+	if (user.avatar) {
+		avatar = setAbsoluteUrl(user.avatar);
+	}
+	window.store.set({ user, avatar });
 };
 
 export { initChatPage, initProfilePage, initApp };

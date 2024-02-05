@@ -3,7 +3,7 @@
 	height: 100%;
 	width: 1280px;
 	margin: 0 auto;
-	justify-content: start;
+	justify-content: flex-start;
 	align-items: center;
 	background-color: var(--primary-color);
 }

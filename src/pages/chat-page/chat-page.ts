@@ -145,6 +145,7 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 	}
 
 	selectChat(event: Event) {
+		console.log(this.props.chats);
 		const target = event.target as HTMLElement;
 		let chatId: number;
 		if (target.closest('li')) {

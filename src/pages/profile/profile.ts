@@ -152,7 +152,7 @@ export class ProfilePage extends Block<ProfileProps, ProfilePageRefs> {
 
 	protected render(): string {
 		const user = this.props.user;
-
+		console.log(user);
 		if (user) {
 			this.setData();
 		}
