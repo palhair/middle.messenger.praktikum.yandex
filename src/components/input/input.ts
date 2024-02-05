@@ -22,10 +22,11 @@ export class Input extends Block<Props> {
 	protected render(): string {
 		return `<input
 					class='input__element input__element{{modificator}} {{#if isError}}input__error{{/if}}'
-					type={{type}}
-					name={{name}}
+					type='{{type}}'
+					name='{{name}}'
+					{{#if id}} id="{{id}}" {{/if}}
 					
-					placeholder="{{placeholder}}"
+					{{#if placeholder}} placeholder="{{placeholder}}"{{/if}}
 					{{#if value}} value="{{value}}" {{/if}}
 					{{#if readonly}} readonly {{/if}}
 				/>`;

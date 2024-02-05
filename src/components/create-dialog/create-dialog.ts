@@ -23,7 +23,9 @@ export class CreateDialog extends Block<CreateDialogProps, Refs> {
 			},
 		});
 	}
-
+	getDialogFile() {
+		return this.refs.dialogValue.file();
+	}
 	getDialogValue() {
 		return this.refs.dialogValue.value();
 	}
@@ -32,16 +34,18 @@ export class CreateDialog extends Block<CreateDialogProps, Refs> {
 	}
 	protected render(): string {
 		return `{{#Dialog open=isOpenDialog}}
-					<form method='dialog'>
-						<h3>{{dialogOptions.dialogTitle}}</h3>
-				
-						{{{InputField label=dialogOptions.dialogInputLabel ref='dialogValue'}}}
-						{{{ErrorBlock error=error ref='errorBlock'}}}
-						<div>
-							{{{Button label=dialogOptions.dialogButtonlabel type='primary' onClick=dialogOptions.onGo}}}
-							{{{Button label='Отменить' type='secondary' onClick=onCancel}}}
-						</div>
-					</form>
+					<div class='create-dialog'>
+						<form method='dialog' class='create-dialog__form'>
+							{{{Title type='h3' label=dialogOptions.dialogTitle }}}
+							
+							{{{InputField label=dialogOptions.dialogInputLabel ref='dialogValue' type=dialogOptions.type modificator=dialogOptions.dialog}}}
+							{{{ErrorBlock error=error ref='errorBlock'}}}
+							<div class='create-dialog__buttons'>
+								{{{Button label=dialogOptions.dialogButtonlabel type='primary' onClick=dialogOptions.onGo}}}
+								{{{Button label='Отменить' type='secondary' onClick=onCancel}}}
+							</div>
+						</form>
+					</div>
 				{{/Dialog}}`;
 	}
 }

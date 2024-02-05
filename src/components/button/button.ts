@@ -14,10 +14,6 @@ export class Button extends Block<ButtonProps> {
 		super(props);
 	}
 	protected init(): void {
-		// this.props.events = {
-		//  	click: this.props.onClick,
-		// };
-
 		this.events = {
 			click: this.props.onClick,
 		};

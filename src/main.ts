@@ -3,10 +3,11 @@ import * as Components from './components';
 import { registerComponent } from './core/registerComponent';
 import { Router } from './core/Router';
 import * as Pages from './pages';
-import { initApp } from './services/initApp';
 import { Store } from './core/Store';
 import { AppState } from './type';
 import { personalData } from './pages/profile';
+import defaultAvatar from './assets/avatar.png';
+import { PageName } from './core/core-env.d';
 
 declare global {
 	interface Window {
@@ -23,6 +24,7 @@ const initState: AppState = {
 	chats: [],
 	dialogOptions: {},
 	personalData: personalData,
+	avatar: defaultAvatar,
 };
 
 window.store = new Store<AppState>(initState);
@@ -31,11 +33,11 @@ Object.entries(Components).forEach(([name, component]) => {
 	registerComponent(name, component);
 });
 
-Router.use('/', Pages.LoginPage)
-	.use('/sign-up', Pages.SigninPage)
-	.use('/settings', Pages.ProfilePage)
-	.use('/messenger', Pages.ChatPage)
-	.use('/change-pass', Pages.ChangePassword)
+Router.use(PageName.Login, Pages.LoginPage)
+	.use(PageName.Signin, Pages.SigninPage)
+	.use(PageName.Profile, Pages.ProfilePage)
+	.use(PageName.ChatPage, Pages.ChatPage)
+	.use(PageName.ChangePass, Pages.ChangePassword)
 	.start();
 
-document.addEventListener('DOMContentLoaded', () => initApp());
+// document.addEventListener('DOMContentLoaded', () => initApp());

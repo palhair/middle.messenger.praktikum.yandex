@@ -27,7 +27,7 @@ export class AuthAPI {
 
 	async logout(): Promise<void> {
 		return authApi
-			.get('/logout')
+			.post('/logout')
 			.then((res) => res.response)
 			.catch((err) => err);
 	}

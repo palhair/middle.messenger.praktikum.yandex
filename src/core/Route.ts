@@ -1,12 +1,25 @@
-import Block from './Block';
-import { BlockConstructable, TProps, RefType } from './core-env';
+interface BlockComponentClass<T> {
+	new (props: unknown): T;
+	getContent(): Element;
+	id: number;
+	hide(): void;
+	show(): void;
+}
 
-export class Route<Props extends TProps = TProps, R extends RefType = {}> {
+type ComponentType<T extends BlockComponentClass<T>> = {
+	new (props: ConstructorParameters<InstanceType<T>>[0]): InstanceType<T>;
+};
+
+interface Props {
+	rootQuyery?: string;
+}
+
+export class Route<T extends BlockComponentClass<T>, P extends Props> {
 	#pathname;
 	#blockClass;
-	#block: Block<Props> | null = null;
+	#block: T | null = null;
 	#props;
-	constructor(pathname: string, view: BlockConstructable<Props, R>, props: Props) {
+	constructor(pathname: string, view: ComponentType<T>, props: P) {
 		this.#pathname = pathname;
 		this.#blockClass = view;
 		this.#props = props;
@@ -33,7 +46,7 @@ export class Route<Props extends TProps = TProps, R extends RefType = {}> {
 		if (!this.#block) {
 			this.#block = new this.#blockClass(this.#props);
 
-			render(this.#props.rootQuyery as string, this.#block);
+			render(this.#props?.rootQuyery as string, this.#block);
 		}
 
 		this.#block.show();
@@ -44,7 +57,7 @@ function isEqual(lhs: string, rhs: string) {
 	return lhs === rhs;
 }
 
-function render(query: string, block: Block<{}>) {
+function render<T extends BlockComponentClass<T>>(query: string, block: T) {
 	// Перенести в Роут
 	const root = document.querySelector(query);
 	root?.append(block.getContent() as HTMLElement);

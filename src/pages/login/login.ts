@@ -6,6 +6,7 @@ import { signin } from '../../services/auth';
 import { LoginReqData } from '../../api/type';
 import { ErrorBlock, InputField } from '../../components';
 import { TProps } from '../../core/core-env';
+import { initApp } from '../../services/initApp';
 
 type LoginRequestData = {
 	login?: string;
@@ -67,6 +68,10 @@ export class LoginPage extends Block<IProps, Refs> {
 				Router.go('/sign-up');
 			},
 		});
+	}
+
+	protected async init(): Promise<void> {
+		await initApp();
 	}
 
 	protected render(): string {

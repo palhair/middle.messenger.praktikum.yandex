@@ -1,10 +1,11 @@
 import signinPage from './signin.hbs?raw';
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
-import { Props } from '../../core/core-env';
+import { PageName, Props } from '../../core/core-env.d';
 import { signup } from '../../services/auth';
 import { CreateUser } from '../../api/type';
 import { ErrorBlock } from '../../components';
+import { Router } from '../../core/Router';
 
 type Refs = {
 	error: ErrorBlock;
@@ -27,7 +28,6 @@ export class SigninPage extends Block<Props, Refs> {
 				const fieldsValue: Record<string, undefined | string> = {};
 				const signinFields = ['login', 'password', 'password_again', 'email', 'first_name', 'second_name', 'phone'];
 
-				// можно сделать через Object.key(this.refs), но надо будет фильтровать принадлежность к InputField
 				signinFields.map((field) => {
 					fieldsValue[field] = this.getRefsValue(field);
 				});
@@ -43,6 +43,10 @@ export class SigninPage extends Block<Props, Refs> {
 				}
 
 				signup(fieldsValue as CreateUser).catch((error) => this.refs.error.setProps({ error }));
+			},
+			onLogin: (event: Event) => {
+				event.preventDefault();
+				Router.go(PageName.Login);
 			},
 		});
 	}

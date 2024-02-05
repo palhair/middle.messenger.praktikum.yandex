@@ -24,4 +24,11 @@ export class UsersAPI {
 			.then((res) => res.response)
 			.catch((err) => err);
 	}
+
+	async ChangeAvatar(data: FormData): Promise<APIError | User> {
+		return chatsApi
+			.put('/profile/avatar', { data })
+			.then((res) => res.response)
+			.catch((err) => err);
+	}
 }

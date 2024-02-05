@@ -1,11 +1,19 @@
 <div class='container'>
+	{{{CreateDialog ref='currentDialog'}}}
 	<div class='profile__back'>
-		{{{Button src=arrow withIcon=true type='icon' alt='Назад'}}}
+		{{{Button src=arrow withIcon=true type='icon' alt='Назад' onClick=goChat}}}
 	</div>
 	<div class='profile__container'>
 		<div class='profile__header'>
-			{{{Avatar src=defaultAvatar alt='Поменять аватар' size='big'}}}
-			{{{Title label='Иван' type='h1'}}}
+			{{{Button
+				src=avatar
+				alt='Поменять аватар'
+				type='avatar'
+				ref='profileAvatar'
+				withIcon=true
+				onClick=openChangeAvatarDialog
+			}}}
+			{{{Title label='Иван' type='h1' ref='title'}}}
 		</div>
 		<div class='profile__info-block'>
 			{{{PersonalData personalData=personalData ref='data'}}}
@@ -13,8 +21,8 @@
 
 		<div class='profile__footer-block'>
 			{{{Button type='secondary' label='Изменить данные' onClick=changeMyData}}}
-			{{{Button type='secondary' label='Изменить пароль'}}}
-			{{{Button type='error' label='выйти'}}}
+			{{{Button type='secondary' label='Изменить пароль' onClick=changePass}}}
+			{{{Button type='error' label='выйти' onClick=logout}}}
 		</div>
 
 		<div class='pofile__save-block'>

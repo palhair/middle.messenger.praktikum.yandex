@@ -39,4 +39,16 @@ const changePass = async (data: ChangePass) => {
 	Router.go('/settings');
 };
 
-export { searchUserByLogin, ChangeUserProfile, changePass };
+const changeAvatar = async (file: File) => {
+	const data = new FormData();
+	data.append('avatar', file);
+	const response = await usersApi.ChangeAvatar(data);
+	if (apiHasError(response)) {
+		throw Error(response.reason);
+	}
+
+	window.store.set({ user: response });
+	return response;
+};
+
+export { searchUserByLogin, ChangeUserProfile, changePass, changeAvatar };

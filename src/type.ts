@@ -8,6 +8,7 @@ export type AppState = {
 	chats: Chat[];
 	dialogOptions: dialogOptions;
 	personalData: personalDataType[];
+	avatar: string;
 };
 
 export type MessageType = {

@@ -9,6 +9,7 @@ import { User } from '../../api/type';
 import { InputField } from '../../components';
 import * as validators from '../../utils/validators';
 import { changePass } from '../../services/users';
+import { initProfilePage } from '../../services/initApp';
 
 interface ProfileProps {
 	personalData: personalDataType[];
@@ -38,11 +39,13 @@ export class ChangePassword extends Block<ProfileProps, ProfilePageRefs> {
 		});
 	}
 
+	protected async init(): Promise<void> {
+		await initProfilePage();
+	}
+
 	async change() {
 		const oldPassword = this.refs.oldPassword.value();
 		const newPassword = this.refs.newPassword.value();
-
-		console.log({ oldPassword, newPassword });
 
 		if (oldPassword && newPassword) {
 			changePass({ oldPassword, newPassword });

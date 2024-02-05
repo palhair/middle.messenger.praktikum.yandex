@@ -32,7 +32,7 @@ export class HTTPTransport {
 	constructor(url: string) {
 		this.#apiUrl = `${constants.HOST}${url}`;
 	}
-	get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+	get: request = (url, options = {}) => {
 		if (options.data) {
 			url = queryStringify(options.data);
 		}
@@ -40,22 +40,22 @@ export class HTTPTransport {
 			...options,
 			method: METHOD.GET,
 		});
-	}
+	};
 
-	post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+	post: request = (url, options = {}) => {
 		return this.request(`${this.#apiUrl}${url}`, { ...options, method: METHOD.POST }, options.timeout);
-	}
+	};
 
-	put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+	put: request = (url, options = {}) => {
 		return this.request(`${this.#apiUrl}${url}`, { ...options, method: METHOD.PUT }, options.timeout);
-	}
+	};
 
-	delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+	delete: request = (url, options = {}) => {
 		return this.request(`${this.#apiUrl}${url}`, { ...options, method: METHOD.DELETE }, options.timeout);
-	}
+	};
 
 	async request(url: string, options: Options = { method: METHOD.GET }, timeout = 5000): Promise<XMLHttpRequest> {
-		const { headers = { 'Content-Type': 'application/json' }, method, data } = options;
+		const { headers = {}, method, data } = options;
 
 		return new Promise((resolve, reject) => {
 			if (!method) {
@@ -84,7 +84,10 @@ export class HTTPTransport {
 
 			if (method === METHOD.GET || !data) {
 				xhr.send();
+			} else if (data instanceof FormData) {
+				xhr.send(data);
 			} else {
+				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.send(data ? JSON.stringify(data) : null);
 			}
 		});

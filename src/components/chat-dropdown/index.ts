@@ -19,6 +19,5 @@ export const delUserDialog: dialogOptions = {
 export const delChatDialog: dialogOptions = {
 	dialogTitle: 'Удалить чат',
 	dialogRef: 'delChat',
-	dialogInputLabel: 'Название удаляемого чата',
 	dialogButtonlabel: 'Удалить',
 };

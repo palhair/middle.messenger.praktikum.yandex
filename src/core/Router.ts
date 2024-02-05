@@ -1,26 +1,36 @@
 import { Route } from './Route';
-import { BlockConstructable, TProps } from './core-env';
 
-class RouterClass {
-	routes: Route[] = [];
+interface BlockComponentClass<T> {
+	new (props: unknown): T;
+	getContent(): Element | null;
+	id: number;
+}
+type ComponentType<T extends BlockComponentClass<T>> = {
+	new (props: ConstructorParameters<InstanceType<T>>[0]): InstanceType<T>;
+};
+
+interface RouteComponentClass<R> {
+	new <T extends BlockComponentClass<T>>(pathname: string, view: ComponentType<T>, props: unknown): R;
+	navigate(): void;
+	leave(): void;
+	match(pathname: string): boolean;
+	render(): void;
+}
+
+class RouterClass<R extends RouteComponentClass<R>> {
+	routes: R[] = [];
 	history = window.history;
-	#currentRoute: Route | null = null;
+	#currentRoute: R | null = null;
 	#rootQuyery?: string;
-	static __instance: RouterClass;
 
 	constructor(rootQuyery: string) {
-		if (RouterClass.__instance) {
-			return RouterClass.__instance;
-		}
-
 		this.#rootQuyery = rootQuyery;
-		RouterClass.__instance = this;
 	}
 
-	use(pathname: string, block: BlockConstructable<TProps, {}>): this {
+	use<T extends BlockComponentClass<T>>(pathname: string, block: ComponentType<T>): this {
 		const route = new Route(pathname, block, { rootQuyery: this.#rootQuyery });
 
-		this.routes.push(route);
+		this.routes.push(route as unknown as R);
 
 		return this;
 	}

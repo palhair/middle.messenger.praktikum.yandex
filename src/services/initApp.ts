@@ -8,18 +8,38 @@ const initApp = async () => {
 	try {
 		user = await getUser();
 	} catch (error) {
-		Router.go('/');
 		return;
 	}
 
 	const chats = await getChats();
-	Router.go('/change-pass');
+	Router.go('/messenger');
 	window.store.set({ user, chats });
 };
 
 const initChatPage = async () => {
+	let user = null;
+
+	try {
+		user = await getUser();
+	} catch (error) {
+		Router.go('/');
+		return;
+	}
 	const chats = await getChats();
 	window.store.set({ chats });
+	return user;
 };
 
-export { initApp, initChatPage };
+const initProfilePage = async () => {
+	let user = null;
+
+	try {
+		user = await getUser();
+	} catch (error) {
+		Router.go('/');
+		return;
+	}
+	window.store.set({ user });
+};
+
+export { initChatPage, initProfilePage, initApp };

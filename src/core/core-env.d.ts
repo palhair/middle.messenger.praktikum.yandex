@@ -8,7 +8,15 @@ export enum EventsNames {
 	FLOW_RENDER = 'flow:render',
 }
 
-export enum PagesName {}
+export enum PageName {
+	Login = '/',
+	Signin = '/sign-up',
+	Profile = '/settings',
+	ChatPage = '/messenger',
+	ChangePass = '/change-pass',
+	NotFoundPage = '/404',
+	ErrorPage = '/500',
+}
 
 type Events = { [key: string]: (event: unknown) => void };
 

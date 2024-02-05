@@ -2,6 +2,7 @@ import './profile.css';
 import ProfilePage from './profile';
 export default ProfilePage;
 import * as validators from '../../utils/validators';
+import { dialogOptions } from '../../components/chat-dropdown/chat-dropdown';
 
 export const personalData = [
 	{
@@ -53,3 +54,12 @@ export const personalData = [
 		validate: validators.phone,
 	},
 ];
+
+export const addAvatar: dialogOptions = {
+	dialogTitle: 'Загрузите файл',
+	dialogRef: 'changeAvatar',
+	dialogInputLabel: 'Файл',
+	dialogButtonlabel: 'Загрузить',
+	type: 'file',
+	modificator: 'dialog',
+};

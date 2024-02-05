@@ -1,6 +1,5 @@
 import Block from '../../core/Block';
 import chatPage from './chat-page.hbs?raw';
-import { Props } from '../../core/core-env';
 import larger from '../../assets/larger.svg';
 import avatar from '../../assets/5.png';
 import dots from '../../assets/dots.svg';
@@ -10,15 +9,28 @@ import { connect } from '../../utils/connect';
 import { getUser } from '../../services/auth';
 import { getWSUrl } from '../../utils/getWsUrl';
 import { CreateWS, WsEvents } from '../../core/Websocket';
-import { Chat } from '../../api/type';
+import { Chat, User } from '../../api/type';
 import { CreateDialog } from '../../components/create-dialog/create-dialog';
 import { Avatar, ChatDropdown, MessageBar, Title } from '../../components';
 import { DisplayMessage, MessageType } from '../../type';
 import { ListMessages } from '../../components/list-messages/list-messages';
+import { Router } from '../../core/Router';
+import { PageName } from '../../core/core-env.d';
+import { initChatPage } from '../../services/initApp';
 
-interface ChatPageProps extends Props {
+interface ChatPageProps {
 	chats: Chat[];
-	onSend: (e: Event) => void;
+	onSend: (event: Event) => void;
+	larger: string;
+	avatar: string;
+	dots: string;
+	arrow: string;
+	clip: string;
+	dialog: () => CreateDialog;
+	currentChat: () => Chat | null;
+	showMenu: (event: Event) => void;
+	goProfile: (event: Event) => void;
+	user: User;
 }
 
 type ChatPageRefs = {
@@ -52,18 +64,23 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 			},
 			showMenu: (event: Event) => {
 				event.preventDefault();
-				console.log('showMenu');
+			},
+			goProfile: (event: Event) => {
+				event.preventDefault();
+				Router.go(PageName.Profile);
 			},
 		});
 	}
 
-	protected init(): void {
+	protected async init(): Promise<void> {
 		this.events = {
 			click: (event: Event) => {
-				event.preventDefault();
 				this.selectChat(event);
 			},
 		};
+		const user = await initChatPage();
+		if (user) this.props.user = user;
+		console.log(this.props.user);
 	}
 
 	sendMessage() {
@@ -148,6 +165,10 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 		});
 
 		if (currentChat) {
+			const chatBlock: HTMLElement | null = document.querySelector('.chat-page__chat-block');
+			if (chatBlock) {
+				chatBlock.style.display = 'block';
+			}
 			this.#currentChat = currentChat;
 			this.#currentChatMessages = [];
 
@@ -185,4 +206,4 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 		return chatPage;
 	}
 }
-export default connect(({ chats, user }) => ({ chats, user }))(ChatPage);
+export default connect(({ chats }) => ({ chats }))(ChatPage);

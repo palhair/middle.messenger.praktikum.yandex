@@ -1,6 +1,5 @@
 import { HelperOptions } from 'handlebars';
 import Handlebars from 'handlebars';
-import { BlockConstructable } from './core-env';
 
 interface BlockComponentClass<T> {
 	new (props: unknown): T;

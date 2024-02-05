@@ -1,6 +1,7 @@
 import { AuthAPI } from '../api/authAPI';
 import { CreateUser, LoginReqData } from '../api/type';
 import { Router } from '../core/Router';
+import { PageName } from '../core/core-env.d';
 import { apiHasError } from '../utils/apiHasError';
 import { getChats } from './chats';
 
@@ -40,10 +41,12 @@ const signup = async (data: CreateUser) => {
 };
 
 const logout = async () => {
-	await authApi.logout();
-
+	const response = await authApi.logout();
+	if (apiHasError(response)) {
+		throw new Error(response.reason);
+	}
 	window.store.set({ user: null, chats: [] });
-	Router.go('/');
+	Router.go(PageName.Login);
 };
 
 export { getUser, signin, signup, logout };

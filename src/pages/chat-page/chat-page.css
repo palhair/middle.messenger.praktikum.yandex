@@ -1,3 +1,13 @@
+.chat-page {
+	display: flex;
+	height: 100%;
+	width: 1280px;
+	margin: 0 auto;
+	justify-content: start;
+	align-items: center;
+	background-color: var(--primary-color);
+}
+
 .chat-page__contacts-block {
 	width: 300px;
 	height: 100%;
@@ -13,6 +23,7 @@
 }
 
 .chat-page__chat-block {
+	display: none;
 	position: relative;
 	background-color: var(--chat-bg-color);
 	width: 980px;

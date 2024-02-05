@@ -5,13 +5,7 @@ import delUser from '../../assets/delUser.svg';
 import delChat from '../../assets/delChat.svg';
 import { addUserDialog, delChatDialog, delUserDialog } from '.';
 import { CreateDialog } from '../create-dialog/create-dialog';
-import {
-	addUsertoChat,
-	deleteChatById,
-	deleteUsersfromChat,
-	getChatUserByName,
-	getChatUsers,
-} from '../../services/chats';
+import { addUsertoChat, deleteChatById, deleteUsersfromChat, getChatUserByName } from '../../services/chats';
 import { searchUserByLogin } from '../../services/users';
 import { Chat } from '../../api/type';
 
@@ -21,6 +15,8 @@ export type dialogOptions = {
 	dialogInputLabel?: string;
 	dialogButtonlabel?: string;
 	onGo?: (e: Event) => void;
+	type?: string;
+	modificator?: string;
 };
 
 interface ChatDropdownProps {
@@ -118,7 +114,11 @@ export class ChatDropdown extends Block<ChatDropdownProps, ChatDropdownRefs> {
 	async delChat() {
 		const chatId = this.props.currentChat().id;
 
-		const delChat = await deleteChatById(chatId);
+		await deleteChatById(chatId)
+			.then(() => window.store.set({ isOpenDialog: false }))
+			.catch((error) => {
+				this.refs.currentChat.setError(error);
+			});
 	}
 
 	createNewDialog(dialogOptions: dialogOptions) {
