@@ -4,7 +4,7 @@ export enum StoreEvents {
 	Updated = 'Updated',
 }
 
-export class Store<State extends Record<string, any>> extends EventBus {
+export class Store<State extends Record<string, unknown>> extends EventBus {
 	private state: State = {} as State;
 
 	constructor(defaultState: State) {

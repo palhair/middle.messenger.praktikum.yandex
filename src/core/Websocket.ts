@@ -66,7 +66,8 @@ export class CreateWS extends EventBus {
 		socket.addEventListener('error', () => {
 			this.emit(WsEvents.ERROR);
 		});
-		socket.addEventListener('message', (message: MessageEvent<any>) => {
+		socket.addEventListener('message', (message: MessageEvent<string>) => {
+			//MessageEvent<any>
 			try {
 				const data = JSON.parse(message.data);
 				if (['pong', 'user connected'].includes(data?.type)) {

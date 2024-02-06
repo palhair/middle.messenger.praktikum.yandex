@@ -9,13 +9,13 @@ import { cloneDeep } from '../../utils/cloneDeep';
 import { ChangeUserProfile, changeAvatar } from '../../services/users';
 import { PersonalData } from '../../components/personal-data/personal-data';
 import { Button } from '../../components';
-import { dialogOptions } from '../../components/chat-dropdown/chat-dropdown';
-import { CreateDialog } from '../../components/create-dialog/create-dialog';
+import { DialogOptions } from '../../components/chat-dropdown/chat-dropdown';
 import { Router } from '../../core/Router';
 import defaultAvatar from '../../assets/avatar.png';
 import { PageName } from '../../core/core-env.d';
 import { logout } from '../../services/auth';
 import { initProfilePage } from '../../services/initApp';
+import { Dialog } from '../../components/dialog/dialog';
 
 interface ProfileProps {
 	personalData: personalDataType[];
@@ -26,7 +26,7 @@ interface ProfileProps {
 	onSave: undefined | ((event: Event) => void);
 	openChangeAvatarDialog: (event: Event) => void;
 	changePass: (event: Event) => void;
-	dialog: () => CreateDialog;
+	dialog: () => Dialog;
 	goChat: (event: Event) => void;
 	logout: (event: Event) => void;
 }
@@ -35,7 +35,7 @@ type ProfilePageRefs = {
 	data: PersonalData;
 	saveButton: Button;
 	profileAvatar: Button;
-	currentDialog: CreateDialog;
+	currentDialog: Dialog;
 };
 
 export class ProfilePage extends Block<ProfileProps, ProfilePageRefs> {
@@ -92,7 +92,7 @@ export class ProfilePage extends Block<ProfileProps, ProfilePageRefs> {
 		}
 	}
 
-	createNewDialog(dialogOptions: dialogOptions) {
+	createNewDialog(dialogOptions: DialogOptions) {
 		window.store.set({ dialogOptions });
 	}
 
@@ -152,7 +152,6 @@ export class ProfilePage extends Block<ProfileProps, ProfilePageRefs> {
 
 	protected render(): string {
 		const user = this.props.user;
-		console.log(user);
 		if (user) {
 			this.setData();
 		}

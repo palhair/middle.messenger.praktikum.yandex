@@ -1,2 +1,4 @@
 import './dialog.css';
-export { Dialog as default } from './dialog';
+
+import Dialog from './dialog';
+export default Dialog;

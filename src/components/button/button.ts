@@ -21,7 +21,7 @@ export class Button extends Block<ButtonProps> {
 
 	protected render(): string {
 		const { page } = this.props;
-		return `<button class='button button_{{type}}'  ${page ? `page="${page}"` : ''}>{{label}}
+		return `<button class='button button_{{type}}' type='{{buttonType}}'  ${page ? `page="${page}"` : ''}>{{label}}
 					{{#if withIcon}}
 						<img src="{{src}}" class="button__images" alt="{{alt}}" />
 					{{/if}}

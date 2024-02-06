@@ -80,6 +80,17 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 		const temp = document.createElement('template');
 
 		temp.innerHTML = html;
+
+		const fragment = temp.content;
+
+		this.refs = Array.from(fragment.querySelectorAll('[ref]')).reduce((list, element) => {
+			const key = element.getAttribute('ref')!;
+			//@ts-ignore
+			list[key] = element as HTMLElement;
+			element.removeAttribute('ref');
+			return list;
+		}, contextAndStubs.__refs as Refs);
+
 		if (Array.isArray(contextAndStubs.__children)) {
 			contextAndStubs.__children?.forEach(({ embed }: Child) => {
 				embed(temp.content);

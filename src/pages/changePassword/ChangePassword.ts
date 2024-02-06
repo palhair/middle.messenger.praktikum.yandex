@@ -17,7 +17,7 @@ interface ProfileProps {
 	arrow: string;
 	defaultAvatar: string;
 	onSave: undefined | ((event: Event) => void);
-	validators: any;
+	validators: unknown;
 }
 
 type ProfilePageRefs = {

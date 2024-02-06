@@ -9,7 +9,7 @@ import { addUsertoChat, deleteChatById, deleteUsersfromChat, getChatUserByName }
 import { searchUserByLogin } from '../../services/users';
 import { Chat } from '../../api/type';
 
-export type dialogOptions = {
+export type DialogOptions = {
 	dialogTitle?: string;
 	dialogRef?: string;
 	dialogInputLabel?: string;
@@ -121,7 +121,7 @@ export class ChatDropdown extends Block<ChatDropdownProps, ChatDropdownRefs> {
 			});
 	}
 
-	createNewDialog(dialogOptions: dialogOptions) {
+	createNewDialog(dialogOptions: DialogOptions) {
 		window.store.set({ dialogOptions, isOpenDialog: true });
 	}
 

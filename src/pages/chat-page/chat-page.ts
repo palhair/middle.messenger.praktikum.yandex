@@ -80,7 +80,6 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 		};
 		const user = await initChatPage();
 		if (user) this.props.user = user;
-		console.log(this.props.user);
 	}
 
 	sendMessage() {
@@ -145,7 +144,6 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 	}
 
 	selectChat(event: Event) {
-		console.log(this.props.chats);
 		const target = event.target as HTMLElement;
 		let chatId: number;
 		if (target.closest('li')) {

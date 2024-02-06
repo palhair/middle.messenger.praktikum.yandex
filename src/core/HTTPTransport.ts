@@ -9,22 +9,23 @@ enum METHOD {
 
 type Options = {
 	method: METHOD;
-	data?: any;
+	data?: QueryData;
 	timeout?: number;
 	headers?: Record<string, string>;
 };
 
-type queryData = Record<string, string>;
+type QueryData = ObjectData | FormData;
+type ObjectData = Record<string, unknown>;
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-function queryStringify(data: queryData) {
+function queryStringify(data: ObjectData) {
 	const keys = Object.keys(data);
 	return keys.reduce((result, key, index) => {
 		return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
 	}, '?');
 }
 
-type request = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>;
+type Request = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>;
 
 export class HTTPTransport {
 	#apiUrl: string = '';
@@ -32,9 +33,9 @@ export class HTTPTransport {
 	constructor(url: string) {
 		this.#apiUrl = `${constants.HOST}${url}`;
 	}
-	get: request = (url, options = {}) => {
+	get: Request = (url, options = {}) => {
 		if (options.data) {
-			url = queryStringify(options.data);
+			url = queryStringify(options.data as ObjectData);
 		}
 		return this.request(`${this.#apiUrl}${url}`, {
 			...options,
@@ -42,15 +43,15 @@ export class HTTPTransport {
 		});
 	};
 
-	post: request = (url, options = {}) => {
+	post: Request = (url, options = {}) => {
 		return this.request(`${this.#apiUrl}${url}`, { ...options, method: METHOD.POST }, options.timeout);
 	};
 
-	put: request = (url, options = {}) => {
+	put: Request = (url, options = {}) => {
 		return this.request(`${this.#apiUrl}${url}`, { ...options, method: METHOD.PUT }, options.timeout);
 	};
 
-	delete: request = (url, options = {}) => {
+	delete: Request = (url, options = {}) => {
 		return this.request(`${this.#apiUrl}${url}`, { ...options, method: METHOD.DELETE }, options.timeout);
 	};
 

@@ -1,14 +1,14 @@
 import Block from '../../core/Block';
 import addChatIcon from '../../assets/addChat.svg';
-import { dialogOptions } from '../chat-dropdown/chat-dropdown';
+import { DialogOptions } from '../chat-dropdown/chat-dropdown';
 import { addUserDialog } from '.';
-import { CreateDialog } from '../create-dialog/create-dialog';
 import { createChat } from '../../services/chats';
+import { Dialog } from '../dialog/dialog';
 
 interface AddChatButtonProps {
 	addChatIcon: string;
 	addChat: (event: Event) => void;
-	dialog: () => CreateDialog;
+	dialog: () => Dialog;
 }
 
 export class AddChatButton extends Block<AddChatButtonProps> {
@@ -27,6 +27,7 @@ export class AddChatButton extends Block<AddChatButtonProps> {
 	createNewChat(event: Event) {
 		event.preventDefault();
 		const dialog = this.props.dialog();
+		console.log('submit');
 		const newChatName = dialog.getDialogValue();
 
 		if (!newChatName) {
@@ -38,7 +39,7 @@ export class AddChatButton extends Block<AddChatButtonProps> {
 			.catch((error) => dialog.setError(error));
 	}
 
-	createNewDialog(dialogOptions: dialogOptions) {
+	createNewDialog(dialogOptions: DialogOptions) {
 		window.store.set({ dialogOptions });
 	}
 

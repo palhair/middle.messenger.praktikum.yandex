@@ -1,12 +1,15 @@
 import { ErrorBlock, InputField } from '..';
 import Block from '../../core/Block';
 import { connect } from '../../utils/connect';
+import { DialogOptions } from '../chat-dropdown/chat-dropdown';
 
 interface CreateDialogProps {
 	open: boolean;
 	titleDialog: string;
 	inputLabel: string;
-	onCancel: (e: Event) => void;
+	onCancel: (event: Event) => void;
+	onSubmit: (event: Event) => void;
+	dialogOptions: DialogOptions;
 }
 
 type Refs = {
@@ -17,36 +20,47 @@ export class CreateDialog extends Block<CreateDialogProps, Refs> {
 	constructor(props: CreateDialogProps) {
 		super({
 			...props,
-			onCancel: (e: Event) => {
-				e.preventDefault();
+			onCancel: (event: Event) => {
+				event.preventDefault();
 				window.store.set({ isOpenDialog: false });
+			},
+			onSubmit: (event: Event) => {
+				event.preventDefault();
+				console.log(event);
+				if (this.props.dialogOptions.onGo) this.props.dialogOptions.onGo(event);
 			},
 		});
 	}
-	getDialogFile() {
+
+	protected init(): void {
+		this.events = {
+			submit: this.props.onSubmit,
+		};
+	}
+
+	public getFile() {
 		return this.refs.dialogValue.file();
 	}
-	getDialogValue() {
+
+	public getValue() {
 		return this.refs.dialogValue.value();
 	}
-	setError(error: string) {
+
+	public setError(error: string) {
 		this.refs.errorBlock.setProps({ error });
 	}
+
 	protected render(): string {
-		return `{{#Dialog open=isOpenDialog}}
-					<div class='create-dialog'>
-						<form method='dialog' class='create-dialog__form'>
-							{{{Title type='h3' label=dialogOptions.dialogTitle }}}
-							
-							{{{InputField label=dialogOptions.dialogInputLabel ref='dialogValue' type=dialogOptions.type modificator=dialogOptions.dialog}}}
-							{{{ErrorBlock error=error ref='errorBlock'}}}
-							<div class='create-dialog__buttons'>
-								{{{Button label=dialogOptions.dialogButtonlabel type='primary' onClick=dialogOptions.onGo}}}
-								{{{Button label='Отменить' type='secondary' onClick=onCancel}}}
-							</div>
-						</form>
+		return `<form method='dialog' class='create-dialog__form'>
+					{{{Title type='h3' label=dialogOptions.dialogTitle }}}
+					
+					{{{InputField label=dialogOptions.dialogInputLabel ref='dialogValue' type=dialogOptions.type modificator=dialogOptions.dialog}}}
+					{{{ErrorBlock error=error ref='errorBlock'}}}
+					<div class='create-dialog__buttons'>
+						{{{Button label=dialogOptions.dialogButtonlabel type='primary' }}}
+						{{{Button label='Отменить' type='secondary' onClick=onCancel}}}
 					</div>
-				{{/Dialog}}`;
+				</form>`;
 	}
 }
 

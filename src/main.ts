@@ -1,5 +1,7 @@
 import './style.css';
 import * as Components from './components';
+import Handlebars from 'handlebars';
+import * as handlebarsHelpers from './handlebarsHelpers';
 import { registerComponent } from './core/registerComponent';
 import { Router } from './core/Router';
 import * as Pages from './pages';
@@ -31,6 +33,10 @@ window.store = new Store<AppState>(initState);
 
 Object.entries(Components).forEach(([name, component]) => {
 	registerComponent(name, component);
+});
+
+Object.entries(handlebarsHelpers).forEach(([name, component]) => {
+	Handlebars.registerPartial(name, component);
 });
 
 Router.use(PageName.Login, Pages.LoginPage)

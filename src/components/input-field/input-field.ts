@@ -11,19 +11,21 @@ export class InputField extends Block<InputFieldProps, InputFieldRefs> {
 	constructor(props: InputFieldProps) {
 		super({
 			...props,
-			onBlur: () => this.validate(),
+			onBlur: () => {
+				this.validate();
+			},
 		});
 	}
 
-	public value() {
-		const element = this.refs.input.element as HTMLInputElement;
+	disableBlur() {
+		this.setProps({ onBlur: undefined });
+	}
 
+	public value() {
 		if (!this.validate()) {
-			return undefined;
+			return null;
 		}
-		if (this.refs.input instanceof Block && this.refs.input.element instanceof HTMLInputElement) {
-			return element.value;
-		}
+		return this.refs.input.value();
 	}
 
 	public file() {
@@ -39,7 +41,7 @@ export class InputField extends Block<InputFieldProps, InputFieldRefs> {
 		}
 
 		if (this.refs.input instanceof Block && this.refs.input.element instanceof HTMLInputElement) {
-			const value = this.refs.input.element.value;
+			const value = this.refs.input.value();
 			let error;
 
 			if (this.props.validate) {
@@ -50,7 +52,6 @@ export class InputField extends Block<InputFieldProps, InputFieldRefs> {
 				this.setProps({ value: value, error });
 				return false;
 			}
-
 			this.setProps({ error: undefined, value });
 			return true;
 		}
