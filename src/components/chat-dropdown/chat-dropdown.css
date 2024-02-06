@@ -1,5 +1,5 @@
 .chat-dropdown {
-	/* display: none; */
+	display: none;
 	position: absolute;
 	right: 20px;
 	top: 45px;
@@ -12,4 +12,7 @@
 	flex-direction: column;
 	display: flex;
 	gap: 16px;
+}
+.chat-dropdown-visible {
+	display: block;
 }

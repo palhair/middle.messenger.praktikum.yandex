@@ -2,7 +2,7 @@ import './profile.css';
 import ProfilePage from './profile';
 export default ProfilePage;
 import * as validators from '../../utils/validators';
-import { dialogOptions } from '../../components/chat-dropdown/chat-dropdown';
+import { DialogOptions } from '../../components/chat-dropdown/chat-dropdown';
 
 export const personalData = [
 	{
@@ -55,7 +55,7 @@ export const personalData = [
 	},
 ];
 
-export const addAvatar: dialogOptions = {
+export const addAvatar: DialogOptions = {
 	dialogTitle: 'Загрузите файл',
 	dialogRef: 'changeAvatar',
 	dialogInputLabel: 'Файл',

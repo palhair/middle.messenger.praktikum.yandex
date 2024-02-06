@@ -4,7 +4,7 @@ import arrow from '../../assets/arrow.svg';
 import defaultAvatar from '../../assets/avatar.png';
 
 import { connect } from '../../utils/connect';
-import { personalDataType } from '../../type';
+import { PersonalDataType } from '../../type';
 import { User } from '../../api/type';
 import { InputField } from '../../components';
 import * as validators from '../../utils/validators';
@@ -12,7 +12,7 @@ import { changePass } from '../../services/users';
 import { initProfilePage } from '../../services/initApp';
 
 interface ProfileProps {
-	personalData: personalDataType[];
+	personalData: PersonalDataType[];
 	user: User;
 	arrow: string;
 	defaultAvatar: string;

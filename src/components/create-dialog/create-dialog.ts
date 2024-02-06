@@ -1,4 +1,4 @@
-import { ErrorBlock, InputField } from '..';
+import { Button, ErrorBlock, InputField } from '..';
 import Block from '../../core/Block';
 import { connect } from '../../utils/connect';
 import { DialogOptions } from '../chat-dropdown/chat-dropdown';
@@ -15,6 +15,7 @@ interface CreateDialogProps {
 type Refs = {
 	dialogValue: InputField;
 	errorBlock: ErrorBlock;
+	submit: Button;
 };
 export class CreateDialog extends Block<CreateDialogProps, Refs> {
 	constructor(props: CreateDialogProps) {
@@ -26,7 +27,7 @@ export class CreateDialog extends Block<CreateDialogProps, Refs> {
 			},
 			onSubmit: (event: Event) => {
 				event.preventDefault();
-				console.log(event);
+				this.refs.submit.element?.focus();
 				if (this.props.dialogOptions.onGo) this.props.dialogOptions.onGo(event);
 			},
 		});
@@ -57,11 +58,13 @@ export class CreateDialog extends Block<CreateDialogProps, Refs> {
 					{{{InputField label=dialogOptions.dialogInputLabel ref='dialogValue' type=dialogOptions.type modificator=dialogOptions.dialog}}}
 					{{{ErrorBlock error=error ref='errorBlock'}}}
 					<div class='create-dialog__buttons'>
-						{{{Button label=dialogOptions.dialogButtonlabel type='primary' }}}
+						{{{Button label=dialogOptions.dialogButtonlabel type='primary' ref='submit'}}}
 						{{{Button label='Отменить' type='secondary' onClick=onCancel}}}
 					</div>
 				</form>`;
 	}
 }
 
-export default connect((state) => ({ isOpenDialog: state.isOpenDialog, dialogOptions: state.dialogOptions }))(CreateDialog);
+export default connect((state) => ({ isOpenDialog: state.isOpenDialog, dialogOptions: state.dialogOptions }))(
+	CreateDialog
+);

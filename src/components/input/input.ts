@@ -27,7 +27,7 @@ export class Input extends Block<InputProps, InputRefs> {
 
 	protected init(): void {
 		this.events = {
-			// blur: this.props.onBlur,
+			blur: this.props.onBlur,
 		};
 	}
 

@@ -3,7 +3,7 @@ import Block from '../../core/Block';
 import arrow from '../../assets/arrow.svg';
 import { connect } from '../../utils/connect';
 import { addAvatar, personalData } from '.';
-import { personalDataType } from '../../type';
+import { PersonalDataType } from '../../type';
 import { User, changeUser } from '../../api/type';
 import { cloneDeep } from '../../utils/cloneDeep';
 import { ChangeUserProfile, changeAvatar } from '../../services/users';
@@ -18,7 +18,7 @@ import { initProfilePage } from '../../services/initApp';
 import { Dialog } from '../../components/dialog/dialog';
 
 interface ProfileProps {
-	personalData: personalDataType[];
+	personalData: PersonalDataType[];
 	user: User;
 	changeMyData: (event: Event) => void;
 	arrow: string;

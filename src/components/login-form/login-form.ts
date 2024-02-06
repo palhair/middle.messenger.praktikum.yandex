@@ -37,6 +37,7 @@ export class LoginForm extends Block<LoginFormProps, Refs> {
 
 			onLogin: (event: Event) => {
 				event.preventDefault();
+				this.refs.submit.element?.focus();
 
 				const fieldsValue: LoginRequestData = {};
 				const signinFields: ['login', 'password'] = ['login', 'password'];

@@ -2,31 +2,9 @@
 	<div class='signin'>
 		<div class='registration-form'>
 			<div class='registration-form__heading'>
-				{{{Heading label='Регистрация' type='h1'}}}
+				{{{Title label='Регистрация' type='h1'}}}
 			</div>
-			<form tag='form' class='registration-form__container'>
-				{{{InputField label='Почта' type='text' ref='email' name='email' validate=validate.email}}}
-				{{{InputField label='Логин' type='text' ref='login' name='login' validate=validate.login}}}
-				{{{InputField label='Имя' type='text' ref='first_name' name='first_name' validate=validate.name}}}
-				{{{InputField label='Фамилия' type='text' ref='second_name' name='second_name' validate=validate.name}}}
-				{{{InputField label='Телефон' type='tel' ref='phone' name='phone' validate=validate.phone}}}
-				{{{InputField label='Пароль' type='password' ref='password' name='password' validate=validate.password}}}
-				{{{InputField
-					label='Пароль (еще раз)'
-					type='password'
-					ref='password_again'
-					name='password_again'
-					validate=validate.password_again
-				}}}
-
-				{{{ErrorBlock ref='error'}}}
-
-				<div class='registration-form__buttons-container'>
-					{{{Button label='Зарегистрироваться' type='primary' onClick=onRegistration}}}
-					{{{Button label='Войти' type='secondary' onClick=onLogin}}}
-
-				</div>
-			</form>
+			{{{SigninForm}}}
 
 		</div>
 

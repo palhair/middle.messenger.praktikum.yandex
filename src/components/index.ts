@@ -17,6 +17,6 @@ export { default as ChatDropdown } from './chat-dropdown';
 export { default as MenuItem } from './menu-item';
 export { default as Dialog } from './dialog';
 export { default as AddChatButton } from './add-chat-button';
-export { default as PartBlock } from './partial-block';
 export { default as LoginForm } from './login-form';
+export { default as SigninForm } from './signin-form';
 export { default as CreateDialog } from './create-dialog';

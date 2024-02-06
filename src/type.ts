@@ -1,13 +1,14 @@
 import { Chat, User } from './api/type';
-import { dialogOptions } from './components/chat-dropdown/chat-dropdown';
+import { DialogOptions } from './components/chat-dropdown/chat-dropdown';
+import { Validator } from './utils/validators';
 
 export type AppState = {
 	error: Nullable<string>;
 	user: Nullable<User>;
 	isOpenDialog: boolean;
 	chats: Chat[];
-	dialogOptions: dialogOptions;
-	personalData: personalDataType[];
+	dialogOptions: DialogOptions;
+	personalData: PersonalDataType[];
 	avatar: string;
 };
 
@@ -26,12 +27,12 @@ export type DisplayMessage = {
 	text: string;
 };
 
-export type personalDataType = {
+export type PersonalDataType = {
 	name: string;
 	type: string;
 	value?: string | number;
 	readonly: boolean;
 	label: string;
 	modificator: string;
-	validate: (value: string) => string | false;
+	validate: Validator;
 };

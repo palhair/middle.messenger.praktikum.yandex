@@ -1,4 +1,6 @@
-export const login = (value: string) => {
+export type Validator = (value: string) => string | boolean;
+
+export const login: Validator = (value) => {
 	const errorLength = checkLength(3, 20, value);
 	if (errorLength) {
 		return errorLength;
@@ -14,7 +16,7 @@ export const login = (value: string) => {
 	return 'Можно использовать латиницу, цифры, _, -';
 };
 
-export const password = (value: string) => {
+export const password: Validator = (value) => {
 	const errorLength = checkLength(8, 40, value);
 	if (errorLength) {
 		return errorLength;
@@ -31,7 +33,7 @@ export const password = (value: string) => {
 	return false;
 };
 
-export const email = (value: string) => {
+export const email: Validator = (value) => {
 	const test = /[-.\w]+@([\w-_]*[A-Za-z]+[\w-_]*\.)+[A-Za-z]+/.test(value);
 	if (!test) {
 		return 'Email некорректен';
@@ -40,7 +42,7 @@ export const email = (value: string) => {
 	return false;
 };
 
-export const name = (value: string) => {
+export const name: Validator = (value) => {
 	if (value.length === 0) {
 		return 'Это поле не может быть пустым';
 	}
@@ -55,7 +57,7 @@ export const name = (value: string) => {
 	return false;
 };
 
-export const phone = (value: string) => {
+export const phone: Validator = (value) => {
 	const errorLength = checkLength(10, 15, value);
 	if (errorLength) {
 		return errorLength;
@@ -68,7 +70,7 @@ export const phone = (value: string) => {
 	return false;
 };
 
-export const message = (value: string) => {
+export const message: Validator = (value) => {
 	if (value.length === 0) {
 		return 'Нельзя отправить пустое сообщение!';
 	}

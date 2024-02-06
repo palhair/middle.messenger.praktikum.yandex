@@ -20,7 +20,7 @@ import { initChatPage } from '../../services/initApp';
 
 interface ChatPageProps {
 	chats: Chat[];
-	onSend: (event: Event) => void;
+	onSend: EventListener;
 	larger: string;
 	avatar: string;
 	dots: string;
@@ -28,9 +28,10 @@ interface ChatPageProps {
 	clip: string;
 	dialog: () => CreateDialog;
 	currentChat: () => Chat | null;
-	showMenu: (event: Event) => void;
-	goProfile: (event: Event) => void;
+	showMenu: EventListener;
+	goProfile: EventListener;
 	user: User;
+	showChatManagment: EventListener;
 }
 
 type ChatPageRefs = {
@@ -68,6 +69,9 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 			goProfile: (event: Event) => {
 				event.preventDefault();
 				Router.go(PageName.Profile);
+			},
+			showChatManagment: () => {
+				this.refs.userControl.element?.classList.toggle('chat-dropdown-visible');
 			},
 		});
 	}

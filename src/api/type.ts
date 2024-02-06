@@ -43,7 +43,7 @@ export type CreateChat = {
 	title: string;
 };
 
-export type chatId = {
+export type ChatId = {
 	chatId: number;
 };
 
@@ -52,7 +52,7 @@ export type ChatDeleted = {
 	result: Omit<Chat, 'last_message' | 'unread_coun'>;
 };
 
-export type token = {
+export type Token = {
 	token: string;
 };
 
@@ -61,7 +61,7 @@ export type chatUsersData = {
 	chatId: number;
 };
 
-export type newMessgeCount = Pick<Chat, 'unread_count'>;
+export type NewMessgeCount = Pick<Chat, 'unread_count'>;
 
 export type ChangePass = {
 	oldPassword: string;

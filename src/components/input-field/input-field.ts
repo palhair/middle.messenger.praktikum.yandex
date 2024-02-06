@@ -1,8 +1,14 @@
 import { Input } from '..';
 import Block from '../../core/Block';
-import { Props } from '../../core/core-env';
+import { Validator } from '../../utils/validators';
 
-export interface InputFieldProps extends Props {}
+export interface InputFieldProps {
+	type: string;
+	onBlur: EventListener;
+	validate: Validator;
+	value: string;
+	error: undefined | boolean | string;
+}
 type InputFieldRefs = {
 	input: Input;
 };

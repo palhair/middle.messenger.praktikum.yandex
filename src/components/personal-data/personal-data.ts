@@ -1,11 +1,11 @@
 import { InputField } from '..';
 import { User } from '../../api/type';
 import Block from '../../core/Block';
-import { personalDataType } from '../../type';
+import { PersonalDataType } from '../../type';
 import { connect } from '../../utils/connect';
 
 interface PersonalDataProps {
-	personalData: personalDataType[];
+	personalData: PersonalDataType[];
 	user: User;
 }
 
