@@ -1,0 +1,7 @@
+a.menu-item {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	color: var(--primary-text-color);
+	text-decoration: none;
+}

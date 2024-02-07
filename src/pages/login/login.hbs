@@ -1,21 +1,12 @@
-<div class="container"> 
-    <div class="login">
-        <div class="login__heading">
-            {{{Heading label='Вход' type='h1'}}}
-        </div>
+<div class='container'>
+	<div class='login'>
+		<div class='login__heading'>
+			{{{Heading label='Вход' type='h1'}}}
+		</div>
 
-	    {{#> PartialBlock class='login__form' tag='form'}}
-		
-            {{{InputField label="Логин" name="login" type="text" ref="login" validate=validate.login}}}
-            {{{InputField label="Пароль" name="password" type="password" ref="password" validate=validate.password}}}
+		{{{LoginForm}}}
 
-            <div class="login__buttons-container ">
-                {{{Button label="Авторизоваться" type="primary" onClick=onLogin}}}
-                {{{Button label="Нет аккаунта?" type="secondary" onClick=navigate page="signin" }}}
-            <div>
-	    {{/PartialBlock }}
-    
-    </div>
-    {{{TempMenu onClick=navigate}}}
+	</div>
+	{{{TempMenu onClick=navigate}}}
+
 </div>
-

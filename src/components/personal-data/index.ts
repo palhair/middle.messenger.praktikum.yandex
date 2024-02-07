@@ -1,1 +1,2 @@
-export { PersonalData as default } from './personal-data';
+import PersonalData from './personal-data';
+export default PersonalData;

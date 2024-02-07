@@ -1,31 +1,45 @@
-import Block, { EventsListType } from '../../core/Block';
-import { Props } from '../../core/core-env';
+import Block from '../../core/Block';
 
-export class Input extends Block<Props> {
-	constructor(props: Props) {
+interface InputProps {
+	type: string;
+	name: string;
+	placeholder: string;
+	value: string;
+	id: string;
+	readonly: boolean;
+	onBlur: (event: Event) => void;
+}
+
+type InputRefs = {
+	input: HTMLInputElement;
+};
+
+export class Input extends Block<InputProps, InputRefs> {
+	constructor(props: InputProps) {
 		super({
 			...props,
-			events: {
-				blur: props.onBlur,
-			},
 		});
+	}
+
+	public value() {
+		return this.refs.input.value;
 	}
 
 	protected init(): void {
 		this.events = {
-			blur: this.props.events.blur,
+			blur: this.props.onBlur,
 		};
 	}
-	protected events: Partial<EventsListType> = {
-		blur: this.props.events.blur,
-	};
+
 	protected render(): string {
 		return `<input
 					class='input__element input__element{{modificator}} {{#if isError}}input__error{{/if}}'
-					type={{type}}
-					name={{name}}
+					ref='input'
+					type='{{type}}'
+					name='{{name}}'
+					{{#if id}} id="{{id}}" {{/if}}
 					
-					placeholder="{{placeholder}}"
+					{{#if placeholder}} placeholder="{{placeholder}}"{{/if}}
 					{{#if value}} value="{{value}}" {{/if}}
 					{{#if readonly}} readonly {{/if}}
 				/>`;

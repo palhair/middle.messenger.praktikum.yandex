@@ -1,13 +1,14 @@
 import './profile.css';
-export { ProfilePage as default } from './profile';
+import ProfilePage from './profile';
+export default ProfilePage;
 import * as validators from '../../utils/validators';
+import { DialogOptions } from '../../components/chat-dropdown/chat-dropdown';
 
 export const personalData = [
 	{
-		name: 'mail',
+		name: 'email',
 		type: 'text',
-		value: 'pochta@yandex.ru',
-		readonly: false,
+		readonly: true,
 		label: 'Почта',
 		modificator: '_inline',
 		validate: validators.email,
@@ -15,7 +16,6 @@ export const personalData = [
 	{
 		name: 'login',
 		type: 'text',
-		value: 'ivanivanov',
 		readonly: true,
 		label: 'Логин',
 		modificator: '_inline',
@@ -24,7 +24,6 @@ export const personalData = [
 	{
 		name: 'first_name',
 		type: 'text',
-		value: 'Иван',
 		readonly: true,
 		label: 'Имя',
 		modificator: '_inline',
@@ -33,7 +32,6 @@ export const personalData = [
 	{
 		name: 'second_name',
 		type: 'text',
-		value: 'Иванов',
 		readonly: true,
 		label: 'Фамилия',
 		modificator: '_inline',
@@ -42,7 +40,6 @@ export const personalData = [
 	{
 		name: 'display_name',
 		type: 'text',
-		value: 'Иван',
 		readonly: true,
 		label: 'Имя в чате',
 		modificator: '_inline',
@@ -51,10 +48,18 @@ export const personalData = [
 	{
 		name: 'phone',
 		type: 'tel',
-		value: '+7(909)967-3030',
 		readonly: true,
 		label: 'Телефон',
 		modificator: '_inline',
 		validate: validators.phone,
 	},
 ];
+
+export const addAvatar: DialogOptions = {
+	dialogTitle: 'Загрузите файл',
+	dialogRef: 'changeAvatar',
+	dialogInputLabel: 'Файл',
+	dialogButtonlabel: 'Загрузить',
+	type: 'file',
+	modificator: 'dialog',
+};

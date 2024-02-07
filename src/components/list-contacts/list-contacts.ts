@@ -10,12 +10,13 @@ export class ListContacts extends Block<ListContactsProps> {
 		return `<ul class='list-contacts'>
 					{{#each contacts}}
 						{{{ContactCard
-							lastMessageDate=this.lastMessageDate
-							unreadMessage=this.unreadMessage
-							name=this.name
-							lastMessage=this.lastMessage
+							lastMessageDate=this.last_message.time
+							unreadMessage=this.unread_count
+							name=this.title
+							lastMessage=this.last_message.content
 							avatar=this.avatar
-							active=this.active
+							active=false
+							id=this.id
 						}}}
 					{{/each}}
 				</ul>`;

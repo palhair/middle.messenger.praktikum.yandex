@@ -1,21 +1,14 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
-import { EventsNames, Child, Props as Prop } from './core-env.d';
+import { EventsNames, Child, RefType } from './core-env.d';
 import { InputField, MessageBar } from '../components';
-
-export type RefType = Record<string, Element | Block<Prop>>;
-
-type Object = {};
 
 export type EventsListType = {
 	[key in keyof HTMLElementEventMap]: (e: Event) => void;
 };
 
-export default class Block<
-	Props extends Object,
-	Refs extends RefType = RefType,
-> {
+export default class Block<Props extends object, Refs extends RefType = RefType> {
 	public id = nanoid(6);
 	params: string = '';
 	protected props: Props;
@@ -32,17 +25,13 @@ export default class Block<
 		this.eventBus = () => eventBus;
 		this._registerEvents(eventBus);
 		this.eventBus().emit(EventsNames.INIT);
-		// this.events = {};
 	}
 
 	_registerEvents(eventBus: EventBus) {
 		eventBus.on(EventsNames.INIT, this.#init.bind(this));
 		eventBus.on(EventsNames.FLOW_CDM, this.#componentDidMount.bind(this));
 		eventBus.on(EventsNames.FLOW_CDU, this.#componentDidUpdate.bind(this));
-		eventBus.on(
-			EventsNames.FLOW_CWU,
-			this.#componentWillUnmount.bind(this)
-		);
+		eventBus.on(EventsNames.FLOW_CWU, this.#componentWillUnmount.bind(this));
 		eventBus.on(EventsNames.FLOW_RENDER, this.#render.bind(this));
 	}
 
@@ -80,6 +69,7 @@ export default class Block<
 	}
 
 	private compile(template: string, context: Props) {
+		this.children = [];
 		const contextAndStubs: Record<string, unknown> = {
 			...context,
 			__refs: this.refs,
@@ -90,6 +80,17 @@ export default class Block<
 		const temp = document.createElement('template');
 
 		temp.innerHTML = html;
+
+		const fragment = temp.content;
+
+		this.refs = Array.from(fragment.querySelectorAll('[ref]')).reduce((list, element) => {
+			const key = element.getAttribute('ref')!;
+			//@ts-ignore
+			list[key] = element as HTMLElement;
+			element.removeAttribute('ref');
+			return list;
+		}, contextAndStubs.__refs as Refs);
+
 		if (Array.isArray(contextAndStubs.__children)) {
 			contextAndStubs.__children?.forEach(({ embed }: Child) => {
 				embed(temp.content);
@@ -105,12 +106,6 @@ export default class Block<
 	}
 
 	_removeEvents() {
-		// if (this.props.events) {
-		// 	const events: Events = this.props.events;
-		// 	Object.keys(events).forEach((eventName) => {
-		// 		this.#element!.removeEventListener(eventName, events[eventName]);
-		// 	});
-		// }
 		Object.entries(this.events).forEach(([eventName, callback]) => {
 			this.#element?.removeEventListener(eventName, callback);
 		});
@@ -127,9 +122,7 @@ export default class Block<
 			get(target, prop) {
 				if (typeof prop == 'string') {
 					const value = target[prop as keyof Props];
-					return typeof value === 'function'
-						? value.bind(target)
-						: value;
+					return typeof value === 'function' ? value.bind(target) : value;
 				}
 			},
 			set(target, prop: string, value): boolean {
@@ -147,14 +140,9 @@ export default class Block<
 	}
 
 	getContent() {
-		if (
-			this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE
-		) {
+		if (this.#element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
 			setTimeout(() => {
-				if (
-					this.#element?.parentNode?.nodeType !==
-					Node.DOCUMENT_FRAGMENT_NODE
-				) {
+				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
 					this.dispatchComponentDidMount();
 				}
 			}, 100);
@@ -184,9 +172,7 @@ export default class Block<
 	dispatchComponentDidMount() {
 		this.eventBus().emit(EventsNames.FLOW_CDM);
 
-		Object.values(this.children).forEach((child) =>
-			child.component.dispatchComponentDidMount()
-		);
+		Object.values(this.children).forEach((child) => child.component.dispatchComponentDidMount());
 	}
 
 	#checkInDom() {
@@ -217,7 +203,7 @@ export default class Block<
 	}
 
 	show() {
-		this.getContent()!.style.display = 'block';
+		this.getContent()!.style.display = '';
 	}
 
 	hide() {

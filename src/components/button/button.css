@@ -27,3 +27,13 @@
 .button_icon {
 	padding: 0;
 }
+
+.button_avatar {
+	padding: 0;
+
+	& .button__images {
+		width: 130px;
+		height: 130px;
+		border-radius: 65px;
+	}
+}

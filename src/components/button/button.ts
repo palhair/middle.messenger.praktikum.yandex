@@ -1,32 +1,27 @@
 import Block from '../../core/Block';
-import { Props } from '../../core/core-env';
 
 export interface ButtonProps {
 	type: 'primary' | 'secondary' | 'withIcon' | 'error';
+	page: string;
 	label: string;
 	src: string;
 	alt: string;
-	events: { [key: string]: Event };
-	onClick: Event;
+	onClick: (e: Event) => void;
 }
 
-export class Button extends Block<Props> {
-	constructor(props: Props) {
+export class Button extends Block<ButtonProps> {
+	constructor(props: ButtonProps) {
 		super(props);
 	}
 	protected init(): void {
-		this.props.events = {
-			click: this.props.onClick,
-		};
-
 		this.events = {
-			click: this.props.events.click,
+			click: this.props.onClick,
 		};
 	}
 
 	protected render(): string {
 		const { page } = this.props;
-		return `<button class='button button_{{type}}'  ${page ? `page="${page}"` : ''}>{{label}}
+		return `<button class='button button_{{type}}' type='{{buttonType}}'  ${page ? `page="${page}"` : ''}>{{label}}
 					{{#if withIcon}}
 						<img src="{{src}}" class="button__images" alt="{{alt}}" />
 					{{/if}}
