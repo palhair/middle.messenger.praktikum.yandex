@@ -15,7 +15,7 @@ import { Avatar, ChatDropdown, MessageBar, Title } from '../../components';
 import { DisplayMessage, MessageType } from '../../type';
 import { ListMessages } from '../../components/list-messages/list-messages';
 import { Router } from '../../core/Router';
-import { PageName } from '../../core/core-env.d';
+import { PageName } from '../../core/core-env';
 import { initChatPage } from '../../services/initApp';
 
 interface ChatPageProps {

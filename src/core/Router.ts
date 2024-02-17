@@ -1,3 +1,4 @@
+import { NotFoundPage } from '../pages';
 import { Route } from './Route';
 
 interface BlockComponentClass<T> {
@@ -17,7 +18,7 @@ interface RouteComponentClass<R> {
 	render(): void;
 }
 
-class RouterClass<R extends RouteComponentClass<R>> {
+export class RouterClass<R extends RouteComponentClass<R>> {
 	routes: R[] = [];
 	history = window.history;
 	#currentRoute: R | null = null;
@@ -36,6 +37,8 @@ class RouterClass<R extends RouteComponentClass<R>> {
 	}
 
 	start() {
+		this.use('/404', NotFoundPage);
+
 		window.addEventListener('popstate', (event: Event) => {
 			const currentTarget = event.currentTarget as Window;
 			if (currentTarget) {
@@ -47,14 +50,10 @@ class RouterClass<R extends RouteComponentClass<R>> {
 	}
 
 	#onRoute(pathname: string) {
-		const route = this.getRoute(pathname);
+		let route = this.getRoute(pathname);
 
 		if (!route) {
-			return;
-		}
-
-		if (this.#currentRoute) {
-			this.#currentRoute.leave();
+			route = this.getRoute('/404') as R;
 		}
 
 		this.#currentRoute = route;
@@ -62,12 +61,13 @@ class RouterClass<R extends RouteComponentClass<R>> {
 	}
 
 	go(pathname: string) {
-		this.history.pushState({}, '', pathname);
+		this.history.pushState({ page: pathname }, '', pathname);
 		this.#onRoute(pathname);
 	}
 
-	back() {
-		this.history.back();
+	async back() {
+		await this.history.back();
+		return 'back';
 	}
 
 	forward() {

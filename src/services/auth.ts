@@ -1,7 +1,7 @@
 import { AuthAPI } from '../api/authAPI';
 import { CreateUser, LoginReqData } from '../api/type';
 import { Router } from '../core/Router';
-import { PageName } from '../core/core-env.d';
+import { PageName } from '../core/core-env';
 import { apiHasError } from '../utils/apiHasError';
 import { getChats } from './chats';
 

@@ -1,9 +1,9 @@
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
-import { PageName, Props } from '../../core/core-env.d';
+import { PageName, Props } from '../../core/core-env';
 import { signup } from '../../services/auth';
 import { CreateUser } from '../../api/type';
-import { Button, ErrorBlock } from '../../components';
+import { Button, ErrorBlock, InputField } from '../../components';
 import { Router } from '../../core/Router';
 
 interface SigninFormProps {
@@ -22,6 +22,13 @@ interface SigninFormProps {
 type SigninFormRefs = {
 	error: ErrorBlock;
 	submit: Button;
+	login: InputField;
+	password: InputField;
+	password_again: InputField;
+	email: InputField;
+	first_name: InputField;
+	second_name: InputField;
+	phone: InputField;
 };
 
 export class SigninForm extends Block<SigninFormProps, SigninFormRefs> {
@@ -41,7 +48,7 @@ export class SigninForm extends Block<SigninFormProps, SigninFormRefs> {
 				event.preventDefault();
 				this.refs.submit.element?.focus();
 				const fieldsValue: Record<string, undefined | string> = {};
-				const signinFields = [
+				const signinFields: ['login', 'password', 'password_again', 'email', 'first_name', 'second_name', 'phone'] = [
 					'login',
 					'password',
 					'password_again',
@@ -52,7 +59,7 @@ export class SigninForm extends Block<SigninFormProps, SigninFormRefs> {
 				];
 
 				signinFields.map((field) => {
-					const inputValue = this.getRefsValue(field);
+					const inputValue = this.refs[field].value();
 					if (inputValue) fieldsValue[field] = inputValue;
 				});
 
@@ -79,6 +86,14 @@ export class SigninForm extends Block<SigninFormProps, SigninFormRefs> {
 		this.events = {
 			submit: this.props.onRegistration,
 		};
+	}
+
+	passAgainCheck(pass: string) {
+		if (this.refs.password.value() !== pass) {
+			return 'Пароли не совпадают';
+		}
+
+		return false;
 	}
 
 	protected render(): string {

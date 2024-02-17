@@ -12,7 +12,7 @@ import { Button } from '../../components';
 import { DialogOptions } from '../../components/chat-dropdown/chat-dropdown';
 import { Router } from '../../core/Router';
 import defaultAvatar from '../../assets/avatar.png';
-import { PageName } from '../../core/core-env.d';
+import { PageName } from '../../core/core-env';
 import { logout } from '../../services/auth';
 import { initProfilePage } from '../../services/initApp';
 import { Dialog } from '../../components/dialog/dialog';

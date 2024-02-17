@@ -25,40 +25,36 @@ export class Route<T extends BlockComponentClass<T>, P extends Props> {
 		this.#props = props;
 	}
 
-	navigate(pathname: string) {
-		if (this.match(pathname)) {
-			this.#pathname = pathname;
-			this.render();
-		}
-	}
-
-	leave() {
-		if (this.#block) {
-			this.#block.hide();
-		}
-	}
+	// navigate(pathname: string) {
+	// 	if (this.match(pathname)) {
+	// 		this.#pathname = pathname;
+	// 		this.render();
+	// 	}
+	// }
 
 	match(pathname: string) {
 		return isEqual(pathname, this.#pathname);
 	}
 
 	render() {
+		const root = document.querySelector(this.#props?.rootQuyery as string);
+		const content = root?.children[0];
 		if (!this.#block) {
 			this.#block = new this.#blockClass(this.#props);
 
-			render(this.#props?.rootQuyery as string, this.#block);
+			if (!content) {
+				root?.append(this.#block.getContent() as HTMLElement);
+			} else {
+				content.replaceWith(this.#block.getContent());
+			}
+			return;
 		}
-
-		this.#block.show();
+		if (content) {
+			content.replaceWith(this.#block.getContent());
+		}
 	}
 }
 
 function isEqual(lhs: string, rhs: string) {
 	return lhs === rhs;
-}
-
-function render<T extends BlockComponentClass<T>>(query: string, block: T) {
-	// Перенести в Роут
-	const root = document.querySelector(query);
-	root?.append(block.getContent() as HTMLElement);
 }

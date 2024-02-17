@@ -7,7 +7,7 @@ import { Store } from './core/Store';
 import { AppState } from './type';
 import { personalData } from './pages/profile';
 import defaultAvatar from './assets/avatar.png';
-import { PageName } from './core/core-env.d';
+import { PageName } from './core/core-env';
 
 declare global {
 	interface Window {

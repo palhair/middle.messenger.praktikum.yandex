@@ -12,7 +12,6 @@ export { default as MessageBar } from './message-bar';
 export { default as Avatar } from './avatar';
 export { default as PersonalData } from './personal-data';
 export { default as StatusMessage } from './status-message';
-export { default as TempMenu } from './tempMenu'; //удалить
 export { default as ChatDropdown } from './chat-dropdown';
 export { default as MenuItem } from './menu-item';
 export { default as Dialog } from './dialog';
