@@ -6,7 +6,6 @@
 	padding: 28px 18px;
 	background-color: var(--input-bg-color);
 }
-
 .chat-dropdown__list {
 	list-style-type: none;
 	flex-direction: column;

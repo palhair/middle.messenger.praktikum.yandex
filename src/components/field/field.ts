@@ -14,8 +14,8 @@ export class Field extends Block<FieldProps> {
 		const { name, placeholder, validate } = this.props;
 		return `<div class="field">
 					{{{Input modificator="${name}" validate="${validate}" type="text" name="${name}" ${
-						placeholder ? `placeholder="${placeholder}"` : ''
-					}
+	placeholder ? `placeholder="${placeholder}"` : ''
+}
 					}}}
 				</div>`;
 	}

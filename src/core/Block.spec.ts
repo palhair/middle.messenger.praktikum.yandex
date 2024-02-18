@@ -19,7 +19,7 @@ describe('Block', () => {
 	before(() => {
 		class ChildBlock extends Block<Props, Refs> {
 			protected render(): string {
-				return `<div id='child-block'>{{text}}</div>`;
+				return '<div id=\'child-block\'>{{text}}</div>';
 			}
 		}
 
@@ -113,7 +113,7 @@ describe('Block', () => {
 	});
 
 	it('Компонент передает параметры в дочерний элемент', () => {
-		const text = "I'm child block";
+		const text = 'I\'m child block';
 		class ParentBlock extends Block<Props, Refs> {
 			constructor(props: Props) {
 				super({

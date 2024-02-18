@@ -5,7 +5,7 @@ import { JSDOM } from 'jsdom';
 
 // Object.entries(Components).forEach(([componentName, component]) => registerComponent(componentName, component));
 
-const jsdom = new JSDOM(`<body id="app"></body>`, {
+const jsdom = new JSDOM('<body id="app"></body>', {
 	url: 'http://test.ru/',
 });
 

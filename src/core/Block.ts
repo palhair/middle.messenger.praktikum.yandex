@@ -85,7 +85,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 
 		this.refs = Array.from(fragment.querySelectorAll('[ref]')).reduce((list, element) => {
 			const key = element.getAttribute('ref')!;
-			//@ts-ignore
+			//@ts-expect-error skip
 			list[key] = element as HTMLElement;
 			element.removeAttribute('ref');
 			return list;

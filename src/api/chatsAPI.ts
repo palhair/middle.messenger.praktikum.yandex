@@ -34,7 +34,7 @@ export class ChatAPI {
 
 	async addUserToChat(data: chatUsersData): Promise<void | APIError> {
 		return chatsApi
-			.put(`/users`, { data })
+			.put('/users', { data })
 			.then((res) => res.response)
 			.catch((err) => err);
 	}
@@ -55,7 +55,7 @@ export class ChatAPI {
 
 	async geleteUsersfromChat(data: chatUsersData): Promise<void | APIError> {
 		return chatsApi
-			.delete(`/users`, { data })
+			.delete('/users', { data })
 			.then((res) => res.response)
 			.catch((err) => err);
 	}

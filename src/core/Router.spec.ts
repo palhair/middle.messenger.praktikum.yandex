@@ -6,7 +6,7 @@ import { StatusMessage } from '../components';
 
 class Page extends Block<object> {
 	protected render(): string {
-		return `<div id='testElement'>test</div>`;
+		return '<div id=\'testElement\'>test</div>';
 	}
 }
 
