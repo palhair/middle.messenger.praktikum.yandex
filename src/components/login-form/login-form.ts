@@ -39,24 +39,24 @@ export class LoginForm extends Block<LoginFormProps, Refs> {
 				event.preventDefault();
 				// this.refs.submit.element?.focus();
 				console.log(this.getContent());
-				// const fieldsValue: LoginRequestData = {};
-				// const signinFields: ['login', 'password'] = ['login', 'password'];
+				const fieldsValue: LoginRequestData = {};
+				const signinFields: ['login', 'password'] = ['login', 'password'];
 
-				// signinFields.map((field) => {
-				// 	fieldsValue[field] = this.refs[field].value() as string;
-				// });
+				signinFields.map((field) => {
+					fieldsValue[field] = this.refs[field].value() as string;
+				});
 
-				// if (
-				// 	Object.values(fieldsValue).filter((field) => {
-				// 		if (field) {
-				// 			return true;
-				// 		}
-				// 	}).length !== signinFields.length
-				// ) {
-				// 	return;
-				// }
+				if (
+					Object.values(fieldsValue).filter((field) => {
+						if (field) {
+							return true;
+						}
+					}).length !== signinFields.length
+				) {
+					return;
+				}
 
-				// signin(fieldsValue as LoginReqData).catch((error) => this.refs.error.setProps({ error }));
+				signin(fieldsValue as LoginReqData).catch((error) => this.refs.error.setProps({ error }));
 			},
 
 			navigate(event) {

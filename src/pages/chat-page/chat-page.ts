@@ -206,6 +206,7 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 	}
 
 	protected render(): string {
+		console.log('render chats');
 		return chatPage;
 	}
 }

@@ -21,8 +21,8 @@ interface RouteComponentClass<R> {
 export class RouterClass<R extends RouteComponentClass<R>> {
 	routes: R[] = [];
 	history = window.history;
-	#currentRoute: R | null = null;
 	#rootQuyery?: string;
+	#currentRoute: R | null = null;
 
 	constructor(rootQuyery: string) {
 		this.#rootQuyery = rootQuyery;
@@ -54,6 +54,10 @@ export class RouterClass<R extends RouteComponentClass<R>> {
 
 		if (!route) {
 			route = this.getRoute('/404') as R;
+		}
+
+		if (this.#currentRoute) {
+			this.#currentRoute.leave();
 		}
 
 		this.#currentRoute = route;

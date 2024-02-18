@@ -15,3 +15,4 @@ global.Node = jsdom.window.Node;
 global.MouseEvent = jsdom.window.MouseEvent;
 global.history = jsdom.window.history;
 global.location = jsdom.window.location;
+global.XMLHttpRequest = jsdom.window.XMLHttpRequest;

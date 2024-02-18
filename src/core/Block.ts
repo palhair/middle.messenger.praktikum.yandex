@@ -145,7 +145,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
 					this.dispatchComponentDidMount();
 				}
-			}, 100);
+			}, 1000);
 		}
 		return this.#element;
 	}
@@ -178,7 +178,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 	#checkInDom() {
 		const elementInDom = document.body.contains(this.#element);
 		if (elementInDom) {
-			setTimeout(() => this.#checkInDom(), 500);
+			setTimeout(() => this.#checkInDom(), 1000);
 			return;
 		}
 		this.eventBus().emit(EventsNames.FLOW_CWU, this.props);

@@ -53,7 +53,7 @@ describe('Router', () => {
 		expect(element?.innerHTML).to.be.eq('test');
 	});
 
-	it('Router должен рендерить страницу 404 если нет страницы соотвтсвующей урл', async () => {
+	it('Router должен рендерить страницу 404 если нет соотвтсвующей урл страницы ', async () => {
 		history.pushState({ page: 'undefindetUrl' }, 'undefindetUrl', 'undefindetUrl');
 		Router.start();
 		const element = document.querySelector('.status-message__message');
