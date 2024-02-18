@@ -3,7 +3,7 @@ import { HTTPTransport } from './HTTPTransport';
 import { expect } from 'chai';
 import constants from '../constants';
 
-describe.only('HttpTransport', () => {
+describe('HttpTransport', () => {
 	const http = new HTTPTransport('/test');
 	let requests: SinonFakeXMLHttpRequest[] = [];
 	let xhr: sinon.SinonFakeXMLHttpRequestStatic;
