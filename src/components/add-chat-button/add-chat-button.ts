@@ -40,6 +40,7 @@ export class AddChatButton extends Block<AddChatButtonProps> {
 	}
 
 	createNewDialog(dialogOptions: DialogOptions) {
+		console.log(dialogOptions);
 		window.store.set({ dialogOptions });
 	}
 

@@ -74,7 +74,9 @@ export class CreateWS extends EventBus {
 				}
 
 				this.emit(WsEvents.MESSAGE, data);
-			} catch (e) {}
+			} catch (e) {
+				throw new Error(e as string);
+			}
 		});
 	}
 

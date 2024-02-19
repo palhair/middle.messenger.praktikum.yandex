@@ -14,7 +14,7 @@ export function connect(makeStateProps: (state: AppState) => Partial<AppState>) 
 				super({ ...props, ...state });
 
 				this.onChangeStoreCallback = () => {
-					let newState = makeStateProps(store.getState());
+					const newState = makeStateProps(store.getState());
 
 					if (!isEqual(state, newState)) {
 						this.setProps({ ...newState } as Partial<P>);

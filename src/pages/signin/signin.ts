@@ -1,6 +1,6 @@
 import signinPage from './signin.hbs?raw';
 import Block from '../../core/Block';
-import { Props } from '../../core/core-env.d';
+import { Props } from '../../core/core-env';
 import { ErrorBlock } from '../../components';
 type Refs = {
 	error: ErrorBlock;

@@ -14,8 +14,7 @@ import { CreateDialog } from '../../components/create-dialog/create-dialog';
 import { Avatar, ChatDropdown, MessageBar, Title } from '../../components';
 import { DisplayMessage, MessageType } from '../../type';
 import { ListMessages } from '../../components/list-messages/list-messages';
-import { Router } from '../../core/Router';
-import { PageName } from '../../core/core-env.d';
+import { PageName, Router } from '../../core/Router';
 import { initChatPage } from '../../services/initApp';
 
 interface ChatPageProps {
@@ -206,6 +205,7 @@ export class ChatPage extends Block<ChatPageProps, ChatPageRefs> {
 	}
 
 	protected render(): string {
+		console.log('render chats');
 		return chatPage;
 	}
 }

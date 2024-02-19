@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventsBus';
-import { EventsNames, Child, RefType } from './core-env.d';
-import { InputField, MessageBar } from '../components';
+import { EventsNames, Child, RefType } from './core-env';
+// import { InputField, MessageBar } from '../components';
 
 export type EventsListType = {
 	[key in keyof HTMLElementEventMap]: (e: Event) => void;
@@ -23,11 +23,11 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 
 		this.props = this.#makeProxyProps(props);
 		this.eventBus = () => eventBus;
-		this._registerEvents(eventBus);
+		this.#registerEvents(eventBus);
 		this.eventBus().emit(EventsNames.INIT);
 	}
 
-	_registerEvents(eventBus: EventBus) {
+	#registerEvents(eventBus: EventBus) {
 		eventBus.on(EventsNames.INIT, this.#init.bind(this));
 		eventBus.on(EventsNames.FLOW_CDM, this.#componentDidMount.bind(this));
 		eventBus.on(EventsNames.FLOW_CDU, this.#componentDidUpdate.bind(this));
@@ -46,7 +46,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 	#componentDidUpdate(oldProps: Props, newProps: Props) {
 		if (this.componentDidUpdate(oldProps, newProps)) {
 			if (this.#element) {
-				this._removeEvents();
+				this.#removeEvents();
 			}
 			this.eventBus().emit(EventsNames.FLOW_RENDER);
 		}
@@ -65,7 +65,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 		}
 
 		this.#element = newElement;
-		this._addEvents();
+		this.#addEvents();
 	}
 
 	private compile(template: string, context: Props) {
@@ -85,7 +85,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 
 		this.refs = Array.from(fragment.querySelectorAll('[ref]')).reduce((list, element) => {
 			const key = element.getAttribute('ref')!;
-			//@ts-ignore
+			//@ts-expect-error skip
 			list[key] = element as HTMLElement;
 			element.removeAttribute('ref');
 			return list;
@@ -99,13 +99,13 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 		return temp.content;
 	}
 
-	_addEvents() {
+	#addEvents() {
 		Object.entries(this.events).forEach(([eventName, callback]) => {
 			this.#element?.addEventListener(eventName, callback);
 		});
 	}
 
-	_removeEvents() {
+	#removeEvents() {
 		Object.entries(this.events).forEach(([eventName, callback]) => {
 			this.#element?.removeEventListener(eventName, callback);
 		});
@@ -145,7 +145,7 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 				if (this.#element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
 					this.dispatchComponentDidMount();
 				}
-			}, 100);
+			}, 1000);
 		}
 		return this.#element;
 	}
@@ -208,20 +208,5 @@ export default class Block<Props extends object, Refs extends RefType = RefType>
 
 	hide() {
 		this.getContent()!.style.display = 'none';
-	}
-
-	passAgainCheck(pass: string) {
-		if (this.getRefsValue('password') !== pass) {
-			return 'Пароли не совпадают';
-		}
-
-		return false;
-	}
-
-	getRefsValue(name: string) {
-		const element = this.refs[name];
-		if (element instanceof InputField || element instanceof MessageBar) {
-			return element.value();
-		}
 	}
 }

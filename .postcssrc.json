@@ -1,9 +1,8 @@
 {
-    "map": "inline",
-    "plugins": {
-        "autoprefixer": {},
-        "postcss-initial": {},
-        "postcss-inline-svg": {},
-        "postcss-extend": {}
-    }
+	"map": "inline",
+	"plugins": {
+		"autoprefixer": {},
+		"postcss-inline-svg": {},
+		"postcss-extend-rule": {}
+	}
 }
