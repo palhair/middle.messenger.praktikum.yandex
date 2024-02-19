@@ -8,16 +8,6 @@ export enum EventsNames {
 	FLOW_RENDER = 'flow:render',
 }
 
-export enum PageName {
-	Login = '/',
-	Signin = '/sign-up',
-	Profile = '/settings',
-	ChatPage = '/messenger',
-	ChangePass = '/change-pass',
-	NotFoundPage = '/404',
-	ErrorPage = '/500',
-}
-
 export interface Child {
 	component: Block<Props>;
 	embed: (fragment: DocumentFragment) => void;

@@ -10,6 +10,7 @@ import { InputField } from '../../components';
 import * as validators from '../../utils/validators';
 import { changePass } from '../../services/users';
 import { initProfilePage } from '../../services/initApp';
+import { PageName, Router } from '../../core/Router';
 
 interface ProfileProps {
 	personalData: PersonalDataType[];
@@ -18,6 +19,7 @@ interface ProfileProps {
 	defaultAvatar: string;
 	onSave: undefined | ((event: Event) => void);
 	validators: unknown;
+	onBack: EventListener;
 }
 
 type ProfilePageRefs = {
@@ -32,6 +34,10 @@ export class ChangePassword extends Block<ProfileProps, ProfilePageRefs> {
 			defaultAvatar,
 			validators,
 			arrow,
+			onBack: (event: Event) => {
+				event.preventDefault();
+				Router.go(PageName.Profile);
+			},
 			onSave: (event: Event) => {
 				event.preventDefault();
 				this.change();

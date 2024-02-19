@@ -1,10 +1,10 @@
 import Block from '../../core/Block';
 import * as validators from '../../utils/validators';
-import { PageName, Props } from '../../core/core-env';
+import { Props } from '../../core/core-env';
 import { signup } from '../../services/auth';
 import { CreateUser } from '../../api/type';
 import { Button, ErrorBlock, InputField } from '../../components';
-import { Router } from '../../core/Router';
+import { PageName, Router } from '../../core/Router';
 
 interface SigninFormProps {
 	onRegistration: EventListener;

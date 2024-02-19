@@ -1,6 +1,15 @@
 import { NotFoundPage } from '../pages';
 import { Route } from './Route';
 
+export enum PageName {
+	Login = '/',
+	Signin = '/sign-up',
+	Profile = '/settings',
+	ChatPage = '/messenger',
+	ChangePass = '/change-pass',
+	NotFoundPage = '/404',
+	ErrorPage = '/500',
+}
 interface BlockComponentClass<T> {
 	new (props: unknown): T;
 	getContent(): Element | null;

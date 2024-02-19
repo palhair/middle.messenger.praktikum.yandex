@@ -19,7 +19,7 @@ describe('Block', () => {
 	before(() => {
 		class ChildBlock extends Block<Props, Refs> {
 			protected render(): string {
-				return '<div id=\'child-block\'>{{text}}</div>';
+				return "<div id='child-block'>{{text}}</div>";
 			}
 		}
 
@@ -80,7 +80,7 @@ describe('Block', () => {
 		expect(handlerStub.calledOnce).to.be.true;
 	});
 
-	it.skip('Компонент должен вызвать dispatchComponentDidMount метод', (done) => {
+	it('Компонент должен вызвать dispatchComponentDidMount метод', (done) => {
 		const pageComponent = new PageClass();
 
 		const spyCDM = sinon.spy(pageComponent, 'dispatchComponentDidMount');
@@ -90,7 +90,7 @@ describe('Block', () => {
 		setTimeout(() => {
 			expect(spyCDM.calledOnce).to.be.true;
 			done();
-		}, 501);
+		}, 1001);
 	});
 
 	it('Компонент добавляет дочерние блоки в свойство children', () => {
@@ -113,7 +113,7 @@ describe('Block', () => {
 	});
 
 	it('Компонент передает параметры в дочерний элемент', () => {
-		const text = 'I\'m child block';
+		const text = "I'm child block";
 		class ParentBlock extends Block<Props, Refs> {
 			constructor(props: Props) {
 				super({

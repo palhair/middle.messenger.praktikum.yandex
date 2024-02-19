@@ -1,7 +1,6 @@
 import { AuthAPI } from '../api/authAPI';
 import { CreateUser, LoginReqData } from '../api/type';
-import { Router } from '../core/Router';
-import { PageName } from '../core/core-env';
+import { PageName, Router } from '../core/Router';
 import { apiHasError } from '../utils/apiHasError';
 import { getChats } from './chats';
 
@@ -25,7 +24,7 @@ const signin = async (data: LoginReqData) => {
 	const me = await getUser();
 	const chats = await getChats();
 
-	Router.go('/messenger');
+	Router.go(PageName.ChatPage);
 	window.store.set({ user: me, chats });
 };
 
@@ -36,7 +35,7 @@ const signup = async (data: CreateUser) => {
 	}
 
 	const me = await getUser();
-	Router.go('/messenger');
+	Router.go(PageName.ChatPage);
 	window.store.set({ user: me });
 };
 

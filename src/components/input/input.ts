@@ -1,4 +1,5 @@
 import Block from '../../core/Block';
+import sanitizeHtml from 'sanitize-html';
 
 interface InputProps {
 	type: string;
@@ -22,7 +23,11 @@ export class Input extends Block<InputProps, InputRefs> {
 	}
 
 	public value() {
-		return this.refs.input.value;
+		const value = this.refs.input.value;
+		return sanitizeHtml(value, {
+			allowedTags: ['a', 'p', 'div'],
+			allowedAttributes: { a: ['href'] },
+		});
 	}
 
 	protected init(): void {
