@@ -1,13 +1,12 @@
 import './style.css';
 import * as Components from './components';
 import { registerComponent } from './core/registerComponent';
-import { Router } from './core/Router';
+import { PageName, Router } from './core/Router';
 import * as Pages from './pages';
 import { Store } from './core/Store';
 import { AppState } from './type';
 import { personalData } from './pages/profile';
 import defaultAvatar from './assets/avatar.png';
-import { PageName } from './core/core-env.d';
 
 declare global {
 	interface Window {

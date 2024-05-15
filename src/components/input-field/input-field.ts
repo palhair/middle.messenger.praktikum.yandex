@@ -1,4 +1,4 @@
-import { Input } from '..';
+import { ErrorBlock, Input } from '..';
 import Block from '../../core/Block';
 import { Validator } from '../../utils/validators';
 
@@ -11,6 +11,7 @@ export interface InputFieldProps {
 }
 type InputFieldRefs = {
 	input: Input;
+	error: ErrorBlock;
 };
 
 export class InputField extends Block<InputFieldProps, InputFieldRefs> {
@@ -55,10 +56,11 @@ export class InputField extends Block<InputFieldProps, InputFieldRefs> {
 			}
 
 			if (error) {
-				this.setProps({ value: value, error });
+				this.refs.error.setProps({ error: error });
+				// this.setProps({ value: value, error });
 				return false;
 			}
-			this.setProps({ error: undefined, value });
+			this.refs.error.setProps({ error: undefined });
 			return true;
 		}
 	}
@@ -71,7 +73,7 @@ export class InputField extends Block<InputFieldProps, InputFieldRefs> {
 						
 						<div class='input__label{{modificator}}'>{{label}}</div>
 					</label>
-					{{{ErrorBlock ${this.params}}}}
+					{{{ErrorBlock ${this.params} ref='error'}}}
 				</div>`;
 	}
 }

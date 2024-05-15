@@ -30,7 +30,6 @@ export function cloneDeep<T extends object = object>(obj: T): T {
 
 	return obj;
 }
-
 function isPlainObject(value: unknown): value is object {
 	return (
 		typeof value === 'object' &&

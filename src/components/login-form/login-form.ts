@@ -37,13 +37,13 @@ export class LoginForm extends Block<LoginFormProps, Refs> {
 
 			onLogin: (event: Event) => {
 				event.preventDefault();
-				this.refs.submit.element?.focus();
-
+				// this.refs.submit.element?.focus();
+				console.log(this.getContent());
 				const fieldsValue: LoginRequestData = {};
 				const signinFields: ['login', 'password'] = ['login', 'password'];
 
 				signinFields.map((field) => {
-					fieldsValue[field] = this.getRefsValue(field) as string;
+					fieldsValue[field] = this.refs[field].value() as string;
 				});
 
 				if (

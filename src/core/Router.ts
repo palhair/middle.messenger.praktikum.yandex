@@ -1,5 +1,15 @@
+import { NotFoundPage } from '../pages';
 import { Route } from './Route';
 
+export enum PageName {
+	Login = '/',
+	Signin = '/sign-up',
+	Profile = '/settings',
+	ChatPage = '/messenger',
+	ChangePass = '/change-pass',
+	NotFoundPage = '/404',
+	ErrorPage = '/500',
+}
 interface BlockComponentClass<T> {
 	new (props: unknown): T;
 	getContent(): Element | null;
@@ -17,11 +27,11 @@ interface RouteComponentClass<R> {
 	render(): void;
 }
 
-class RouterClass<R extends RouteComponentClass<R>> {
+export class RouterClass<R extends RouteComponentClass<R>> {
 	routes: R[] = [];
 	history = window.history;
-	#currentRoute: R | null = null;
 	#rootQuyery?: string;
+	#currentRoute: R | null = null;
 
 	constructor(rootQuyery: string) {
 		this.#rootQuyery = rootQuyery;
@@ -36,6 +46,8 @@ class RouterClass<R extends RouteComponentClass<R>> {
 	}
 
 	start() {
+		this.use('/404', NotFoundPage);
+
 		window.addEventListener('popstate', (event: Event) => {
 			const currentTarget = event.currentTarget as Window;
 			if (currentTarget) {
@@ -47,10 +59,10 @@ class RouterClass<R extends RouteComponentClass<R>> {
 	}
 
 	#onRoute(pathname: string) {
-		const route = this.getRoute(pathname);
+		let route = this.getRoute(pathname);
 
 		if (!route) {
-			return;
+			route = this.getRoute('/404') as R;
 		}
 
 		if (this.#currentRoute) {
@@ -62,12 +74,13 @@ class RouterClass<R extends RouteComponentClass<R>> {
 	}
 
 	go(pathname: string) {
-		this.history.pushState({}, '', pathname);
+		this.history.pushState({ page: pathname }, '', pathname);
 		this.#onRoute(pathname);
 	}
 
-	back() {
-		this.history.back();
+	async back() {
+		await this.history.back();
+		return 'back';
 	}
 
 	forward() {

@@ -3,6 +3,6 @@ import { Props } from '../../core/core-env';
 
 export class Title extends Block<Props> {
 	protected render(): string {
-		return `<{{type}} class="title">{{label}}</{{type}}>`;
+		return '<{{type}} class="title">{{label}}</{{type}}>';
 	}
 }

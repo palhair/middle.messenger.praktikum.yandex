@@ -25,13 +25,12 @@ export class Route<T extends BlockComponentClass<T>, P extends Props> {
 		this.#props = props;
 	}
 
-	navigate(pathname: string) {
-		if (this.match(pathname)) {
-			this.#pathname = pathname;
-			this.render();
-		}
-	}
-
+	// navigate(pathname: string) {
+	// 	if (this.match(pathname)) {
+	// 		this.#pathname = pathname;
+	// 		this.render();
+	// 	}
+	// }
 	leave() {
 		if (this.#block) {
 			this.#block.hide();
